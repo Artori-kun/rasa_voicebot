@@ -6,3 +6,6 @@ venv/
 
 # ignore tar.gz
 *.tar.gz
+
+# ignore pycache
+*/__pycache__/
