@@ -1,0 +1,86 @@
+version: "2.0"
+
+intents:
+  - polite_greet
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - thanks
+  - bot_challenge
+  - ask_weather_here
+  - ask_weather_city
+
+entities:
+  - city
+
+
+responses:
+  utter_greet:
+    - text: "Xin chào"
+    - text: "Hi"
+
+  utter_how_are_you:
+    - text: "Bạn thế nào?"
+    - text: "Bạn khỏe chứ?"
+    - text: "Mọi thứ thế nào?"
+
+  utter_how_can_help:
+    - text: "Tôi giúp gì được cho bạn?"
+    - text: "Bạn cần giúp gì nào?"
+
+  utter_cheer_up:
+    - text: "Aw, cho quả ảnh động viên nà:"
+      image: "https://i.imgur.com/nGF1K8f.jpg"
+    - text: "Một chút đáng yêu cho lên mood nà:"
+      image: "https://i.imgur.com/nGF1K8f.jpg"
+    - text: "Aw, cố lên nhé"
+
+  utter_did_that_help:
+    - text: "Cái đó có gì được gì cho bạn không ??"
+
+  utter_happy:
+    - text: "Tuyệt vời!"
+    - text: "Tốt quá!"
+
+  utter_goodbye:
+    - text: "Bye"
+    - text: "Tạm biệt"
+    - text: "Chào nhé"
+    - text: "Tạm biệt nhé"
+
+  utter_default:
+    - text: "Tôi là đâu và đây là ai?"
+
+  utter_sorry:
+    - text: "Xin lỗi :<"
+    - text: "Tôi xin lỗi!"
+
+  utter_ur_welcome:
+    - text: "Không có gì!"
+    - text: "Rất vui vì đã giúp được bạn"
+    - text: "Luôn sẵn lòng"
+
+  utter_anything_else:
+    - text: "Bạn cần gì nữa không?"
+    - text: "Tôi giúp gì được cho bạn nữa không?"
+    - text: "Bạn có cần tôi giúp gì nữa không?"
+
+  utter_iamabot:
+    - text: "I am a bot, powered by Rasa."
+
+  utter_ok:
+    - text: "Ok"
+    - text: "Được thôi"
+
+
+actions:
+  - action_weather_here
+  - action_weather_city
+
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

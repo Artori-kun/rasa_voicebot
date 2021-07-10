@@ -1,0 +1,8 @@
+# ignore virtual env
+venv/
+
+# ignore system file
+.idea/
+
+# ignore tar.gz
+*.tar.gz

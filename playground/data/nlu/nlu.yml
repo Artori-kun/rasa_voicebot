@@ -1,0 +1,131 @@
+version: "2.0"
+
+nlu:
+- intent: polite_greet
+  examples: |
+    - chào buổi sáng
+    - chào buổi tối
+
+- intent: greet
+  examples: |
+    - xin chào
+    - chào
+    - hế lô
+    - bắt đầu
+    - hi
+
+- intent: goodbye
+  examples: |
+    - tạm biệt
+    - tạm biệt nhé
+    - bye
+    - bái bai
+    - bai
+    - bye bye
+    - goodbye
+
+- intent: affirm
+  examples: |
+    - vâng
+    - được rồi
+    - tất nhiên
+    - nghe hay đó
+    - ok
+    - okay
+    - chính xác
+    - cũng được
+    - có
+    - được thôi
+    - ô kê
+    - đúng rồi
+    - đúng đó
+    - chắc chắn
+    - đúng
+    - chắc
+    - ừ
+
+- intent: deny
+  examples: |
+    - không
+    - không bao giờ
+    - tôi không nghĩ thế
+    - tôi không nghĩ vậy
+    - có lẽ không
+    - không nhé
+    - không đời nào
+    - hoàn toàn không
+
+- intent: continue
+  examples: |
+    - tiếp tục đi
+    - tiếp đi
+    - cứ tiếp tục đi
+    - cứ tiếp đi
+
+- intent: mood_great
+  examples: |
+    - tuyệt vời
+    - rất tốt
+    - tuyệt
+    - hoàn hảo
+    - đáng kinh ngạc
+    - tôi thấy rất ổn
+    - tôi thấy khỏe
+    - tôi thấy rất tuyệt
+    - tôi thấy ổn
+    - tôi thấy khỏe
+    - tôi thấy khá tuyệt
+    - tốt
+    - ổn
+    - tôi thấy khá tốt
+    - tôi ổn
+    - khá ổn
+    - khá tốt
+    - khá tuyệt
+
+- intent: mood_unhappy
+  examples: |
+    - không ổn chút nào
+    - không tốt
+    - không tốt lắm
+    - không ổn lắm
+    - không ổn
+    - không tốt
+    - buồn
+    - buồn ghê
+    - quá buồn
+    - khá buồn
+    - cực kì buồn
+    - tôi buồn
+    - buồn lắm
+    - chán
+    - tệ
+    - khá chán
+    - quá chán
+    - khá tệ
+    - rất tệ
+    - tồi tệ
+    - thậm tệ
+    - cực tệ
+    - cực kì tệ
+    - tệ vô cùng
+    - vô cùng tệ
+    - rất là tệ
+    - tệ kinh khủng
+    - hơi tệ
+    - tệ lắm
+    - hu hu
+
+- intent: thanks
+  examples: |
+    - cảm ơn
+    - cảm ơn nhé
+    - cảm ơn nhiều
+    - cảm ơn nha
+
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?

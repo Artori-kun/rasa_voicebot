@@ -1,0 +1,199 @@
+version: "2.0"
+
+intents:
+  - ask_schedule
+  - add_new_schedule
+  - inform_date
+  - inform_time
+  - inform_content_schedule
+  - inform_field
+  - cancel
+  - delete_schedule
+  - edit_schedule
+
+slots:
+  # schedule's fields slot
+  date_field:
+    type: text
+    influence_conversation: true
+  start_time:
+    type: text
+    influence_conversation: true
+  end_time:
+    type: text
+    influence_conversation: true
+  content:
+    type: text
+    influence_conversation: true
+
+  # fields for editing schedules
+  selected_field_schedule:
+    type: text
+    influence_conversation: true
+  date_field_edit:
+    type: text
+    influence_conversation: true
+  start_time_edit:
+    type: text
+    influence_conversation: true
+  end_time_edit:
+    type: text
+    influence_conversation: true
+  content_edit:
+    type: text
+    influence_conversation: true
+
+
+  # Store schedules that need to be deleted
+  delete_schedule_list:
+    type: list
+
+  info_provided:
+    type: bool
+    initial_value: false
+    influence_conversation: true
+
+  change_made:
+    type: bool
+    initial_value: false
+    influence_conversation: true
+
+  edit_schedule:
+    type: any
+
+
+
+
+responses:
+  utter_confirm_cancel:
+    - text: "Bạn có chắc là muốn hủy không?"
+    - text: "Bạn thật sự muốn dừng chứ?"
+    - text: "Bạn có chắc là không muốn tiếp tục?"
+    - text: "Bạn thực sự muốn hủy chứ?"
+
+  utter_ask_date_field:
+    - text: "Ngày bạn muốn là ngày nào?"
+    - text: "Bạn muốn nó vào ngày nào?"
+    - text: "Hãy cho tôi biết ngày bạn mong muốn"
+  utter_ask_start_time:
+    - text: "Bạn muốn bắt đầu vào lúc mấy giờ"
+    - text: "Hãy cung cấp thời gian bắt đầu bạn muốn"
+    - text: "Bạn muốn thời gian bắt đầu là mấy giờ?"
+  utter_ask_end_time:
+    - text: "Bạn muốn kết thúc vào lúc mấy giờ"
+    - text: "Hãy cung cấp thời gian kết thúc bạn muốn"
+    - text: "Bạn muốn thời gian kết thúc vào lúc mấy giờ"
+  utter_ask_content:
+    - text: "Nội dung bạn muốn là gì"
+    - text: "Bạn muốn nội dung là gì"
+
+  utter_ask_selected_field_schedule:
+    - text: "Hãy chọn thông tin mà bạn muốn sửa"
+    - text: "Bạn muốn thay đổi thông tin nào?"
+  utter_ask_date_field_edit:
+    - text: "Hãy cung cấp thông tin mới về ngày"
+    - text: "Bạn muốn thay đổi thành ngày nào?"
+    - text: "Hãy cho tôi biết ngày bạn muốn thay đổi"
+  utter_ask_start_time_edit:
+    - text: "Bạn muốn thay đổi thời gian bắt đầu thành mấy giờ?"
+    - text: "Hãy cung cấp thời gian bắt đầu mới"
+    - text: "Bạn muốn nó bắt đầu lúc mấy giờ?"
+  utter_ask_end_time_edit:
+    - text: "Bạn muốn thay đổi thời gian kết thúc thành mấy giờ?"
+    - text: "Hãy cho biết thời gian kết thúc mới"
+    - text: "Bạn muốn nó kết thúc lúc mấy giờ?"
+  utter_ask_content_edit:
+    - text: "Bạn muốn nội dung mới là gì?"
+    - text: "Hãy cho biết nội dung bạn muốn thay đổi"
+
+  utter_subscribed:
+    - text: "Tạo thành công"
+    - text: "Đã tạo"
+
+  utter_ask_to_confirm_submit:
+    - text: "Bạn chắc muốn thêm lịch này chứ?"
+    - text: "Bạn có chắc muốn thêm kế hoạch này không?"
+
+  utter_ok_continue:
+    - text: "Ok, tiếp tục nhé"
+    - text: "Được thôi, tiếp nhé"
+    - text: "Ok, quay lại nào"
+
+  utter_ok_canceled:
+    - text: "Ok, đã hủy"
+
+  utter_sorry_what_else_can_i_do:
+    - text: "Ồ xin lỗi! Tôi có thể làm gì khác cho bạn không?"
+    - text: "Xin lỗi, tôi chỉ làm được có thế! Tôi có thể giúp gì khác cho bạn không?"
+    - text: "Xin lỗi đó là tất cả tôi có. Bạn cần giúp gì khác không?"
+
+  utter_please_try_again:
+    - text: "Vui lòng thử lại sau"
+    - text: "Thử lại sau nhé"
+    - text: "Vui lòng thử lại"
+    - text: "Hãy thử lại nhé"
+    - text: "Thử lại nhé"
+    - text: "Thử lại nhé. Lần này hãy cố gắng đúng cú pháp"
+
+  utter_ask_continue_edit:
+    - text: "Bạn có muốn sửa thêm thông tin gì về lịch này nữa không?"
+    - text: "Bạn có muốn muốn thay đổi thêm thông tin gì nữa không?"
+    - text: "Còn thông tin nào bạn muốn sửa nữa không?"
+
+
+actions:
+  - action_show_schedule
+  - action_create_schedule_submit
+  - validate_create_schedule_form
+  - action_confirm_create_schedule_info
+  - action_confirm_delete_schedule_info
+  - action_delete_schedule
+  - action_check_edit_schedule_info
+  - action_reset_edit_schedule_slots
+  - action_confirm_edit_schedule_info
+  - action_edit_schedule
+  - validate_edit_schedule_form
+
+
+forms:
+  create_schedule_form:
+    required_slots:
+      date_field:
+        - type: from_text
+          intent: inform_date
+          not_intent: cancel
+      start_time:
+        - type: from_text
+          intent: inform_time
+          not_intent: cancel
+      end_time:
+        - type: from_text
+          intent: inform_time
+          not_intent: cancel
+      content:
+        - type: from_text
+          intent: inform_content_schedule
+          not_intent: cancel
+
+  edit_schedule_form:
+    required_slots:
+      selected_field_schedule:
+        - type: from_text
+          intent: inform_field
+          not_intent: cancel
+      date_field_edit:
+        - type: from_text
+          intent: inform_date
+          not_intent: cancel
+      start_time_edit:
+        - type: from_text
+          intent: inform_time
+          not_intent: cancel
+      end_time_edit:
+        - type: from_text
+          intent: inform_time
+          not_intent: cancel
+      content_edit:
+        - type: from_text
+          intent: inform_content_schedule
+          not_intent: cancel

@@ -1,0 +1,19 @@
+version: "2.0"
+
+nlu:
+  - intent: ask_weather_here
+    examples: |
+      - Thời tiết hôm nay thế nào
+      - Thời tiết thế nào
+      - Cho tôi thông tin về thời tiết
+      - Hôm nay trời thế nào
+      - Thời tiết thế nào nhỉ
+      - Ngoài trời thế nào
+      - Thời tiết bên ngoài thế nào
+
+  - intent: ask_weather_city
+    examples: |
+      - Thời tiết ở [Hà Nội]{"entity": "city"} thế nào
+      - Thời tiết hôm nay ở [Thái Bình]{"entity": "city"} thế nào
+      - [Ninh Bình]{"entity": "city"} thời tiết thế nào
+      - Hôm nay thời tiết [Nam Định]{"entity": "city"} thế nào

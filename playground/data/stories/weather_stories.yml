@@ -1,0 +1,12 @@
+version: "2.0"
+
+stories:
+  - story: ask_weather_here
+    steps:
+      - intent: ask_weather_here
+      - action: action_weather_here
+
+  - story: ask_weather_city
+    steps:
+      - intent: ask_weather_city
+      - action: action_weather_city

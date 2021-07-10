@@ -1,0 +1,127 @@
+version: "2.0"
+
+nlu:
+  - intent: ask_schedule
+    examples: |
+      - Lịch ngày mai thế nào
+      - Cho tôi xem lịch trình ngày kia
+      - Thứ hai tuần tới tôi có lịch gì không
+      - Ngày mai kế hoạch thế nào
+      - Ngày 6-2-2021 tôi có những kế hoạch gì
+      - Lịch trình vào ngày 8-5-2021 thế nào
+      - Hôm kia lịch trình của tôi gồm những gì
+      - Cho tôi xem lịch trình tuần sau
+      - Kế hoạch tháng sau gồm những gì nhỉ
+      - Lich trình tuần trước của tôi là gì vậy
+      - Lịch làm việc mai ra sao
+      - Hôm qua lịch của tôi thế nào
+      - Lúc tám giờ ngày mai tôi có kế hoạch gì
+      - Lịch trình bảy giờ tối mai có gì không
+      - Kế hoạch hai giờ ba mươi chiều nay thế nào
+      - lịch ngày mai
+      - kế hoạch ngày hai lăm tháng tám
+
+  - intent: add_new_schedule
+    examples: |
+      - Tôi cần thêm lịch mới
+      - Tôi cần thêm kế hoạch mới
+      - Tôi cần tạo lịch mới
+      - Tạo cho tôi một lịch mới
+      - Thêm kế hoạch mới cho tôi
+      - Tôi muốn thêm kế hoạch mới
+      - Tôi cần lập lịch
+      - Tôi cần lên lịch
+      - Hẹn ngày cho tôi
+      - Đặt lịch cho tôi
+
+  - intent: inform_date
+    examples: |
+      - ngày mai nhé
+      - ngày kia đi
+      - thứ hai tuần sau
+      - thứ tư tuần này
+      - ngày hai mươi tháng mười
+      - ngày mười sáu tháng tám năm hai không hai mươi
+      - ngày mùng chín tháng mười hai năm nay
+      - ngày mai
+      - mùng năm tháng một
+      - chủ nhật tuần này
+      - thứ bảy tuần sau
+      - hai lăm tháng ba
+      - hai mươi mốt tháng mười một
+
+  - intent: inform_time
+    examples: |
+      - hai giờ ba mươi phút
+      - bảy giờ sáng
+      - tám giờ hai mươi lăm
+      - mười ba giờ mười lăm
+      - mười một giờ trưa
+      - hai giờ chiều
+      - sáu giờ tối
+      - mười hai giờ bốn mươi lăm
+      - hai mươi mốt giờ mười phút
+
+  - intent: inform_content_schedule
+    examples: |
+      - Làm việc tại cơ quan
+      - Học tập tại trường
+      - Họp giao ban tuần
+      - Họp chi bộ
+      - Tham dự hội thảo abc
+      - Tham gia hội thảo xyz
+      - Họp câu lạc bộ
+      - Tọa đàm nghiên cứu khoa học
+      - Chơi thể thao
+      - đá bóng tại sân vân động
+      - dự tiệc cuối năm của cơ quan
+
+  - intent: inform_field
+    examples: |
+      - ngày
+      - thời gian
+      - thời gian bắt đầu
+      - thời gian kết thúc
+      - nội dung
+      - tất cả
+      - ngày tháng
+
+  - intent: cancel
+    examples: |
+      - Hủy bỏ
+      - Thôi hủy bỏ
+      - thôi, không cần nữa
+      - bỏ
+      - hủy nhé
+      - thôi bỏ đi
+      - hủy
+      - thôi
+      - bỏ đi
+      - không cần nữa
+
+  - intent: delete_schedule
+    examples: |
+      - Tôi cần xóa lịch ngày mai lúc bảy giờ
+      - Tôi muốn hủy lịch lúc chín giờ ngày kia
+      - Hủy bỏ kế hoạch ngày mười lăm tháng sáu
+      - xóa lịch lúc mười ba giờ thứ hai tuần sau
+      - hủy kế hoạch hai giờ chiều thứ tư tuần này
+      - xóa bỏ kế hoạch tám giờ sáng ngày hai mươi tư tháng chín
+      - bỏ kế hoạch ngày kia lúc chín giờ
+      - hủy lịch ngày hai mươi tháng mười lúc chín giờ
+      - hủy bỏ lịch ngày mùng chín tháng hai
+      - hủy lịch ngày mai lúc bảy giờ
+      - hủy lịch lúc tám giờ sáng ngày mười lăm tháng chín
+
+  - intent: edit_schedule
+    examples: |
+      - Tôi cần sửa lịch
+      - Sửa lịch cho tôi
+      - tôi cần chỉnh sửa lại kế hoạch
+      - tôi cần sửa kế hoạch tám giờ ngày mai
+      - điều chỉnh lịch lúc bảy giờ ngày kia
+      - chỉnh sửa kế hoạch lúc mười giờ thứ tư tuần tới
+      - sửa kế hoạch bảy giờ ba mươi phút ngày hai lăm tháng tư
+      - đổi lịch lúc tám giờ tối
+      - điều chỉnh kế hoạch
+      - chỉnh sửa kế hoạch chín giờ sáng mai
