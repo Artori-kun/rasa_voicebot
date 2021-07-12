@@ -1,5 +1,5 @@
 # ignore virtual env
-venv/
+rasavoicebot_venv/
 
 # ignore system file
 .idea/
