@@ -8,43 +8,129 @@
 from django.db import models
 
 
-class MySchedule(models.Model):
-    date_field = models.DateField(db_column='date_', blank=True, null=True)  # Field renamed because it ended with '_'.
-    start_time = models.TimeField(blank=True, null=True)
-    end_time = models.TimeField(blank=True, null=True)
-    content = models.CharField(max_length=200, db_collation='utf8_general_ci', blank=True, null=True)
-
-    class Meta:
-        managed = True
-        db_table = 'MySchedule'
-
-
 class Reminder(models.Model):
-    date_field = models.DateField(db_column='date_', blank=True, null=True)  # Field renamed because it ended with '_'.
+    date_field = models.DateField(db_column='date_')  # Field renamed because it ended with '_'.
     time_field = models.TimeField(db_column='time_', blank=True, null=True)  # Field renamed because it ended with '_'.
-    content = models.CharField(max_length=200, db_collation='utf8_general_ci', blank=True, null=True)
+    content = models.CharField(max_length=200, db_collation='utf8_general_ci')
+
+    is_recurring = models.BooleanField()
+    recurrence_end_date = models.DateField(blank=True, null=True)
+    recurring_type = models.CharField(max_length=50, blank=True, null=True)
+    separation_count = models.IntegerField(blank=True, null=True)
+    max_number_of_occurrences = models.IntegerField(blank=True, null=True)
+
+    is_active = models.BooleanField()
+    date_created = models.DateTimeField()
+    last_modified = models.DateTimeField(blank=True, null=True)
+    user_id = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = True
         db_table = 'Reminder'
 
 
-class Appointment(models.Model):
-    date_field = models.DateField(db_column='date_', blank=True, null=True)  # Field renamed because it ended with '_'.
+class Task(models.Model):
+    date_field = models.DateField(db_column='date_')  # Field renamed because it ended with '_'.
     time_field = models.TimeField(db_column='time_', blank=True, null=True)  # Field renamed because it ended with '_'.
-    content = models.CharField(max_length=200, db_collation='utf8_general_ci', blank=True, null=True)
-    person = models.CharField(max_length=100, db_collation='utf8_general_ci', blank=True, null=True)
+    content = models.CharField(max_length=200, db_collation='utf8_general_ci')
+    user_id = models.IntegerField(blank=True, null=True)
+    is_active = models.BooleanField()
+    date_created = models.DateTimeField()
+    last_modified = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         managed = True
-        db_table = 'Appointment'
+        db_table = 'Task'
 
 
-class Alarm(models.Model):
-    date_field = models.DateField(db_column='date_', blank=True, null=True)  # Field renamed because it ended with '_'.
-    time_field = models.TimeField(db_column='time_', blank=True, null=True)  # Field renamed because it ended with '_'.
-    redo_after = models.IntegerField(blank=True, null=True)
+class MySchedule(models.Model):
+    date_field = models.DateField(db_column='date_')  # Field renamed because it ended with '_'.
+    start_time = models.TimeField()
+    end_time = models.TimeField(blank=True, null=True)
+    content = models.CharField(max_length=200, db_collation='utf8_general_ci')
+    location = models.CharField(max_length=200, db_collation='utf8_general_ci', blank=True, null=True)
+    date_created = models.DateTimeField()
+    last_modified = models.DateTimeField()
+    is_active = models.BooleanField()
+
+    is_recurring = models.BooleanField()
+    recurring_type = models.CharField(max_length=50, blank=True, null=True)
+    separation_count = models.IntegerField(blank=True, null=True)
+    max_number_of_occurrences = models.IntegerField(blank=True, null=True)
+    recurrence_end_date = models.DateField(blank=True, null=True)
+
+    parent_id = models.IntegerField(blank=True, null=True)
+    user_id = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = True
-        db_table = 'Alarm'
+        db_table = 'MySchedule'
+
+
+class Contact(models.Model):
+    owner_id = models.IntegerField(blank=True, null=True)
+    name_field = models.CharField(db_column='name_', max_length=200, db_collation='utf8_general_ci')  # Field renamed because it ended with '_'.
+    email = models.CharField(max_length=200, blank=True, null=True)
+    dob = models.DateField(blank=True, null=True)
+    description_field = models.CharField(db_column='description_', max_length=200, db_collation='utf8_general_ci', blank=True, null=True)  # Field renamed because it ended with '_'.
+    contact_detail = models.CharField(max_length=200, blank=True, null=True)
+    date_created = models.DateTimeField()
+    last_modified = models.DateTimeField(blank=True, null=True)
+    is_active = models.BooleanField()
+
+    class Meta:
+        managed = True
+        db_table = 'Contact'
+
+
+class CustomUser(models.Model):
+    username = models.CharField(max_length=20)
+    pass_field = models.CharField(db_column='pass', max_length=16)  # Field renamed because it was a Python reserved word.
+    firstname = models.CharField(max_length=50, db_collation='utf8_general_ci')
+    lastname = models.CharField(max_length=50, db_collation='utf8_general_ci', blank=True, null=True)
+    dob = models.DateTimeField(blank=True, null=True)
+    gender = models.CharField(max_length=20, db_collation='utf8_general_ci', blank=True, null=True)
+    email = models.CharField(max_length=100, blank=True, null=True)
+    last_logged = models.DateTimeField(blank=True, null=True)
+    date_created = models.DateTimeField()
+    is_active = models.BooleanField()
+
+    class Meta:
+        managed = True
+        db_table = 'CustomUser'
+
+
+class ReminderInstanceException(models.Model):
+    reminder_id = models.IntegerField()
+    is_edited = models.BooleanField(blank=True, null=True)
+    is_deleted = models.BooleanField(blank=True, null=True)
+    date_field = models.DateField(db_column='date_')  # Field renamed because it ended with '_'.
+    time_field = models.TimeField(db_column='time_')  # Field renamed because it ended with '_'.
+    content = models.CharField(max_length=200, db_collation='utf8_general_ci')
+    user_id = models.IntegerField(blank=True, null=True)
+    date_created = models.DateTimeField()
+    last_modified = models.DateTimeField(blank=True, null=True)
+    is_active = models.BooleanField()
+
+    class Meta:
+        managed = True
+        db_table = 'ReminderInstanceException'
+
+
+class ScheduleInstanceException(models.Model):
+    schedule_id = models.IntegerField()
+    is_rescheduled = models.BooleanField(blank=True, null=True)
+    is_cancelled = models.BooleanField(blank=True, null=True)
+    date_field = models.DateField(db_column='date_')  # Field renamed because it ended with '_'.
+    star_time = models.TimeField()
+    end_time = models.TimeField(blank=True, null=True)
+    content = models.CharField(max_length=200, db_collation='utf8_general_ci')
+    location = models.CharField(max_length=200, db_collation='utf8_general_ci', blank=True, null=True)
+    user_id = models.IntegerField(blank=True, null=True)
+    date_created = models.DateTimeField()
+    last_modified = models.DateTimeField(blank=True, null=True)
+    is_active = models.BooleanField()
+
+    class Meta:
+        managed = True
+        db_table = 'ScheduleInstanceException'
