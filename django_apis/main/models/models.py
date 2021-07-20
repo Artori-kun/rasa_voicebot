@@ -5,6 +5,8 @@
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
+import datetime
+
 from django.db import models
 
 
@@ -13,14 +15,14 @@ class Reminder(models.Model):
     time_field = models.TimeField(db_column='time_', blank=True, null=True)  # Field renamed because it ended with '_'.
     content = models.CharField(max_length=200, db_collation='utf8_general_ci')
 
-    is_recurring = models.BooleanField()
+    is_recurring = models.BooleanField(default=False)
     recurrence_end_date = models.DateField(blank=True, null=True)
     recurring_type = models.CharField(max_length=50, blank=True, null=True)
     separation_count = models.IntegerField(blank=True, null=True)
     max_number_of_occurrences = models.IntegerField(blank=True, null=True)
 
-    is_active = models.BooleanField()
-    date_created = models.DateTimeField()
+    is_active = models.BooleanField(default=True)
+    date_created = models.DateTimeField(default=datetime.datetime.now())
     last_modified = models.DateTimeField(blank=True, null=True)
     user_id = models.IntegerField(blank=True, null=True)
 
@@ -34,8 +36,8 @@ class Task(models.Model):
     time_field = models.TimeField(db_column='time_', blank=True, null=True)  # Field renamed because it ended with '_'.
     content = models.CharField(max_length=200, db_collation='utf8_general_ci')
     user_id = models.IntegerField(blank=True, null=True)
-    is_active = models.BooleanField()
-    date_created = models.DateTimeField()
+    is_active = models.BooleanField(default=True)
+    date_created = models.DateTimeField(default=datetime.datetime.now())
     last_modified = models.DateTimeField(blank=True, null=True)
 
     class Meta:
@@ -49,11 +51,11 @@ class MySchedule(models.Model):
     end_time = models.TimeField(blank=True, null=True)
     content = models.CharField(max_length=200, db_collation='utf8_general_ci')
     location = models.CharField(max_length=200, db_collation='utf8_general_ci', blank=True, null=True)
-    date_created = models.DateTimeField()
-    last_modified = models.DateTimeField()
-    is_active = models.BooleanField()
+    date_created = models.DateTimeField(null=True, default=datetime.datetime.now())
+    last_modified = models.DateTimeField(null=True, default=datetime.datetime.now())
+    is_active = models.BooleanField(default=True)
 
-    is_recurring = models.BooleanField()
+    is_recurring = models.BooleanField(default=False)
     recurring_type = models.CharField(max_length=50, blank=True, null=True)
     separation_count = models.IntegerField(blank=True, null=True)
     max_number_of_occurrences = models.IntegerField(blank=True, null=True)
@@ -74,9 +76,9 @@ class Contact(models.Model):
     dob = models.DateField(blank=True, null=True)
     description_field = models.CharField(db_column='description_', max_length=200, db_collation='utf8_general_ci', blank=True, null=True)  # Field renamed because it ended with '_'.
     contact_detail = models.CharField(max_length=200, blank=True, null=True)
-    date_created = models.DateTimeField()
+    date_created = models.DateTimeField(default=datetime.datetime.now())
     last_modified = models.DateTimeField(blank=True, null=True)
-    is_active = models.BooleanField()
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         managed = True
@@ -92,8 +94,8 @@ class CustomUser(models.Model):
     gender = models.CharField(max_length=20, db_collation='utf8_general_ci', blank=True, null=True)
     email = models.CharField(max_length=100, blank=True, null=True)
     last_logged = models.DateTimeField(blank=True, null=True)
-    date_created = models.DateTimeField()
-    is_active = models.BooleanField()
+    date_created = models.DateTimeField(default=datetime.datetime.now())
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         managed = True
@@ -108,9 +110,9 @@ class ReminderInstanceException(models.Model):
     time_field = models.TimeField(db_column='time_')  # Field renamed because it ended with '_'.
     content = models.CharField(max_length=200, db_collation='utf8_general_ci')
     user_id = models.IntegerField(blank=True, null=True)
-    date_created = models.DateTimeField()
+    date_created = models.DateTimeField(default=datetime.datetime.now())
     last_modified = models.DateTimeField(blank=True, null=True)
-    is_active = models.BooleanField()
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         managed = True
@@ -122,14 +124,14 @@ class ScheduleInstanceException(models.Model):
     is_rescheduled = models.BooleanField(blank=True, null=True)
     is_cancelled = models.BooleanField(blank=True, null=True)
     date_field = models.DateField(db_column='date_')  # Field renamed because it ended with '_'.
-    star_time = models.TimeField()
+    start_time = models.TimeField(blank=True, null=True)
     end_time = models.TimeField(blank=True, null=True)
-    content = models.CharField(max_length=200, db_collation='utf8_general_ci')
+    content = models.CharField(max_length=200, db_collation='utf8_general_ci', blank=True, null=True)
     location = models.CharField(max_length=200, db_collation='utf8_general_ci', blank=True, null=True)
     user_id = models.IntegerField(blank=True, null=True)
-    date_created = models.DateTimeField()
+    date_created = models.DateTimeField(default=datetime.datetime.now())
     last_modified = models.DateTimeField(blank=True, null=True)
-    is_active = models.BooleanField()
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         managed = True

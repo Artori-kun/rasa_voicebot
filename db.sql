@@ -40,6 +40,37 @@ create table MySchedule(
     -- foreign key (user_id) references CustomUser(id)
 );
 
+delimiter $$
+create trigger schedule_recurrence_end_date before insert on MySchedule
+for each row
+begin
+	declare date_diff int;
+    set date_diff = 0;
+    
+	if new.max_number_of_occurrences is not null then
+		if new.recurring_type = 'daily' then
+			set date_diff = 1 * new.separation_count * new.max_number_of_occurrences;
+			set new.recurrence_end_date = date_add(new.date_, interval date_diff day);
+        end if;
+        
+        if new.recurring_type = 'weekly' then
+			set date_diff = 7 * new.separation_count * new.max_number_of_occurrences;
+            set new.recurrence_end_date = date_add(new.date_, interval date_diff day);
+        end if;
+        
+        if new.recurring_type = 'monthly' then
+			set date_diff = 1 * new.separation_count * new.max_number_of_occurrences;
+            set new.recurrence_end_date = date_add(new.date_, interval date_diff month);
+        end if;
+        
+        if new.recurring_type = 'yearly' then
+			set date_diff = 1 * new.separation_count * new.max_number_of_occurrences;
+            set new.recurrence_end_date = date_add(new.date_, interval date_diff year);
+        end if;
+    end if;
+end$$
+delimiter ;
+
 -- create table ScheduleRecurrentPattern(
 -- 	schedule_id int primary key not null,
 --     recurring_type varchar(50) not null,
@@ -59,15 +90,38 @@ create table ScheduleInstanceException(
     is_rescheduled boolean,
     is_cancelled boolean,
     date_ date not null,
-    star_time time not null,
+    start_time time,
     end_time time,
-    content nvarchar(200) not null,
+    content nvarchar(200),
     location nvarchar(200),
     user_id int,
     date_created datetime not null default now(),
     last_modified datetime,
     is_active boolean not null default true
 );
+
+drop trigger if exists schedule_exception;
+delimiter $$
+create trigger schedule_exception before insert on ScheduleInstanceException
+for each row
+begin
+	-- declare start_time time;
+--     declare end_time time;
+--     declare content nvarchar(200);
+--     declare location nvarchar(200);
+    
+    select start_time, end_time, content, location
+    into @start_time, @end_time, @content, @location
+    from MySchedule
+    where MySchedule.id = new.schedule_id
+    limit 1;
+    
+    set new.start_time = @start_time;
+    set new.end_time = @end_time;
+    set new.content = @content;
+    set new.location = @location;
+end$$
+delimiter ;
 
 
 drop table if exists Reminder;
@@ -143,3 +197,4 @@ create table Contact(
     last_modified datetime,
     is_active boolean not null default true
 );
+

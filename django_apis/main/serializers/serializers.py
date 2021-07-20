@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from ..models.models import *
-from ..util.model_util import check_occurrence_schedule
+from ..util.model_util import check_occurrence
 from datetime import datetime
 
 
@@ -21,7 +21,7 @@ class MyScheduleSerializer(serializers.ModelSerializer):
         # schedules = list(schedules)
 
         for schedule in schedules:
-            if check_occurrence_schedule(attrs['date_field'], schedule):
+            if check_occurrence(attrs['date_field'], schedule):
                 if schedule.start_time < attrs['start_time'] < schedule.end_time or schedule.start_time < \
                         attrs['end_time'] < schedule.end_time:
                     raise serializers.ValidationError(f"Trùng giờ với lịch đã có")

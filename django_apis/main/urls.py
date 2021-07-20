@@ -22,6 +22,8 @@ app_name = "main"
 
 router = routers.DefaultRouter()
 router.register('schedules', MyScheduleViewSet, 'schedules')
+router.register('reminders', ReminderViewSet, 'reminders')
+router.register('tasks', TaskViewSet, 'tasks')
 
 urlpatterns = [
     path('', include(router.urls))
