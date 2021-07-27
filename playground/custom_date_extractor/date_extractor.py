@@ -20,6 +20,8 @@ REGEX_TIME = re.compile(r"(2[0-4]|1[0-9]|[0-9])\s(giờ)(\s([0-5][0-9]|[1-9])(\s
 REGEX_TIME_PM = re.compile(r"(([1-5])\s(giờ)(\s([1-9]|[0-5][0-9])(\sphút)?)?\s(chiều))|"
                            r"((10|[6-9])\s(giờ)(\s([1-9]|[0-5][0-9])(\sphút)?)?\s(tối))|"
                            r"((1[1-2])\s(giờ)(\s([1-9]|[0-5][0-9])(\sphút)?)?\s(đêm))")
+REGEX_RECURRENCE = re.compile(r"\d+\s(ngày|tuần|tháng|năm)")
+REGEX_RECURRENCE_SINGLE = re.compile(r"(hàng|mỗi)\s(ngày|tuần|tháng|năm)")
 
 
 def regex_time(msg):
@@ -69,6 +71,40 @@ def regex_time(msg):
                 time_str.append(t_str)
 
     return time_str
+
+
+def regex_recurrence(msg):
+    recurrence_type = None
+    separation_count = None
+    count = 0
+    for _ in re.finditer(REGEX_RECURRENCE_SINGLE, msg):
+        count += 1
+
+    if count != 0:
+        separation_count = 1
+        for match in re.finditer(REGEX_RECURRENCE_SINGLE, msg):
+            recurrence_type = match.group(0)
+    else:
+        for _ in re.finditer(REGEX_RECURRENCE, msg):
+            count += 1
+        if count != 0:
+            for match in re.finditer(REGEX_RECURRENCE, msg):
+                recurrence = match.group(0)
+
+                separation_count = int(recurrence.split()[0])
+
+                recurrence_type = recurrence.split()[1]
+
+    if 'ngày' in recurrence_type:
+        recurrence_type = 'daily'
+    elif 'tuần' in recurrence_type:
+        recurrence_type = 'weekly'
+    elif 'tháng' in recurrence_type:
+        recurrence_type = 'monthly'
+    elif 'năm' in recurrence_type:
+        recurrence_type = 'yearly'
+
+    return recurrence_type, separation_count
 
 
 def regex_date(msg, timezone="Asia/Ho_Chi_Minh"):
@@ -411,3 +447,9 @@ def summary_time(message):
     times = np.array(times)
 
     return list(np.unique(times))
+
+
+def summary_recurrence(message):
+    message = preprocess_msg(message)
+
+    return regex_recurrence(message)

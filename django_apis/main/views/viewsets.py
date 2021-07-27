@@ -2,9 +2,10 @@ from datetime import datetime, date
 from django.shortcuts import render
 from ..models.models import *
 from ..util.model_util import check_occurrence
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, status
 from ..serializers.serializers import *
 from itertools import chain
+from rest_framework.response import Response
 
 
 # Create your views here.
@@ -39,6 +40,26 @@ class MyScheduleViewSet(viewsets.ModelViewSet):
 
         return queryset
 
+    # def destroy(self, request, *args, **kwargs):
+    #     # print('delete')
+    #     schedule = self.get_object()
+    #     if schedule.is_recurring is True:
+    #         # print('is recurring')
+    #         schedule.recurrence_end_date = date.today()
+    #         schedule.save()
+    #     else:
+    #         # print('call super')
+    #         super(MyScheduleViewSet, self).destroy(request, *args, **kwargs)
+    #     return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class ScheduleInstanceExceptionViewSet(viewsets.ModelViewSet):
+    serializer_class = ScheduleInstanceExceptionSerializer
+
+    permission_classes = [
+        permissions.AllowAny
+    ]
+
 
 class ReminderViewSet(viewsets.ModelViewSet):
     serializer_class = ReminderSerializer
@@ -69,6 +90,18 @@ class ReminderViewSet(viewsets.ModelViewSet):
                 queryset = queryset.filter(time_field=time_param)
 
         return queryset
+
+    # def destroy(self, request, *args, **kwargs):
+    #     reminder = self.get_object()
+    #     reminder.recurrence_end_date = datetime.date().today()
+
+
+class ReminderInstanceExceptionViewSet(viewsets.ModelViewSet):
+    serializer_class = ReminderInstanceExceptionSerializer
+
+    permission_classes = [
+        permissions.AllowAny
+    ]
 
 
 class TaskViewSet(viewsets.ModelViewSet):

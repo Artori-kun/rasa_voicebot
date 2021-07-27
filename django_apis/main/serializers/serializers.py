@@ -28,17 +28,6 @@ class MyScheduleSerializer(serializers.ModelSerializer):
 
         return attrs
 
-    # def save(self, **kwargs):
-    #
-    #     schedules = Myschedule.objects.filter(date_field=self.validated_data['date_field'])
-    #
-    #     for schedule in schedules:
-    #         if schedule.start_time < self.validated_data['start_time'] < schedule.end_time or schedule.start_time < \
-    #                 self.validated_data['end_time'] < schedule.end_time:
-    #             raise serializers.ValidationError(f"Trùng giờ với lịch đã có")
-    #
-    #     super().save(**kwargs)
-
     class Meta:
         model = MySchedule
         exclude = ['date_created', 'last_modified']
@@ -63,12 +52,26 @@ class ScheduleInstanceExceptionSerializer(serializers.ModelSerializer):
 
 
 class ReminderInstanceExceptionSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = ReminderInstanceException
         exclude = ['date_created', 'last_modified']
 
 
 class ReminderSerializer(serializers.ModelSerializer):
+
+    def validate(self, attrs):
+        exceptions = ReminderInstanceException.objects.filter(date_field=attrs['date_field'])
+        exception_reminder_id = [e.schedule_id for e in exceptions]
+
+        reminder = Reminder.objects.exclude(id__in=exception_reminder_id)
+        reminder = reminder.filter(id__in=[r.id for r in reminder if check_occurrence(attrs['date_field'], r)])
+
+        for r in reminder:
+            if r.time_field == attrs['time']:
+                serializers.ValidationError(f"Trùng với một nhắc nhở đã có")
+
+        return attrs
     # recurrent_pattern = ReminderRecurrentPatternSerializer()
 
     class Meta:
@@ -87,6 +90,16 @@ class ReminderSerializer(serializers.ModelSerializer):
 
 
 class TaskSerializer(serializers.ModelSerializer):
+
+    def validate(self, attrs):
+        tasks = Task.objects.filter(date_field=attrs['date_field'])
+
+        for t in tasks:
+            if t.time_field == attrs['time_field']:
+                serializers.ValidationError("Trùng với một tác vụ đã có")
+
+        return attrs
+
     class Meta:
         model = Task
         exclude = ['date_created', 'last_modified']

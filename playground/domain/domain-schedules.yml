@@ -10,59 +10,150 @@ intents:
   - cancel
   - delete_schedule
   - edit_schedule
+  - delete_current_schedule
+  - edit_current_schedule
 
 slots:
   # schedule's fields slot
-  date_field:
+  schedule_date_field:
     type: text
     influence_conversation: true
-  start_time:
+  schedule_start_time:
     type: text
     influence_conversation: true
-  end_time:
+  schedule_end_time:
     type: text
     influence_conversation: true
-  content:
+  schedule_content:
     type: text
+    influence_conversation: true
+  schedule_location:
+    type: text
+    influence_conversation: true
+  schedule_is_recurring:
+    type: bool
+    influence_conversation: true
+
+  schedule_recurrence:
+    type: text
+    influence_conversation: true
+  schedule_recurrence_type:
+    type: text
+    influence_conversation: true
+  schedule_separation_count:
+    type: any
     influence_conversation: true
 
   # fields for editing schedules
-  selected_field_schedule:
+  schedule_selected_field:
     type: text
     influence_conversation: true
-  date_field_edit:
+  schedule_date_field_edit:
     type: text
     influence_conversation: true
-  start_time_edit:
+  schedule_start_time_edit:
     type: text
     influence_conversation: true
-  end_time_edit:
+  schedule_end_time_edit:
     type: text
     influence_conversation: true
-  content_edit:
+  schedule_content_edit:
+    type: text
+    influence_conversation: true
+  schedule_location_edit:
     type: text
     influence_conversation: true
 
+  # Others
+  schedule_current:
+    type: any
 
-  # Store schedules that need to be deleted
-  delete_schedule_list:
-    type: list
+  schedule_current_num:
+    type: categorical
+    values:
+      - none
+      - one
+      - many
+    influence_conversation: true
 
-  info_provided:
+  schedule_info_provided:
     type: bool
     initial_value: false
     influence_conversation: true
 
-  change_made:
+#  schedule_has_recurrence:
+#    type: bool
+#    initial_value: false
+#    influence_conversation: true
+#
+#  schedule_current_recurrence:
+#    type: any
+
+  schedule_change_made:
     type: bool
     initial_value: false
     influence_conversation: true
 
-  edit_schedule:
+  schedule_edited_record:
     type: any
 
 
+forms:
+  # Form for creating new schedule
+  create_schedule_form:
+    required_slots:
+      schedule_date_field:
+        - type: from_text
+          intent: inform_date
+          not_intent: cancel
+      schedule_start_time:
+        - type: from_text
+          intent: inform_time
+          not_intent: cancel
+      schedule_end_time:
+        - type: from_text
+          intent: inform_time
+          not_intent: cancel
+      schedule_content:
+        - type: from_text
+#          intent: inform_content_schedule
+          not_intent: cancel
+      schedule_location:
+        - type: from_text
+          not_intent: cancel
+      schedule_is_recurring:
+        - type: from_text
+          not_intent: cancel
+      schedule_recurrence:
+        - type: from_text
+          not_intent: cancel
 
+  # Form for editing schedule
+  edit_schedule_form:
+    required_slots:
+      schedule_selected_field:
+        - type: from_text
+          intent: inform_field
+          not_intent: cancel
+      schedule_date_field_edit:
+        - type: from_text
+          intent: inform_date
+          not_intent: cancel
+      schedule_start_time_edit:
+        - type: from_text
+          intent: inform_time
+          not_intent: cancel
+      schedule_end_time_edit:
+        - type: from_text
+          intent: inform_time
+          not_intent: cancel
+      schedule_content_edit:
+        - type: from_text
+#          intent: inform_content_schedule
+          not_intent: cancel
+      schedule_location_edit:
+        - type: from_text
+          not_intent: cancel
 
 responses:
   utter_confirm_cancel:
@@ -71,48 +162,79 @@ responses:
     - text: "Bạn có chắc là không muốn tiếp tục?"
     - text: "Bạn thực sự muốn hủy chứ?"
 
-  utter_ask_date_field:
+  # ask for fields in schedule create form
+  utter_ask_schedule_date_field:
     - text: "Ngày bạn muốn là ngày nào?"
     - text: "Bạn muốn nó vào ngày nào?"
     - text: "Hãy cho tôi biết ngày bạn mong muốn"
-  utter_ask_start_time:
+    - text: "Bạn muốn lập lịch vào ngày nào?"
+    - text: "Bạn muốn lên lịch vào ngày nào?"
+    - text: "Bạn muốn thêm lịch mới vào ngày nào?"
+  utter_ask_schedule_start_time:
     - text: "Bạn muốn bắt đầu vào lúc mấy giờ"
     - text: "Hãy cung cấp thời gian bắt đầu bạn muốn"
     - text: "Bạn muốn thời gian bắt đầu là mấy giờ?"
-  utter_ask_end_time:
+    - text: "Bạn muốn lịch mới bắt đầu vào lúc mấy giờ?"
+    - text: "Bạn muốn nó bắt đầu vào lúc mấy giờ?"
+  utter_ask_schedule_end_time:
     - text: "Bạn muốn kết thúc vào lúc mấy giờ"
     - text: "Hãy cung cấp thời gian kết thúc bạn muốn"
     - text: "Bạn muốn thời gian kết thúc vào lúc mấy giờ"
-  utter_ask_content:
+    - text: "Bạn muốn nó kết thúc vào lúc mấy giờ?"
+  utter_ask_schedule_content:
     - text: "Nội dung bạn muốn là gì"
     - text: "Bạn muốn nội dung là gì"
+    - text: "Hãy cho tôi biết nội dung bạn muốn"
+    - text: "Hãy cung cấp nội dung của lịch mới"
+  utter_ask_schedule_location:
+    - text: "Bạn muốn địa điểm là ở đâu? Bạn có thể bỏ qua nếu muốn"
+    - text: "Hãy cung cấp địa điểm bạn muốn lịch này diễn ra. Bạn có thể bỏ qua nếu muốn"
+    - text: "Bạn muốn lịc mới diễn ra ở đâu. Bạn có thể bỏ qua nếu muốn"
+  utter_ask_schedule_is_recurring:
+    - text: "Bạn có muốn lịch này lặp lại không?"
+  utter_ask_schedule_recurrence:
+    - text: "Bạn muốn lịch này lặp lại như thế nào?"
+    - text: "Bạn muốn nó lặp lại như thế nào"
 
-  utter_ask_selected_field_schedule:
+  # ask for fields in schedule edit form
+  utter_ask_schedule_selected_field:
     - text: "Hãy chọn thông tin mà bạn muốn sửa"
     - text: "Bạn muốn thay đổi thông tin nào?"
-  utter_ask_date_field_edit:
+  utter_ask_schedule_date_field_edit:
     - text: "Hãy cung cấp thông tin mới về ngày"
     - text: "Bạn muốn thay đổi thành ngày nào?"
     - text: "Hãy cho tôi biết ngày bạn muốn thay đổi"
-  utter_ask_start_time_edit:
+  utter_ask_schedule_start_time_edit:
     - text: "Bạn muốn thay đổi thời gian bắt đầu thành mấy giờ?"
     - text: "Hãy cung cấp thời gian bắt đầu mới"
     - text: "Bạn muốn nó bắt đầu lúc mấy giờ?"
-  utter_ask_end_time_edit:
+  utter_ask_schedule_end_time_edit:
     - text: "Bạn muốn thay đổi thời gian kết thúc thành mấy giờ?"
     - text: "Hãy cho biết thời gian kết thúc mới"
     - text: "Bạn muốn nó kết thúc lúc mấy giờ?"
-  utter_ask_content_edit:
+  utter_ask_schedule_content_edit:
     - text: "Bạn muốn nội dung mới là gì?"
     - text: "Hãy cho biết nội dung bạn muốn thay đổi"
+  utter_ask_schedule_location_edit:
+    - text: "Bạn muốn địa điểm mới là gì?"
+    - text: "Hay cho biết địa điểm mới bạn muốn thay đổi"
 
-  utter_subscribed:
-    - text: "Tạo thành công"
-    - text: "Đã tạo"
+  utter_schedule_created:
+    - text: "Tạo lịch thành công"
+    - text: "Lịch được tạo thành công"
 
-  utter_ask_to_confirm_submit:
+  utter_ask_to_confirm_create_schedule:
     - text: "Bạn chắc muốn thêm lịch này chứ?"
     - text: "Bạn có chắc muốn thêm kế hoạch này không?"
+
+  utter_ask_to_confirm_delete_schedule:
+    - text: "Bạn chắc chắn muốn xóa lịch này chứ?"
+    - text: "Bạn có chắc muốn xóa lịch này không?"
+
+  utter_ask_to_confirm_edit_schedule:
+    - text: "Bạn chắc chắn muốn sửa lịch này chứ?"
+    - text: "Đây có phải lịch bạn muốn sửa không?"
+    - text: "Bạn có chắc muốn sửa lịch này không?"
 
   utter_ok_continue:
     - text: "Ok, tiếp tục nhé"
@@ -135,65 +257,34 @@ responses:
     - text: "Thử lại nhé"
     - text: "Thử lại nhé. Lần này hãy cố gắng đúng cú pháp"
 
-  utter_ask_continue_edit:
+  utter_ask_continue_edit_schedule:
     - text: "Bạn có muốn sửa thêm thông tin gì về lịch này nữa không?"
-    - text: "Bạn có muốn muốn thay đổi thêm thông tin gì nữa không?"
-    - text: "Còn thông tin nào bạn muốn sửa nữa không?"
+    - text: "Bạn có muốn muốn thay đổi thêm thông tin gì về lịch này nữa không?"
+    - text: "Còn thông tin nào về lịch này mà bạn muốn sửa nữa không?"
+
+  utter_no_curent_schedule:
+    - text: "Bạn cần cho tôi biết thông tin cụ thể của lịch bạn muốn"
+    - text: "Tôi không biết bạn muốn lịch nào. Hãy thử lại với thông tin cụ thể hơn"
+
+  utter_too_many_current_schedule:
+    - text: "Hãy chọn một lịch cụ thể"
+    - text: "Có nhiều hơn một lịch, hãy thử lại với thông tin cụ thể hơn"
+    - text: "Tôi không biết bạn muốn thao tác với lịch nào. Hãy thử lại với thông tin cụ thể hơn"
 
 
 actions:
-  - action_show_schedule
+  - action_retrieve_schedule
   - action_create_schedule_submit
   - validate_create_schedule_form
-  - action_confirm_create_schedule_info
-  - action_confirm_delete_schedule_info
+  - action_create_schedule_confirm_info
+  - action_create_schedule_reset_slots
+  - action_delete_schedule_confirm_info
   - action_delete_schedule
-  - action_check_edit_schedule_info
-  - action_reset_edit_schedule_slots
-  - action_confirm_edit_schedule_info
+  - action_edit_schedule_confirm_info
+  - action_edit_schedule_reset_slots
+  - action_edit_schedule_confirm_edit_info
   - action_edit_schedule
   - validate_edit_schedule_form
+  - action_check_current_schedule
 
 
-forms:
-  create_schedule_form:
-    required_slots:
-      date_field:
-        - type: from_text
-          intent: inform_date
-          not_intent: cancel
-      start_time:
-        - type: from_text
-          intent: inform_time
-          not_intent: cancel
-      end_time:
-        - type: from_text
-          intent: inform_time
-          not_intent: cancel
-      content:
-        - type: from_text
-          intent: inform_content_schedule
-          not_intent: cancel
-
-  edit_schedule_form:
-    required_slots:
-      selected_field_schedule:
-        - type: from_text
-          intent: inform_field
-          not_intent: cancel
-      date_field_edit:
-        - type: from_text
-          intent: inform_date
-          not_intent: cancel
-      start_time_edit:
-        - type: from_text
-          intent: inform_time
-          not_intent: cancel
-      end_time_edit:
-        - type: from_text
-          intent: inform_time
-          not_intent: cancel
-      content_edit:
-        - type: from_text
-          intent: inform_content_schedule
-          not_intent: cancel

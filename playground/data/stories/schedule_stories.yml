@@ -2,41 +2,84 @@ version: "2.0"
 
 stories:
 
-  # GET SCHEDULES
+  # RETRIEVE SCHEDULES
 
   # User ask for schedule
   - story: ask schedule
     steps:
       - intent: ask_schedule
-      - action: action_show_schedule
+      - action: action_retrieve_schedule
+      - checkpoint: checkpoint_retrieve_schedule_retrieved
+
+  # User ask then delete schedule
+  - story: ask then delete current schedule / one current schedule
+    steps:
+      - checkpoint: checkpoint_retrieve_schedule_retrieved
+      - intent: delete_current_schedule
+      - action: action_check_current_schedule
+      - slot_was_set:
+          - schedule_current_num: one
+      - checkpoint: checkpoint_delete_schedule
+
+  - story: ask then delete current schedule / many current schedules
+    steps:
+      - checkpoint: checkpoint_retrieve_schedule_retrieved
+      - intent: delete_current_schedule
+      - action: action_check_current_schedule
+      - slot_was_set:
+          - schedule_current_num: many
+      - checkpoint: checkpoint_delete_schedule
+
+  - story: ask then delete current schedule / none current schedule
+    steps:
+      - checkpoint: checkpoint_retrieve_schedule_retrieved
+      - intent: delete_current_schedule
+      - action: action_check_current_schedule
+      - slot_was_set:
+          - schedule_current_num: none
+      - action: utter_no_current_schedule
+
+  # user ask then edit schedule
+  - story: ask then edit current schedule / one current schedule
+    steps:
+      - checkpoint: checkpoint_retrieve_schedule_retrieved
+      - intent: edit_current_schedule
+      - action: action_check_current_schedule
+      - slot_was_set:
+          - schedule_current_num: one
+      - checkpoint: checkpoint_edit_schedule
+
+  - story: ask then edit current schedule / none current schedule
+    steps:
+      - checkpoint: checkpoint_retrieve_schedule_retrieved
+      - intent: edit_current_schedule
+      - action: action_check_current_schedule
+      - slot_was_set:
+          - schedule_current_num: none
+      - action: utter_no_current_schedule
+
+  - story: ask then edit current schedule / none current schedule
+    steps:
+      - checkpoint: checkpoint_retrieve_schedule_retrieved
+      - intent: edit_current_schedule
+      - action: action_check_current_schedule
+      - slot_was_set:
+         - schedule_current_num: none
+      - action: utter_too_many_current_schedule
+
+
 
   # DELETE SCHEDULES
 
-  # User ask then delete schedule / happy path
-  - story: ask then delete schedule / happy path
-    steps:
-      - intent: ask_schedule
-      - action: action_show_schedule
-      - intent: delete_schedule
-      - action: action_confirm_delete_schedule_info
-      - intent: affirm
-      - action: action_delete_schedule
-  
-  # User ask then delete schedule / cancel
-  - story: ask then delete schedule / cancel
-    steps:
-      - intent: ask_schedule
-      - action: action_show_schedule
-      - intent: delete_schedule
-      - action: action_confirm_delete_schedule_info
-      - intent: deny
-      - action: utter_ok
-
-  # User ask to delete schedule / happy path
+  # User ask to delete schedule / affirm / affirm delete recurrence
   - story: ask to delete schedule / happy path
     steps:
       - intent: delete_schedule
-      - action: action_confirm_delete_schedule_info
+      - action: action_delete_schedule_confirm_info
+      - slot_was_set:
+          - schedule_info_provided: true
+      - checkpoint: checkpoint_delete_schedule
+      - action: utter_ask_to_confirm_delete_schedule
       - intent: affirm
       - action: action_delete_schedule
 
@@ -44,7 +87,11 @@ stories:
   - story: ask to delete schedule / cancel
     steps:
       - intent: delete_schedule
-      - action: action_confirm_delete_schedule_info
+      - action: action_delete_schedule_confirm_info
+      - slot_was_set:
+          - schedule_info_provided: true
+      - checkpoint: checkpoint_delete_schedule
+      - action: utter_ask_to_confirm_delete_schedule
       - intent: deny
       - action: utter_ok
 
@@ -59,17 +106,24 @@ stories:
       - action: create_schedule_form
       - active_loop: create_schedule_form
       - slot_was_set:
-          - date_field: 30-6-2021
+          - schedule_date_field: 30-6-2021
       - slot_was_set:
-          - start_time: 07:00
+          - schedule_start_time: 07:00
       - slot_was_set:
-          - end_time: 08:00
+          - schedule_end_time: 08:00
       - slot_was_set:
-          - content: họp giao ban
+          - schedule_content: họp giao ban
+      - slot_was_set:
+          - schedule_location: công ty
+      - slot_was_set:
+          - schedule_is_recurring: True
+      - slot_was_set:
+          - schedule_recurrence: hàng tuần
       - active_loop: null
-      - action: action_confirm_create_schedule_info
+      - action: action_create_schedule_confirm_info
       - intent: affirm
       - action: action_create_schedule_submit
+      - action: action_create_schedule_reset_slots
 
   # User create a schedule / cancel
   - story: User create a schedule / cancel
@@ -102,9 +156,10 @@ stories:
       - action: utter_ok_continue
       - action: create_schedule_form
       - active_loop: null
-      - action: action_confirm_create_schedule_info
+      - action: action_create_schedule_confirm_info
       - intent: affirm
       - action: action_create_schedule_submit
+      - action: action_create_schedule_reset_slots
 
   # User deny submit info
 
@@ -116,15 +171,21 @@ stories:
       - action: create_schedule_form
       - active_loop: create_schedule_form
       - slot_was_set:
-          - date_field: 30-6-2021
+          - schedule_date_field: 30-6-2021
       - slot_was_set:
-          - start_time: 07:00
+          - schedule_start_time: 07:00
       - slot_was_set:
-          - end_time: 08:00
+          - schedule_end_time: 08:00
       - slot_was_set:
-          - content: họp giao ban
+          - schedule_content: họp giao ban
+      - slot_was_set:
+          - schedule_location: công ty
+      - slot_was_set:
+          - schedule_is_recurring: True
+      - slot_was_set:
+          - schedule_recurrence: hàng tuần
       - active_loop: null
-      - action: action_confirm_create_schedule_info
+      - action: action_create_schedule_confirm_info
       - or:
           - intent: deny
           - intent: cancel
@@ -145,7 +206,7 @@ stories:
       - action: utter_ok_continue
       - action: create_schedule_form
       - active_loop: null
-      - action: action_confirm_create_schedule_info
+      - action: action_create_schedule_confirm_info
       - or:
           - intent: deny
           - intent: cancel
@@ -154,65 +215,69 @@ stories:
   # EDIT SCHEDULES
 
   # User edit a schedule / no info provided
-  - story: user edit a schedule / no info provided
-    steps:
-      - intent: edit_schedule
-      - action: action_check_edit_schedule_info
-      - slot_was_set:
-          - info_provided: false
-      - action: utter_please_try_again
+#  - story: user edit a schedule / no info provided
+#    steps:
+#      - intent: edit_schedule
+#      - action: action_check_edit_schedule_info
+#      - slot_was_set:
+#          - info_provided: false
+#      - action: utter_please_try_again
 
   # user edit a schedule / info provided
   - story: user edit a schedule / info provided
     steps:
       - intent: edit_schedule
-      - action: action_check_edit_schedule_info
+      - action: action_edit_schedule_confirm_info
       - slot_was_set:
           - info_provided: true
-      - checkpoint: checkpoint_ask_field
+      - checkpoint: checkpoint_edit_schedule
+      - action: utter_ask_to_confirm_edit_schedule
+      - checkpoint: checkpoint_edit_schedule_ask_field
 
   # user select field to edit / happy path
   - story: user select field loop / happy path
     steps:
-      - checkpoint: checkpoint_ask_field
+      - checkpoint: checkpoint_edit_schedule_ask_field
       - intent: affirm
       - action: edit_schedule_form
       - active_loop: edit_schedule_form
       - slot_was_set:
-          - selected_field_schedule: date_field
+          - schedule_selected_field: date_field
       - slot_was_set:
-          - date_field_edit: 25-08-2021
+          - schedule_date_field_edit: 25-08-2021
       - slot_was_set:
-          - start_time_edit: 07:30
+          - schedule_start_time_edit: 07:30
       - slot_was_set:
-          - end_time_edit: 09:15
+          - schedule_end_time_edit: 09:15
       - slot_was_set:
-          - content_edit: làm cái gì đó
+          - schedule_content_edit: làm cái gì đó
+      - slot_was_set:
+          - schedule_location_edit: ở đâu đó
       - active_loop: null
       # changes made here
-      - action: action_reset_edit_schedule_slots
+      - action: action_edit_schedule_reset_slots
       - action: utter_ask_continue_edit
-      - checkpoint: checkpoint_ask_field
+      - checkpoint: checkpoint_edit_schedule_ask_field
 
   # user finish editing / happy path
   - story: user finish editing / happy path
     steps:
-      - checkpoint: checkpoint_ask_field
+      - checkpoint: checkpoint_edit_schedule_ask_field
       - intent: deny
       - slot_was_set:
           - change_made: true
-      - action: action_confirm_edit_schedule_info
+      - action: action_edit_schedule_confirm_edit_info
       - intent: affirm
       - action: action_edit_schedule
 
   # user finish editing / user cancel
   - story: user finish editing / user cancel
     steps:
-      - checkpoint: checkpoint_ask_field
+      - checkpoint: checkpoint_edit_schedule_ask_field
       - intent: deny
       - slot_was_set:
           - change_made: true
-      - action: action_confirm_edit_schedule_info
+      - action: action_edit_schedule_confirm_edit_info
       - or:
           - intent: deny
           - intent: cancel
@@ -221,7 +286,7 @@ stories:
   # user deny after checking edit info
   - story: user deny after checking edit info
     steps:
-      - checkpoint: checkpoint_ask_field
+      - checkpoint: checkpoint_edit_schedule_ask_field
       - intent: deny
       - slot_was_set:
           - change_made: false
@@ -230,7 +295,7 @@ stories:
   # user select field to edit / user cancel while filling form / affirm cancel
   - story: user select field to edit / user cancel while filling form / affirm cancel
     steps:
-      - checkpoint: checkpoint_ask_field
+      - checkpoint: checkpoint_edit_schedule_ask_field
       - intent: affirm
       - action: edit_schedule_form
       - active_loop: edit_schedule_form
@@ -246,7 +311,7 @@ stories:
   # user select field to edit / user cancel while filling form / deny cancel and continue
   - story: user select field to edit / user cancel while filling form / affirm cancel
     steps:
-    - checkpoint: checkpoint_ask_field
+    - checkpoint: checkpoint_edit_schedule_ask_field
     - intent: affirm
     - action: edit_schedule_form
     - active_loop: edit_schedule_form
@@ -258,6 +323,6 @@ stories:
     - action: utter_ok_continue
     - action: edit_schedule_form
     - active_loop: null
-    - action: action_reset_edit_schedule_slots
+    - action: action_edit_schedule_reset_slots
     - action: utter_ask_continue_edit
-    - checkpoint: checkpoint_ask_field
+    - checkpoint: checkpoint_edit_schedule_ask_field

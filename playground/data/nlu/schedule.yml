@@ -90,14 +90,20 @@ nlu:
     examples: |
       - Hủy bỏ
       - Thôi hủy bỏ
-      - thôi, không cần nữa
-      - bỏ
+      - thôi không cần nữa
       - hủy nhé
       - thôi bỏ đi
       - hủy
       - thôi
-      - bỏ đi
       - không cần nữa
+      - thôi hủy
+
+  - intent: skip
+    examples: |
+      - bỏ qua
+      - không có
+      - qua
+      - bỏ
 
   - intent: delete_schedule
     examples: |
@@ -125,3 +131,33 @@ nlu:
       - đổi lịch lúc tám giờ tối
       - điều chỉnh kế hoạch
       - chỉnh sửa kế hoạch chín giờ sáng mai
+
+  - intent: delete_current_schedule
+    examples: |
+      - Hủy hết các lịch này
+      - Hủy lịch này
+      - Xóa hết các lịch này đi
+      - Hủy các kế hoạch này cho tôi
+      - Hủy toàn bộ những lịch vừa rồi
+      - Hủy lịch này đi
+      - Hủy bỏ các lịch này
+      - Xóa lịch vừa rồi nhé
+      - Xóa hết các kế hoạch này nhé
+      - Tôi muốn hủy lịch này
+      - Tôi cần hủy hết các lịch này
+      - Hủy lịch đấy đi
+      - Xóa lịch đấy đi
+      - Tôi cần hủy lịch đấy
+
+  - intent: edit_current_schedule
+    examples: |
+      - Rời lịch này đi
+      - Tôi cần rời lịch này
+      - Tôi muốn rời lịch này
+      - Sửa lịch này cho tôi
+      - Tôi muốn sửa lịch này
+      - Tôi cần thay đổi lịch này
+      - Thay đổi lịch này
+      - Rời lịch này
+      - Sửa lịch này
+      - Rời lịch cho tôi
