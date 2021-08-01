@@ -89,7 +89,8 @@ class Contact(models.Model):
 
 class CustomUser(models.Model):
     username = models.CharField(max_length=20)
-    pass_field = models.CharField(db_column='pass', max_length=16)  # Field renamed because it was a Python reserved word.
+    pass_field = models.CharField(db_column='pass', max_length=16)  # Field renamed because it was a Python reserved
+    # word.
     firstname = models.CharField(max_length=50, db_collation='utf8_general_ci')
     lastname = models.CharField(max_length=50, db_collation='utf8_general_ci', blank=True, null=True)
     dob = models.DateTimeField(blank=True, null=True)

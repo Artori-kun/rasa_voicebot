@@ -3,36 +3,48 @@ version: "2.0"
 nlu:
   - intent: ask_schedule
     examples: |
-      - Lịch ngày mai thế nào
-      - Cho tôi xem lịch trình ngày kia
-      - Thứ hai tuần tới tôi có lịch gì không
-      - Ngày mai kế hoạch thế nào
-      - Ngày 6-2-2021 tôi có những kế hoạch gì
-      - Lịch trình vào ngày 8-5-2021 thế nào
-      - Hôm kia lịch trình của tôi gồm những gì
-      - Cho tôi xem lịch trình tuần sau
-      - Kế hoạch tháng sau gồm những gì nhỉ
-      - Lich trình tuần trước của tôi là gì vậy
-      - Lịch làm việc mai ra sao
-      - Hôm qua lịch của tôi thế nào
-      - Lúc tám giờ ngày mai tôi có kế hoạch gì
-      - Lịch trình bảy giờ tối mai có gì không
-      - Kế hoạch hai giờ ba mươi chiều nay thế nào
+      - lịch ngày mai thế nào
+      - cho tôi xem lịch trình ngày kia
+      - thứ hai tuần tới tôi có lịch gì không
+      - ngày mai kế hoạch thế nào
+      - ngày 6-2-2021 tôi có những kế hoạch gì
+      - lịch trình vào ngày 8-5-2021 thế nào
+      - hôm kia lịch trình của tôi gồm những gì
+      - cho tôi xem lịch trình tuần sau
+      - kế hoạch tháng sau gồm những gì nhỉ
+      - lich trình tuần trước của tôi là gì vậy
+      - lịch làm việc mai ra sao
+      - hôm qua lịch của tôi thế nào
+      - lúc tám giờ ngày mai tôi có kế hoạch gì
+      - lịch trình bảy giờ tối mai có gì không
+      - kế hoạch hai giờ ba mươi chiều nay thế nào
       - lịch ngày mai
       - kế hoạch ngày hai lăm tháng tám
+      - lịch ngày mai lúc chín giờ hai mươi
+      - kế hoạch thứ hai tuần sau lúc mười giờ
+      - lịch thứ năm lúc chín giờ tối
+      - lịch ngày kia lúc mười giờ ba mươi
+      - lịch lúc hai mươi giờ ngày kia
+      - lịch thứ tư tuần sau lúc tám giờ sáng
+      - kế hoạch chín giờ thứ năm tuần này
+      - lịch ngày mười chín tháng sau lúc bảy giờ
+      - kế hoạch ngày mùng tám tháng tư lúc tám giờ
 
   - intent: add_new_schedule
     examples: |
-      - Tôi cần thêm lịch mới
-      - Tôi cần thêm kế hoạch mới
-      - Tôi cần tạo lịch mới
-      - Tạo cho tôi một lịch mới
-      - Thêm kế hoạch mới cho tôi
-      - Tôi muốn thêm kế hoạch mới
-      - Tôi cần lập lịch
-      - Tôi cần lên lịch
-      - Hẹn ngày cho tôi
-      - Đặt lịch cho tôi
+      - tôi cần thêm lịch mới
+      - tôi cần thêm kế hoạch mới
+      - tôi cần tạo lịch mới
+      - tạo cho tôi một lịch mới
+      - thêm kế hoạch mới cho tôi
+      - tôi muốn thêm kế hoạch mới
+      - tôi cần lập lịch
+      - tôi cần lên lịch
+      - hẹn ngày cho tôi
+      - đặt lịch cho tôi
+      - tạo lịch mới
+      - thêm kế hoạch mới
+      - thêm lịch mới
 
   - intent: inform_date
     examples: |
@@ -81,15 +93,18 @@ nlu:
       - ngày
       - thời gian
       - thời gian bắt đầu
+      - giờ bắt đầu
+      - giờ kết thúc
       - thời gian kết thúc
       - nội dung
+      - địa điểm
       - tất cả
       - ngày tháng
 
   - intent: cancel
     examples: |
-      - Hủy bỏ
-      - Thôi hủy bỏ
+      - hủy bỏ
+      - thôi hủy bỏ
       - thôi không cần nữa
       - hủy nhé
       - thôi bỏ đi
@@ -107,9 +122,9 @@ nlu:
 
   - intent: delete_schedule
     examples: |
-      - Tôi cần xóa lịch ngày mai lúc bảy giờ
-      - Tôi muốn hủy lịch lúc chín giờ ngày kia
-      - Hủy bỏ kế hoạch ngày mười lăm tháng sáu
+      - tôi cần xóa lịch ngày mai lúc bảy giờ
+      - tôi muốn hủy lịch lúc chín giờ ngày kia
+      - hủy bỏ kế hoạch ngày mười lăm tháng sáu
       - xóa lịch lúc mười ba giờ thứ hai tuần sau
       - hủy kế hoạch hai giờ chiều thứ tư tuần này
       - xóa bỏ kế hoạch tám giờ sáng ngày hai mươi tư tháng chín
@@ -118,6 +133,17 @@ nlu:
       - hủy bỏ lịch ngày mùng chín tháng hai
       - hủy lịch ngày mai lúc bảy giờ
       - hủy lịch lúc tám giờ sáng ngày mười lăm tháng chín
+      - hủy lịch ngày mai
+      - xóa lịch lúc tám giờ
+      - hủy bỏ lịch ngày kia
+      - xóa lịch thừ tư tuần sau
+      - hủy lịch lúc chín giờ
+      - hủy lịch ngày mai lúc tàm giờ
+      - xóa bỏ kế hoạch lúc chín giờ ngày hai mươi tháng sau
+      - hủy lịch thứ tư tuần sau lúc chín giờ
+      - xóa lịch lúc tàm giờ ba mươi ngày kia
+      - xóa lịch thứ sáu tuần sau
+      - xóa lịch chủ nhật tuần này
 
   - intent: edit_schedule
     examples: |
@@ -131,33 +157,48 @@ nlu:
       - đổi lịch lúc tám giờ tối
       - điều chỉnh kế hoạch
       - chỉnh sửa kế hoạch chín giờ sáng mai
+      - sửa lịch ngày mai lúc tám giờ
+      - sửa lịch lúc mười gia ba mươi ngày kia
+      - sửa lịch thứ hai tuần sau lúc chín giờ
+      - chỉnh sửa kế hoạch ngày kia lúc hai mươi giờ
+      - sửa kế hoạch lúc bảy giờ
+      - chỉnh sửa kế hoạch ngày hai mươi sáu tháng sau lúc mười giờ
+      - thay đổi lịch ngày mai lúc chín giờ tối
+      - thay đổi lịch ngày mười lăm tháng sáu lúc hai giờ chiều
+      - sửa cho tôi lịch thứ ba tuần tới lúc bảy giờ ba mươi
 
   - intent: delete_current_schedule
     examples: |
-      - Hủy hết các lịch này
-      - Hủy lịch này
-      - Xóa hết các lịch này đi
-      - Hủy các kế hoạch này cho tôi
-      - Hủy toàn bộ những lịch vừa rồi
-      - Hủy lịch này đi
-      - Hủy bỏ các lịch này
-      - Xóa lịch vừa rồi nhé
-      - Xóa hết các kế hoạch này nhé
-      - Tôi muốn hủy lịch này
-      - Tôi cần hủy hết các lịch này
-      - Hủy lịch đấy đi
-      - Xóa lịch đấy đi
-      - Tôi cần hủy lịch đấy
+      - hủy hết các lịch này
+      - hủy lịch này
+      - xóa hết các lịch này đi
+      - hủy các kế hoạch này cho tôi
+      - hủy toàn bộ những lịch vừa rồi
+      - hủy lịch này đi
+      - hủy bỏ các lịch này
+      - xóa lịch vừa rồi nhé
+      - xóa hết các kế hoạch này nhé
+      - tôi muốn hủy lịch này
+      - tôi cần hủy hết các lịch này
+      - hủy lịch đấy đi
+      - xóa lịch đấy đi
+      - tôi cần hủy lịch đấy
+      - xóa lịch này
 
   - intent: edit_current_schedule
     examples: |
-      - Rời lịch này đi
-      - Tôi cần rời lịch này
-      - Tôi muốn rời lịch này
-      - Sửa lịch này cho tôi
-      - Tôi muốn sửa lịch này
-      - Tôi cần thay đổi lịch này
-      - Thay đổi lịch này
-      - Rời lịch này
-      - Sửa lịch này
-      - Rời lịch cho tôi
+      - rời lịch này đi
+      - tôi cần rời lịch này
+      - tôi muốn rời lịch này
+      - sửa lịch này cho tôi
+      - tôi muốn sửa lịch này
+      - tôi cần thay đổi lịch này
+      - thay đổi lịch này
+      - rời lịch này
+      - sửa lịch này
+      - rời lịch cho tôi
+      - chỉnh sửa lịch này
+      - thay đổi kế hoạch này
+      - sửa kế hoạch này
+      - rời kế hoạch này
+      - thay đỏi lịch này

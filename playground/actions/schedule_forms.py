@@ -15,28 +15,30 @@ class ValidateCreateScheduleForm(FormValidationAction):
     def name(self) -> Text:
         return "validate_create_schedule_form"
 
-    def required_slots(
+    async def required_slots(
             self,
             slots_mapped_in_domain: List[Text],
             dispatcher: "CollectingDispatcher",
             tracker: "Tracker",
             domain: "DomainDict",
     ) -> List[Text]:
-        if tracker.get_slot('schedule_is_recurring') is False or None:
-            return ['schedule_date_field',
-                    'schedule_start_time',
-                    'schedule_end_time',
-                    'schedule_content',
-                    'schedule_location',
-                    'schedule_is_recurring']
-        else:
+        if tracker.get_slot('schedule_is_recurring') is True:
             return ['schedule_date_field',
                     'schedule_start_time',
                     'schedule_end_time',
                     'schedule_content',
                     'schedule_location',
                     'schedule_is_recurring',
-                    'schedule_recurrence']
+                    'schedule_recurrence',
+                    'schedule_recurrence_type',
+                    'schedule_separation_count']
+        else:
+            return ['schedule_date_field',
+                    'schedule_start_time',
+                    'schedule_end_time',
+                    'schedule_content',
+                    'schedule_location',
+                    'schedule_is_recurring']
 
     def validate_schedule_date_field(self,
                                      slot_value: Any,
@@ -122,13 +124,17 @@ class ValidateCreateScheduleForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         recurrence_str = slot_value.lower()
         recurrence_type, separation_count = date_extractor.summary_recurrence(recurrence_str)
+        # print(recurrence_type)
+        # print(separation_count)
 
-        if recurrence_type is None and separation_count is None:
+        if recurrence_type is None:
             return {"schedule_recurrence": None}
         else:
-            SlotSet("schedule_recurrence_type", recurrence_type)
-            SlotSet("schedule_separation_count", separation_count)
-            return {"schedule_recurrence": recurrence_str}
+            # SlotSet("schedule_recurrence_type", recurrence_type)
+            # SlotSet("schedule_separation_count", separation_count)
+            return {"schedule_recurrence": recurrence_str,
+                    "schedule_recurrence_type": recurrence_type,
+                    "schedule_separation_count": separation_count}
 
 
 # Validation for edit schedule form
@@ -168,8 +174,8 @@ class ValidateEditScheduleForm(FormValidationAction):
 
         synonyms_all = ["tất cả"]
         synonyms_date_field = ["ngày", "ngày tháng"]
-        synonyms_start_time = ["thời gian bắt đầu"]
-        synonyms_end_time = ["thời gian kết thúc"]
+        synonyms_start_time = ["thời gian bắt đầu", "giờ bắt đầu"]
+        synonyms_end_time = ["thời gian kết thúc", "giờ kết thúc"]
         synonyms_content = ["nội dung"]
         synonyms_location = ["địa điểm"]
 
@@ -198,12 +204,12 @@ class ValidateEditScheduleForm(FormValidationAction):
         elif schedule_selected_field in synonyms_location:
             return {'schedule_selected_field': 'location'}
 
-    def validate_date_field_edit(self,
-                                 slot_value: Any,
-                                 dispatcher: CollectingDispatcher,
-                                 tracker: Tracker,
-                                 domain: DomainDict,
-                                 ) -> Dict[Text, Any]:
+    def validate_schedule_date_field_edit(self,
+                                          slot_value: Any,
+                                          dispatcher: CollectingDispatcher,
+                                          tracker: Tracker,
+                                          domain: DomainDict,
+                                          ) -> Dict[Text, Any]:
         date_str = slot_value.lower()
         dates = date_extractor.summary_date(date_str)
 
@@ -212,7 +218,7 @@ class ValidateEditScheduleForm(FormValidationAction):
         else:
             return {"schedule_date_field_edit": dates[0]}
 
-    def validate_start_time_edit(
+    def validate_schedule_start_time_edit(
             self,
             slot_value: Any,
             dispatcher: "CollectingDispatcher",
@@ -227,7 +233,7 @@ class ValidateEditScheduleForm(FormValidationAction):
         else:
             return {"schedule_start_time_edit": times[0]}
 
-    def validate_end_time_edit(
+    def validate_schedule_end_time_edit(
             self,
             slot_value: Any,
             dispatcher: "CollectingDispatcher",

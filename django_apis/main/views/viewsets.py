@@ -91,9 +91,59 @@ class ReminderViewSet(viewsets.ModelViewSet):
 
         return queryset
 
-    # def destroy(self, request, *args, **kwargs):
-    #     reminder = self.get_object()
-    #     reminder.recurrence_end_date = datetime.date().today()
+    def destroy(self, request, *args, **kwargs):
+        reminder = self.get_object()
+        date_param = self.request.query_params.get("date")
+        if reminder.is_recurring is False:
+            reminder.delete()
+            return Response({"message": "Delete success"})
+        else:
+            if date_param is None:
+                message = {"err_message": "No date parameter in request"}
+                return Response(message, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                reminder_exception = ReminderInstanceException.objects.create(reminder_id=reminder.pk,
+                                                                              date_field=reminder.date_param)
+                reminder_exception.save()
+
+                serializer = ReminderInstanceExceptionSerializer(reminder_exception)
+
+                return Response(serializer.data)
+
+    def update(self, request, *args, **kwargs):
+        reminder = self.get_object()
+        date_param = self.request.query_params.get('date')
+
+        data = request.data
+
+        if reminder.is_recurring is False:
+            reminder.date_field = data['date_field']
+            reminder.time_field = data['time_field']
+            reminder.content = data['content']
+
+            reminder.save()
+
+            serializer = ReminderSerializer(reminder)
+
+            return Response(data=serializer.data)
+        else:
+            if date_param is None:
+                message = {"err_message": "No date parameter in request"}
+                return Response(message, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                reminder_exception = ReminderInstanceException.objects.create(reminder_id=reminder.pk,
+                                                                              date_field=reminder.date_param)
+                reminder_exception.save()
+
+                reminder_new = Reminder.objects.create(date_field=data['date_field'],
+                                                       time_field=data['time_field'],
+                                                       content=data['content'])
+
+                reminder_new.save()
+
+                serializer = ReminderSerializer(reminder_new)
+
+                return Response(data=serializer.data)
 
 
 class ReminderInstanceExceptionViewSet(viewsets.ModelViewSet):

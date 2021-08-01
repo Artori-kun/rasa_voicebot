@@ -12,6 +12,7 @@ intents:
   - edit_schedule
   - delete_current_schedule
   - edit_current_schedule
+  - skip
 
 slots:
   # schedule's fields slot
@@ -41,7 +42,7 @@ slots:
     type: text
     influence_conversation: true
   schedule_separation_count:
-    type: any
+    type: float
     influence_conversation: true
 
   # fields for editing schedules
@@ -262,7 +263,7 @@ responses:
     - text: "Bạn có muốn muốn thay đổi thêm thông tin gì về lịch này nữa không?"
     - text: "Còn thông tin nào về lịch này mà bạn muốn sửa nữa không?"
 
-  utter_no_curent_schedule:
+  utter_no_current_schedule:
     - text: "Bạn cần cho tôi biết thông tin cụ thể của lịch bạn muốn"
     - text: "Tôi không biết bạn muốn lịch nào. Hãy thử lại với thông tin cụ thể hơn"
 
@@ -277,11 +278,12 @@ actions:
   - action_create_schedule_submit
   - validate_create_schedule_form
   - action_create_schedule_confirm_info
-  - action_create_schedule_reset_slots
+  - action_create_schedule_reset_form
   - action_delete_schedule_confirm_info
   - action_delete_schedule
   - action_edit_schedule_confirm_info
   - action_edit_schedule_reset_slots
+  - action_edit_schedule_reset_form
   - action_edit_schedule_confirm_edit_info
   - action_edit_schedule
   - validate_edit_schedule_form

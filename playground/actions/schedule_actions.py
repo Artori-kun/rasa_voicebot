@@ -52,14 +52,20 @@ class ActionRetrieveSchedule(Action):
             dispatcher.utter_message("Tôi không tìm thấy thông tin bạn yêu cầu")
         elif status == 503:
             dispatcher.utter_message("Xin lỗi, có vẻ server đang bận. Thử lại sau nhé")
+        elif status < 200 or status >= 300:
+            dispatcher.utter_message(f"Ối, đã xảy ra lỗi, bạn hãy thử lại sau nhé. Mã lỗi:{status}")
         elif status == 200:
             schedules = response.json()
+
+        # date_param = datetime.strptime(date_param, "%d-%m-%Y")
+        # date_param = date_param.strftime("%Y-%m-%d")
 
         if len(schedules) == 0:
             dispatcher.utter_message("Bạn không có lịch gì")
             return [SlotSet('schedule_current', None)]
         else:
             for schedule in schedules:
+                schedule['date_field'] = date_param
                 # date_field = schedule['date_field']
                 start_time = schedule['start_time']
                 end_time = schedule['end_time']
@@ -87,7 +93,9 @@ class ActionCheckCurrentSchedule(Action):
         current_schedule = tracker.get_slot('schedule_current')
 
         if len(current_schedule) == 1:
-            return [SlotSet('schedule_current_num', 'one')]
+            return [SlotSet('schedule_current_num', 'one'),
+                    SlotSet('schedule_edited_record', current_schedule[0]),
+                    SlotSet('schedule_current', current_schedule[0])]
         elif len(current_schedule) > 1:
             return [SlotSet('schedule_current_num', 'many')]
         elif current_schedule is None:
@@ -147,6 +155,8 @@ class ActionCreateScheduleSubmit(Action):
 
         elif status == 500:
             dispatcher.utter_message("Xin lỗi, có vẻ server đang bận. Thử lại sau nhé")
+        elif status < 200 or status >= 300:
+            dispatcher.utter_message(f"Ối, đã xảy ra lỗi, bạn hãy thử lại sau nhé. Mã lỗi:{status}")
         elif status == 201:
             dispatcher.utter_message("Tạo lịch mới thành công")
 
@@ -172,6 +182,9 @@ class ActionCreateScheduleConfirmInfo(Action):
         recurrence_type = tracker.get_slot('schedule_recurrence_type')
         separation_count = tracker.get_slot('schedule_separation_count')
 
+        # print(recurrence_type)
+        # print(separation_count)
+
         dispatcher.utter_message("Đây là lịch bạn vửa lập:")
         dispatcher.utter_message(f"Ngày: {date_field}\n"
                                  f"Thời gian bắt đầu: {start_time}\n"
@@ -192,10 +205,10 @@ class ActionCreateScheduleConfirmInfo(Action):
         return []
 
 
-class ActionCreateScheduleResetSlots(Action):
+class ActionCreateScheduleResetForm(Action):
 
     def name(self) -> Text:
-        return 'action_create_schedule_reset_slots'
+        return 'action_create_schedule_reset_form'
 
     async def run(self,
                   dispatcher: "CollectingDispatcher",
@@ -234,8 +247,7 @@ class ActionDeleteScheduleConfirmInfo(Action):
 
         if len(times) == 0:
             if len(dates) == 0:
-                dispatcher.utter_message("Xin lỗi, tôi không biết bạn cần thông tin lịch vào thời điểm nào. Hãy thử "
-                                         "lại với thông tin cụ thể hơn")
+                dispatcher.utter_message("Xin lỗi, tôi không biết bạn cần thông tin lịch vào thời điểm nào.")
                 return [SlotSet("schedule_info_provided", False)]
             else:
                 date_param = dates[0]
@@ -255,6 +267,8 @@ class ActionDeleteScheduleConfirmInfo(Action):
             dispatcher.utter_message("Tôi không tìm thấy lịch bạn yêu cầu")
         elif status == 503:
             dispatcher.utter_message("Xin lỗi, có vẻ server đang bận. Thử lại sau nhé")
+        elif status < 200 or status >= 300:
+            dispatcher.utter_message(f"Ối, đã xảy ra lỗi, bạn hãy thử lại sau nhé. Mã lỗi:{status}")
         elif status == 200:
             schedules = response.json()
 
@@ -278,16 +292,18 @@ class ActionDeleteScheduleConfirmInfo(Action):
                 dispatcher.utter_message(text)
 
             if len(dates) != 0:
-                if datetime.strptime(dates[0], "%d-%m-%Y") < datetime.today():
-                    dispatcher.utter_message("Đây có vẻ như là lịch từ những ngày trước. Việc xóa chúng có thể làm mất "
+                if datetime.strptime(dates[0], "%d-%m-%Y") <= datetime.today():
+                    dispatcher.utter_message("Đây có vẻ như là lịch từ những ngày trước hoặc đang diễn ra. Việc xóa chúng có thể làm mất "
                                              "một số thông tin bạn cần sau này")
-            if len(times) != 0:
-                if datetime.strptime(times[0], "%H:%M").time() < datetime.now().time():
-                    dispatcher.utter_message("Kế hoạch mà bạn muốn xóa có vẻ đã hoặc đang diễn ra")
+            else:
+                if len(times) != 0:
+                    if datetime.strptime(times[0], "%H:%M").time() < datetime.now().time():
+                        dispatcher.utter_message("Kế hoạch mà bạn muốn xóa có vẻ đã hoặc đang diễn ra")
 
             # dispatcher.utter_message("Bạn có thực sự muốn xóa lịch không?")
 
-        return [SlotSet('schedule_current', schedules)]
+        return [SlotSet('schedule_current', schedules),
+                SlotSet('schedule_info_provided', True)]
 
 
 # Delete schedule
@@ -308,7 +324,7 @@ class ActionDeleteSchedule(Action):
             return []
 
         for schedule in schedules:
-            if schedule.is_recurring is False:
+            if schedule['is_recurring'] is False:
                 response = requests.delete(BASE_SCHEDULES_URL + str(schedule['id']))
 
                 # status = response.status_code
@@ -318,6 +334,9 @@ class ActionDeleteSchedule(Action):
             else:
                 # SlotSet("schedule_has_recurrence", True)
                 # recurrent_schedule.append(schedule)
+
+                schedule['date_field'] = datetime.strptime(schedule['date_field'], "%d-%m-%Y")
+                schedule['date_field'] = schedule['date_field'].strftime("%Y-%m-%d")
 
                 headers = {
                     'Content-Type': 'application/json; charset=utf-8'
@@ -334,7 +353,7 @@ class ActionDeleteSchedule(Action):
 
             status = response.status_code
 
-            if status > 200 or status < 200:
+            if status < 200 or status >= 300:
                 fail_schedules.append(schedule)
 
         # if len(recurrent_schedule) != 0:
@@ -349,6 +368,24 @@ class ActionDeleteSchedule(Action):
 
 
 # EDIT SCHEDULE ACTIONS
+# Reset form
+class ActionEditScheduleResetForm(Action):
+    def name(self) -> Text:
+        return 'action_edit_schedule_reset_form'
+
+    async def run(self,
+                  dispatcher: "CollectingDispatcher",
+                  tracker: Tracker,
+                  domain: "DomainDict") -> List[Dict[Text, Any]]:
+        return [SlotSet("schedule_selected_field", None),
+                SlotSet("schedule_date_field_edit", None),
+                SlotSet("schedule_start_time_edit", None),
+                SlotSet("schedule_end_time_edit", None),
+                SlotSet("schedule_content_edit", None),
+                SlotSet("schedule_location_edit", None),
+                SlotSet("schedule_change_made", False)]
+
+
 # Check edit info
 class ActionEditScheduleConfirmInfo(Action):
     def name(self) -> Text:
@@ -367,7 +404,7 @@ class ActionEditScheduleConfirmInfo(Action):
 
         if len(times) == 0:
             dispatcher.utter_message("Xin lỗi, bạn cần phải cung cấp đủ thông tin về thời gian và ngày tháng của lịch "
-                                     "bạn muốn sửa. Hãy thử lại với đầy đủ thông tin hơn")
+                                     "bạn muốn sửa.")
             return [SlotSet("schedule_info_provided", False)]
         elif len(dates) == 0:
             date_param = date.today()
@@ -384,6 +421,8 @@ class ActionEditScheduleConfirmInfo(Action):
             dispatcher.utter_message("Tôi không tìm thấy thông tin bạn yêu cầu")
         elif status == 503:
             dispatcher.utter_message("Xin lỗi, có vẻ server đang bận. Thử lại sau nhé")
+        elif status < 200 or status >= 300:
+            dispatcher.utter_message(f"Ối, đã xảy ra lỗi, bạn hãy thử lại sau nhé. Mã lỗi:{status}")
         elif status == 200:
             schedules = response.json()
 
@@ -422,7 +461,8 @@ class ActionEditScheduleResetSlots(Action):
                   dispatcher: "CollectingDispatcher",
                   tracker: Tracker,
                   domain: "DomainDict") -> List[Dict[Text, Any]]:
-        current_schedule = tracker.slots.get('schedule_edited_record')
+        current_schedule = tracker.get_slot('schedule_edited_record')
+        change_made = tracker.get_slot('schedule_change_made')
 
         if tracker.get_slot('schedule_date_field_edit') is not None:
             current_schedule['date_field'] = tracker.get_slot('schedule_date_field_edit')
@@ -432,16 +472,22 @@ class ActionEditScheduleResetSlots(Action):
             current_schedule['end_time'] = tracker.get_slot('schedule_end_time_edit')
         if tracker.get_slot('schedule_content_edit') is not None:
             current_schedule['content'] = tracker.get_slot('schedule_content_edit')
+        if tracker.get_slot('schedule_location_edit') is not None:
+            current_schedule['location'] = tracker.get_slot('schedule_location_edit')
 
-        if tracker.get_slot('schedule_change_made') is False:
-            SlotSet('schedule_change_made', True)
+        if change_made is False or None:
+            change_made = True
+
+        # print(tracker.get_slot('schedule_change_made'))
 
         return [SlotSet("schedule_edited_record", current_schedule),
                 SlotSet("schedule_selected_field", None),
                 SlotSet("schedule_date_field_edit", None),
                 SlotSet("schedule_start_time_edit", None),
                 SlotSet("schedule_end_time_edit", None),
-                SlotSet("schedule_content_edit", None)]
+                SlotSet("schedule_content_edit", None),
+                SlotSet("schedule_location_edit", None),
+                SlotSet("schedule_change_made", change_made)]
 
 
 # Confirm edit info
@@ -511,6 +557,28 @@ class ActionEditSchedule(Action):
         }
 
         if current_schedule['is_recurring'] is True:
+            payload = json.dumps(payload)
+
+            response = requests.post(BASE_SCHEDULES_URL, data=payload, headers=headers)
+
+            status = response.status_code
+            if status == 400:
+                err = response.json()
+                for e in err.keys():
+                    dispatcher.utter_message(err[e][0])
+                return []
+
+            elif status == 500:
+                dispatcher.utter_message("Xin lỗi, có vẻ server đang bận. Thử lại sau nhé")
+                return []
+
+            if status < 200 or status >= 300:
+                dispatcher.utter_message(f"Ối, đã xảy ra lỗi, bạn hãy thử lại sau nhé. Mã lỗi:{status}")
+                return []
+
+            current_schedule['date_field'] = datetime.strptime(current_schedule['date_field'], "%d-%m-%Y")
+            current_schedule['date_field'] = current_schedule['date_field'].strftime("%Y-%m-%d")
+
             exception_payload = {
                 "schedule_id": current_schedule["id"],
                 "date_field": current_schedule["date_field"]
@@ -522,18 +590,8 @@ class ActionEditSchedule(Action):
 
             status = response.status_code
 
-            if status > 200 or status < 200:
-                dispatcher.utter_message("Ối, đã xảy ra lỗi, bạn hãy thử lại sau nhé")
-                return []
-
-            payload = json.dumps(payload)
-
-            response = requests.post(BASE_SCHEDULES_URL, data=payload, headers=headers)
-
-            status = response.status_code
-
-            if status > 200 or status < 200:
-                dispatcher.utter_message("Ối, đã xảy ra lỗi, bạn hãy thử lại sau nhé")
+            if status < 200 or status >= 300:
+                dispatcher.utter_message(f"Ối, đã xảy ra lỗi, bạn hãy thử lại sau nhé. Mã lỗi:{status}")
                 return []
         else:
             payload = json.dumps(payload)
@@ -542,8 +600,17 @@ class ActionEditSchedule(Action):
 
             status = response.status_code
 
-            if status > 200 or status < 200:
-                dispatcher.utter_message("Ối, đã xảy ra lỗi, bạn hãy thử lại sau nhé")
+            if status == 400:
+                err = response.json()
+                for e in err.keys():
+                    dispatcher.utter_message(err[e][0])
+                return []
+
+            elif status == 500:
+                dispatcher.utter_message("Xin lỗi, có vẻ server đang bận. Thử lại sau nhé")
+                return []
+            elif status < 200 or status >= 300:
+                dispatcher.utter_message(f"Ối, đã xảy ra lỗi, bạn hãy thử lại sau nhé. Mã lỗi:{status}")
                 return []
 
         dispatcher.utter_message("Thay đỏi thành công")

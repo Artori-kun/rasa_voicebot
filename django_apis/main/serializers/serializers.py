@@ -18,12 +18,17 @@ class MyScheduleSerializer(serializers.ModelSerializer):
 
         schedules = MySchedule.objects.exclude(id__in=exception_schedule_id)
 
+        if self.instance:
+            object_id = self.instance.id
+            schedules = schedules.exclude(id=object_id)
+
         # schedules = list(schedules)
 
         for schedule in schedules:
             if check_occurrence(attrs['date_field'], schedule):
                 if schedule.start_time < attrs['start_time'] < schedule.end_time or schedule.start_time < \
                         attrs['end_time'] < schedule.end_time:
+                    print(schedule.id)
                     raise serializers.ValidationError(f"Trùng giờ với lịch đã có")
 
         return attrs

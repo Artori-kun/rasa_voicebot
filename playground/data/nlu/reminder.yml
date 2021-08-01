@@ -1,0 +1,111 @@
+version: "2.0"
+
+nlu:
+  - intent: ask_reminder
+    examples: |
+      - hôm nay có nhắc nhở gì
+      - nhắc nhở ngày hôm nay
+      - nhắc nhở ngày mai
+      - nhắc nhở thứ ba tuần sau
+      - nhắc nhở lúc chín giờ
+      - ngày kia có nhắc nhở gì không
+      - nhắc nhở lúc tám giờ hôm nay
+      - nhắc nhở lúc chín giờ ngày mùng sáu tháng năm
+      - mười giờ ngày mai có nhắc nhở gì không
+      - nhắc nhở lúc bảy giờ ngày kia
+      - thứ tư có nhắc nhở gì lúc hai giờ chiều không
+      - các nhắc nhở ngày hai mươi tháng tám
+      - nhắc nhở lúc mười giờ ngày mười chín tháng tư
+      - lúc tám giờ ba mươi ngày mai có nhắc nhở gì không
+      - cho tôi xem nhắc nhở hôm nay
+      - tôi cần xem nhắc nhở lúc tám giờ mười lăm ngày mai
+
+  - intent: create_reminder
+    examples: |
+      - tạo nhắc nhở mới
+      - tôi muốn tạo nhắc nhở mới
+      - tạo một nhắc nhở mới
+      - tạo nhắc nhở lúc bảy giờ
+      - tạo nhắc nhở ngày mai lúc chín giờ
+      - tạo nhắc nhở vào ngày kia
+      - tạo nhắc nhở lúc chín giờ thứ hai tuần sau
+      - tạo cho tôi nhắc nhở mới lúc bảy giờ ngày hai sáu tháng tư
+      - tạo nhắc nhở lúc chín giờ tối ngày mùng sáu tháng năm
+      - tạo nhắc nhở lúc mười giờ
+      - đặt nhắc nhở mới
+      - đặt nhắc nhở lúc một giờ chiều
+      - đặt nhắc nhở bảy giờ sáng mai
+      - đặt nhắc nhở lúc ba giờ chiều thứ hai tuần sau
+      - tôi muốn đặt nhắc nhở mới
+      - đặt nhắc nhở vào ngày kia lúc tám giờ
+      - thêm nhắc nhở mới
+      - thêm nhắc nhở lúc tám giờ ngày mai
+      - thêm nhắc nhở lúc bảy giờ ba mươi ngày hai lăm tháng bảy
+
+  - intent: edit_reminder
+    examples: |
+      - sửa nhắc nhở lúc chín giờ
+      - thay đổi nhắc nhở lúc tám giờ ngày mai
+      - tôi muốn sửa nhắc nhở lúc bảy giờ ngày hai lăm tháng tư
+      - sửa nhắc nhở thứ hai tuần sau lúc bảy giờ ba mươi
+      - chỉnh sửa nhắc nhở lúc hai mươi giờ ngày kia
+      - thay đổi nhắc nhở ngày mai lúc hai giờ chiều
+      - sửa nhắc nhở lúc bảy giờ hai mươi ngày mai
+      - tôi cần thay đổi nahwcs nhở lúc hai giờ chiều
+      - sửa nhắc nhở lúc bảy giờ thứ ba tuần sau
+      - sửa cho tôi nhắc nhở lúc hai giờ chiều ngày kia
+
+  - intent: delete_reminder
+    examples: |
+      - xóa nhắc nhở ngày mai
+      - xóa nhắc nhở lúc chín giờ
+      - xóa nhắc nhở lúc mưười giờ ngày kia
+      - tôi muốn xóa nhắc nhở lúc hai mười giờ thứ hai tuần sau
+      - tôi cần xóa nhắc nhở ngày hai mươi tháng sáu
+      - xóa nhắc nhở lúc tám giờ ngày hai mươi tháng tư
+      - tôi cần xóa nhắc nhở ngày mai lúc bảy giờ
+      - xóa nhắc nhở ngày kia lúc hai giờ chiều
+      - xóa nhắc nhở vào thứ bảy tuần sau lúc ba giờ chiều
+      - bỏ nhắc nhở lúc năm giờ chiều
+      - bỏ hêt nhắc nhở ngày mai
+      - hủy bỏ nhắc nhở ngày mai lúc bảy giờ
+      - bỏ nhắc nhở ngày hai mươi tháng sáu
+      - bỏ nhắc nhở ngày kai lúc chín giờ
+      - bỏ nhắc nhở lúc mười giờ thứ hai tuần sau
+
+  - intent: edit_curent_reminder
+    examples: |
+      - sửa nhắc nhở này
+      - thay đổi nhắc nhở này
+      - tôi cần sửa nhắc nhở này
+      - tôi muốn thay đổi nhắc nhở này
+      - chỉnh sửa nhắc nhở này
+      - sửa nhắc nhở đấy đi
+      - thay đổi nahwcs nhở đấy đi
+
+  - intent: delete_curent_reminder
+    examples: |
+      - xóa các nhắc nhở này
+      - xóa nhắc nhở này
+      - tôi muốn xóa nhắc nhở này
+      - xóa các nhắc nhở này chô tôi
+      - xóa nhắc nhở này đi
+      - bỏ nhắc nhở này đi
+      - hủy bỏ nhắc nhở này đi
+
+  - intent: ask_remain_reminder
+    examples: |
+      - hôm nay còn nhắc nhở gì nữa không
+      - tôi còn nhắc nhở gì nữa không
+      - còn nhắc nhở nào nữa không
+      - cho tôi xem các nhắc nhở còn lại
+      - các nhắc nhở còn lại
+      - tôi muốn xem các nhắc nhở còn lại
+
+  - intent: delete_remain_reminder
+    examples: |
+      - xóa các nhắc nhở còn lại
+      - xóa hết các nhắc nhở còn lại
+      - bỏ hết các nhắn nhở còn lại đi
+      - tôi muốn xóa hêt các nhắc nhở còn lại
+      - xóa hết các nhắc nhở khác đi

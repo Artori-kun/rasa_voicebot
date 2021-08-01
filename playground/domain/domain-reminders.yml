@@ -1,0 +1,166 @@
+version: "2.0"
+
+intents:
+  - ask_reminder
+  - create_reminder
+  - delete_reminder
+  - edit_reminder
+  - delete_current_reminder
+  - edit_current_reminder
+  - ask_remain_reminder
+  - delete_remain_reminder
+
+slots:
+  # reminder's fields slots
+  reminder_date_field:
+    type: text
+  reminder_time_field:
+    type: text
+  reminder_content:
+    type: text
+
+  reminder_is_recurring:
+    type: bool
+  reminder_recurrence_type:
+    type: text
+  reminder_separation_count:
+    type: float
+  reminder_recurrence:
+    type: text
+
+  # fields for editing
+  reminder_selected_field:
+    type: text
+  reminder_date_field_edit:
+    type: text
+  reminder_time_field_edit:
+    type: text
+  reminder_content_edit:
+    type: text
+
+  # others
+  reminder_info_provided:
+    type: bool
+    initial_value: false
+    influence_conversation: true
+  reminder_change_made:
+    type: bool
+    initial_value: false
+    influence_conversation: true
+  reminder_current:
+    type: any
+  reminder_edit_record:
+    type: any
+  reminder_current_num:
+    type: categorical
+    values:
+      - none
+      - one
+      - many
+    influence_conversation: true
+
+forms:
+  # form used to create a new reminder
+  create_reminder_form:
+    required_slots:
+      reminder_date_field:
+        - type: from_text
+          intent: inform_date
+          not_intent: cancel
+      reminder_time_field:
+        - type: from_text
+          intent: inform_time
+          not_intent: cancel
+      reminder_content:
+        - type: from_text
+          not_intent: cancel
+      reminder_is_recurring:
+        - type: from_text
+          not_intent: cancel
+      reminder_recurrence:
+        - type: from_text
+          not_intent: cancel
+
+  # form used to edit a reminder
+  edit_reminder_form:
+    required_slots:
+      reminder_selected_field:
+        - type: from_text
+          intent: inform_field
+          not_intent: cancel
+      reminder_date_field_edit:
+        - type: from_text
+          intent: inform_date
+          not_intent: cancel
+      reminder_time_field_edit:
+        - type: from_text
+          intent: inform_time
+          not_intent: cancel
+      reminder_content_edit:
+        - type: from_text
+          not_intent: cancel
+
+
+responses:
+  # responses for create reminder form
+  utter_ask_reminder_date_field:
+    - text: "Ngày bạn muốn là ngày nào?"
+    - text: "Bạn muốn nó vào ngày nào?"
+    - text: "Hãy cho tôi biết ngày bạn mong muốn"
+    - text: "Bạn muốn tạo nhắc nhở vào ngày nào?"
+    - text: "Bạn muốn đặt nhắc nhở vào ngày nào?"
+    - text: "Bạn muốn thêm nhắc nhở mới vào ngày nào?"
+  utter_ask_reminder_time_field:
+    - text: "Bạn muốn đặt nhắc nhở lúc mấy giờ"
+    - text: "Hãy cho biết thời gian bạn muốn đặt nhắc nhở"
+    - text: "Bạn muốn tạo nhắc nhở lúc mấy giờ"
+    - text: "Bạn muốn thêm nhắc nhở lúc mấy giờ"
+  utter_ask_reminder_content:
+    - text: "Bạn muốn nội dung nhắc nhở là gì"
+    - text: "Hãy cho biết nọi dung của nhắc nhở"
+  utter_ask_reminder_is_recurring:
+    - text: "Bạn có muốn nhắc nhở này lặp lại không?"
+  utter_ask_reminder_recurrence:
+    - text: "Bạn muốn nó lặp lại như thế nào?"
+
+  # responses for edit reminder form
+  utter_ask_reminder_selected_field:
+    - text: "Bạn cần thay đổi thông tin nào?"
+    - text: "Bạn hãy cho biết thông tin cần thay đổi"
+  utter_ask_reminder_date_field_edit:
+    - text: "Hãy cung cấp thông tin mới về ngày"
+    - text: "Bạn muốn thay đổi thành ngày nào?"
+    - text: "Hãy cho tôi biết ngày bạn muốn thay đổi"
+  utter_ask_reminder_time_field_edit:
+    - text: "Bạn muốn thay đổi thành mấy giờ?"
+  utter_ask_reminder_content_edit:
+    - text: "Hãy cho biết nội dung bạn muốn"
+    - text: "Bạn muốn thay đổi nội dung mới thành gì"
+
+
+  utter_ask_to_confirm_create_reminder:
+    - text: "Bạn chắc muốn thêm nhắc nhở này chứ?"
+    - text: "Bạn có chắc muốn thêm nhắc nhở này không?"
+
+  utter_ask_to_confirm_delete_reminder:
+    - text: "Bạn chắc chắn muốn xóa nhắc nhở này chứ?"
+    - text: "Bạn có chắc muốn xóa nahwcs nhở này không?"
+
+  utter_ask_to_confirm_edit_reminder:
+    - text: "Bạn chắc chắn muốn sửa nhắc nhở này chứ?"
+    - text: "Đây có phải nhắc nhở bạn muốn sửa không?"
+    - text: "Bạn có chắc muốn sửa nahwcs nhở này không?"
+
+  utter_ask_continue_edit_reminder:
+    - text: "Bạn có muốn sửa thêm thông tin gì về nhắc nhở này nữa không?"
+    - text: "Bạn có muốn muốn thay đổi thêm thông tin gì về nhắc nhở này nữa không?"
+    - text: "Còn thông tin nào về nhắc nhở này mà bạn muốn sửa nữa không?"
+
+  utter_no_current_reminder:
+    - text: "Bạn cần cho tôi biết thông tin cụ thể của nhắc nhở bạn muốn"
+    - text: "Tôi không biết bạn muốn nhắc nhở nào. Hãy thử lại với thông tin cụ thể hơn"
+
+  utter_too_many_current_reminder:
+    - text: "Hãy chọn một nhắc nhở cụ thể"
+    - text: "Có nhiều hơn một nhắc nhở, hãy thử lại với thông tin cụ thể hơn"
+    - text: "Tôi không biết bạn muốn thao tác với nhắc nhở nào. Hãy thử lại với thông tin cụ thể hơn"

@@ -25,6 +25,7 @@ router.register('schedules', MyScheduleViewSet, 'schedules')
 router.register('reminders', ReminderViewSet, 'reminders')
 router.register('tasks', TaskViewSet, 'tasks')
 router.register('schedule-exceptions', ScheduleInstanceExceptionViewSet, 'schedule-exceptions')
+router.register('reminder-exceptions', ReminderInstanceExceptionViewSet, 'reminder-exceptions')
 
 urlpatterns = [
     path('', include(router.urls))

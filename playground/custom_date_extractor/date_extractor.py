@@ -75,13 +75,13 @@ def regex_time(msg):
 
 def regex_recurrence(msg):
     recurrence_type = None
-    separation_count = None
+    separation_count = 1
     count = 0
     for _ in re.finditer(REGEX_RECURRENCE_SINGLE, msg):
         count += 1
 
     if count != 0:
-        separation_count = 1
+        # separation_count = 1
         for match in re.finditer(REGEX_RECURRENCE_SINGLE, msg):
             recurrence_type = match.group(0)
     else:
@@ -451,5 +451,6 @@ def summary_time(message):
 
 def summary_recurrence(message):
     message = preprocess_msg(message)
+    recurrence_type, separation_count = regex_recurrence(message)
 
-    return regex_recurrence(message)
+    return recurrence_type, separation_count
