@@ -1,0 +1,160 @@
+version: "2.0"
+
+intents:
+  - ask_task
+  - create_task
+  - delete_task
+  - edit_task
+  - delete_current_task
+  - edit_current_task
+  - ask_remain_task
+  - delete_remain_task
+
+actions:
+  - action_retrieve_task
+  - action_create_task_submit
+  - validate_create_task_form
+  - action_create_task_confirm_info
+  - action_create_task_reset_form
+  - action_delete_task_confirm_info
+  - action_delete_task
+  - action_edit_task_confirm_info
+  - action_edit_task_reset_slots
+  - action_edit_task_reset_form
+  - action_edit_task_confirm_edit_info
+  - action_edit_task
+  - validate_edit_task_form
+  - action_check_current_task
+
+slots:
+  # task's fields slots
+  task_date_field:
+    type: text
+  task_time_field:
+    type: text
+  task_content:
+    type: text
+
+  # fields for editing
+  task_selected_field:
+    type: text
+  task_date_field_edit:
+    type: text
+  task_time_field_edit:
+    type: text
+  task_content_edit:
+    type: text
+
+  # others
+  task_info_provided:
+    type: bool
+    initial_value: false
+    influence_conversation: true
+  task_change_made:
+    type: bool
+    initial_value: false
+    influence_conversation: true
+  task_current:
+    type: any
+  task_edit_record:
+    type: any
+  task_current_num:
+    type: categorical
+    values:
+      - none
+      - one
+      - many
+    influence_conversation: true
+
+forms:
+  # form used to create a new task
+  create_task_form:
+    required_slots:
+      task_date_field:
+        - type: from_text
+          intent: inform_date
+          not_intent: cancel
+      task_time_field:
+        - type: from_text
+          intent: inform_time
+          not_intent: cancel
+      task_content:
+        - type: from_text
+          not_intent: cancel
+
+  # form used to edit a task
+  edit_task_form:
+    required_slots:
+      task_selected_field:
+        - type: from_text
+          intent: inform_field
+          not_intent: cancel
+      task_date_field_edit:
+        - type: from_text
+          intent: inform_date
+          not_intent: cancel
+      task_time_field_edit:
+        - type: from_text
+          intent: inform_time
+          not_intent: cancel
+      task_content_edit:
+        - type: from_text
+          not_intent: cancel
+
+
+responses:
+  # responses for create task form
+  utter_ask_task_date_field:
+    - text: "Ngày bạn muốn là ngày nào?"
+    - text: "Bạn muốn công việc vào ngày nào?"
+    - text: "Hãy cho tôi biết ngày bạn mong muốn"
+    - text: "Bạn muốn tạo công việc vào ngày nào?"
+    - text: "Bạn muốn thêm công việc mới vào ngày nào?"
+  utter_ask_task_time_field:
+    - text: "Bạn muốn công việc mới diễn ra lúc mấy giờ"
+    - text: "Hãy cho biết thời gian bạn muốn công việc mới diễn ra"
+  utter_ask_task_content:
+    - text: "Bạn muốn nội dung công việc là gì"
+    - text: "Hãy cho biết nọi dung của công việc mới"
+
+  # responses for edit task form
+  utter_ask_task_selected_field:
+    - text: "Bạn cần thay đổi thông tin nào?"
+    - text: "Bạn hãy cho biết thông tin cần thay đổi"
+  utter_ask_task_date_field_edit:
+    - text: "Hãy cung cấp thông tin mới về ngày"
+    - text: "Bạn muốn thay đổi thành ngày nào?"
+    - text: "Hãy cho tôi biết ngày bạn muốn thay đổi"
+  utter_ask_task_time_field_edit:
+    - text: "Bạn muốn thay đổi thành mấy giờ?"
+  utter_ask_task_content_edit:
+    - text: "Hãy cho biết nội dung bạn muốn"
+    - text: "Bạn muốn nội dung mới là gì"
+
+
+  utter_ask_to_confirm_create_task:
+    - text: "Bạn chắc muốn thêm công việc này chứ?"
+    - text: "Bạn có chắc muốn thêm công việc này không?"
+
+  utter_ask_to_confirm_delete_task:
+    - text: "Bạn chắc chắn muốn xóa công việc này chứ?"
+    - text: "Bạn có chắc muốn xóa công việc này không?"
+
+  utter_ask_to_confirm_edit_task:
+    - text: "Bạn chắc chắn muốn sửa công việc này chứ?"
+    - text: "Đây có phải công việc bạn muốn sửa không?"
+    - text: "Bạn có chắc muốn sửa công việc này không?"
+
+  utter_ask_continue_edit_task:
+    - text: "Bạn có muốn sửa thêm thông tin gì về công việc này nữa không?"
+    - text: "Bạn có muốn muốn thay đổi thêm thông tin gì về công việc này nữa không?"
+    - text: "Còn thông tin nào về công việc này mà bạn muốn sửa nữa không?"
+
+  utter_no_current_task:
+    - text: "Bạn cần cho tôi biết thông tin cụ thể của công việc bạn muốn"
+    - text: "Tôi không biết bạn muốn công việc nào. Hãy thử lại với thông tin cụ thể hơn"
+
+  utter_too_many_current_task:
+    - text: "Hãy chọn một công việc cụ thể"
+    - text: "Có nhiều hơn một công việc, hãy thử lại với thông tin cụ thể hơn"
+    - text: "Tôi không biết bạn muốn thao tác với công việc nào. Hãy thử lại với thông tin cụ thể hơn"

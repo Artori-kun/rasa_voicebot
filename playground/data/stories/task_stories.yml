@@ -1,0 +1,333 @@
+version: "2.0"
+
+stories:
+
+  # RETRIEVE TASKS
+
+  # User ask for task
+  - story: ask task
+    steps:
+      - intent: ask_task
+      - action: action_retrieve_task
+      - checkpoint: checkpoint_retrieve_task_retrieved
+
+  # User ask then delete task
+  - story: ask then delete current task / one current task
+    steps:
+      - checkpoint: checkpoint_retrieve_task_retrieved
+      - intent: delete_current_task
+      - action: action_check_current_task
+      - slot_was_set:
+          - task_current_num: one
+      - checkpoint: checkpoint_delete_task
+
+  - story: ask then delete current task / many current tasks
+    steps:
+      - checkpoint: checkpoint_retrieve_task_retrieved
+      - intent: delete_current_task
+      - action: action_check_current_task
+      - slot_was_set:
+          - task_current_num: many
+      - checkpoint: checkpoint_delete_task
+
+  - story: ask then delete current task / none current task
+    steps:
+      - checkpoint: checkpoint_retrieve_task_retrieved
+      - intent: delete_current_task
+      - action: action_check_current_task
+      - slot_was_set:
+          - task_current_num: none
+      - action: utter_no_current_task
+
+  # user ask then edit task
+  - story: ask then edit current task / one current task
+    steps:
+      - checkpoint: checkpoint_retrieve_task_retrieved
+      - intent: edit_current_task
+      - action: action_check_current_task
+      - slot_was_set:
+          - task_current_num: one
+      - checkpoint: checkpoint_edit_task
+
+  - story: ask then edit current task / none current task
+    steps:
+      - checkpoint: checkpoint_retrieve_task_retrieved
+      - intent: edit_current_task
+      - action: action_check_current_task
+      - slot_was_set:
+          - task_current_num: none
+      - action: utter_no_current_task
+
+  - story: ask then edit current task / none current task
+    steps:
+      - checkpoint: checkpoint_retrieve_task_retrieved
+      - intent: edit_current_task
+      - action: action_check_current_task
+      - slot_was_set:
+         - task_current_num: none
+      - action: utter_too_many_current_task
+
+  # user ask for remain tasks
+  - story: ask for remain tasks
+    steps:
+      - intent: ask_remain_task
+      - action: action_retrieve_task_remain
+      - checkpoint: checkpoint_retrieve_task_retrieved
+  
+  
+  # CREATE TASKS
+
+  - story: User create a task
+    steps:
+      - intent: create_task
+      - action: utter_ok
+      - action: action_create_task_reset_form
+      - checkpoint: checkpoint_create_task
+
+  # User affirm submit info
+
+  # User create a task / happy path
+  - story: User create a task / happy path / affirm submit
+    steps:
+      - checkpoint: checkpoint_create_task
+      - action: create_task_form
+      - active_loop: create_task_form
+      - slot_was_set:
+          - task_date_field: 30-6-2021
+      - slot_was_set:
+          - task_time_field: 07:00
+      - slot_was_set:
+          - task_content: đi làm
+      - active_loop: null
+      - action: action_create_task_confirm_info
+      - intent: affirm
+      - action: action_create_task_submit
+
+  # User create a task / cancel
+  - story: User create a task / cancel
+    steps:
+      - checkpoint: checkpoint_create_task
+      - action: create_task_form
+      - active_loop: create_task_form
+      - intent: cancel
+      - action: utter_confirm_cancel
+      - or:
+          - intent: affirm
+          - intent: cancel
+      - action: action_deactivate_loop
+      - active_loop: null
+      - action: utter_ok_canceled
+          
+  # User create a task / cancel then continue
+  - story: User create a task / cancel then continue / affirm submit
+    steps:
+      - checkpoint: checkpoint_create_task
+      - action: create_task_form
+      - active_loop: create_task_form
+      - intent: cancel
+      - action: utter_confirm_cancel
+      - or:
+          - intent: deny
+          - intent: continue
+      - action: utter_ok_continue
+      - action: create_task_form
+      - active_loop: null
+      - action: action_create_task_confirm_info
+      - intent: affirm
+      - action: action_create_task_submit
+          
+  # User deny submit info
+
+  # User create a task / happy path
+  - story: User create a task / happy path / deny submit
+    steps:
+      - checkpoint: checkpoint_create_task
+      - action: create_task_form
+      - active_loop: create_task_form
+      - slot_was_set:
+          - task_date_field: 30-6-2021
+      - slot_was_set:
+          - task_time_field: 07:00
+      - slot_was_set:
+          - task_content: họp giao ban
+      - active_loop: null
+      - action: action_create_task_confirm_info
+      - or:
+          - intent: deny
+          - intent: cancel
+      - action: utter_ok
+
+  # User create a task / cancel then continue
+  - story: User create a task / cancel then continue / deny submit
+    steps:
+      - checkpoint: checkpoint_create_task
+      - action: create_task_form
+      - active_loop: create_task_form
+      - intent: cancel
+      - action: utter_confirm_cancel
+      - or:
+          - intent: deny
+          - intent: continue
+      - action: utter_ok_continue
+      - action: create_task_form
+      - active_loop: null
+      - action: action_create_task_confirm_info
+      - or:
+          - intent: deny
+          - intent: cancel
+      - action: utter_ok
+  
+  
+  # DELETE TASKS
+    
+  - story: User ask to delete task
+    steps:
+      - intent: delete_task
+      - action: action_delete_task_confirm_info
+      - slot_was_set:
+          - task_info_provided: true
+      - checkpoint: checkpoint_delete_task
+
+  # User ask to delete task / no info provided
+  - story: ask to delete task / no info provided
+    steps:
+      - intent: delete_task
+      - action: action_delete_task_confirm_info
+      - slot_was_set:
+          - task_info_provided: false
+      - action: utter_please_try_again
+
+  # User ask to delete task / affirm / affirm delete recurrence
+  - story: ask to delete task / happy path
+    steps:
+      - checkpoint: checkpoint_delete_task
+      - action: utter_ask_to_confirm_delete_task
+      - intent: affirm
+      - action: action_delete_task
+
+  # User ask to delete task / cancel
+  - story: ask to delete task / cancel
+    steps:
+      - checkpoint: checkpoint_delete_task
+      - action: utter_ask_to_confirm_delete_task
+      - intent: deny
+      - action: utter_ok
+
+  # EDIT taskS
+
+  # User edit a task / no info provided
+  - story: user edit a task / no info provided
+    steps:
+      - intent: edit_task
+      - action: action_edit_task_confirm_info
+      - slot_was_set:
+          - task_info_provided: false
+      - action: utter_please_try_again
+
+  # user edit a task / info provided
+  - story: user edit a task / info provided
+    steps:
+      - intent: edit_task
+      - action: action_edit_task_confirm_info
+      - slot_was_set:
+          - task_info_provided: true
+      - checkpoint: checkpoint_edit_task
+      - action: utter_ask_to_confirm_edit_task
+      - checkpoint: checkpoint_edit_task_ask_field
+
+  # user select field to edit / happy path
+  - story: user select field loop / happy path
+    steps:
+      - checkpoint: checkpoint_edit_task_ask_field
+      - intent: affirm
+      - action: edit_task_form
+      - active_loop: edit_task_form
+      - slot_was_set:
+          - task_selected_field: date_field
+      - slot_was_set:
+          - task_date_field_edit: 25-08-2021
+      - slot_was_set:
+          - task_time_field_edit: 07:30
+      - slot_was_set:
+          - task_content_edit: làm cái gì đó
+      - active_loop: null
+      # changes made here
+      - action: action_edit_task_reset_slots
+      - action: utter_ask_continue_edit_task
+      - checkpoint: checkpoint_edit_task_ask_field
+
+  # user finish editing / happy path
+  - story: user finish editing / happy path
+    steps:
+      - checkpoint: checkpoint_edit_task_ask_field
+      - intent: deny
+      - slot_was_set:
+          - task_change_made: true
+      - action: action_edit_task_confirm_edit_info
+      - intent: affirm
+      - action: action_edit_task
+
+  # user finish editing / user cancel
+  - story: user finish editing / user cancel
+    steps:
+      - checkpoint: checkpoint_edit_task_ask_field
+      - intent: deny
+      - slot_was_set:
+          - task_change_made: true
+      - action: action_edit_task_confirm_edit_info
+      - or:
+          - intent: deny
+          - intent: cancel
+      - action: utter_ok_canceled
+
+  # user deny after checking edit info
+  - story: user deny after checking edit info
+    steps:
+      - checkpoint: checkpoint_edit_task_ask_field
+      - intent: deny
+      - slot_was_set:
+          - task_change_made: false
+      - action: utter_sorry_what_else_can_i_do
+
+  # user select field to edit / user cancel while filling form / affirm cancel
+  - story: user select field to edit / user cancel while filling form / affirm cancel
+    steps:
+      - checkpoint: checkpoint_edit_task_ask_field
+      - intent: affirm
+      - action: edit_task_form
+      - active_loop: edit_task_form
+      - intent: cancel
+      - action: utter_confirm_cancel
+      - or:
+          - intent: affirm
+          - intent: cancel
+      - action: action_deactivate_loop
+      - active_loop: null
+      - action: utter_ok_canceled
+
+  # user select field to edit / user cancel while filling form / deny cancel and continue
+  - story: user select field to edit / user cancel while filling form / affirm cancel
+    steps:
+      - checkpoint: checkpoint_edit_task_ask_field
+      - intent: affirm
+      - action: edit_task_form
+      - active_loop: edit_task_form
+      - intent: cancel
+      - action: utter_confirm_cancel
+      - or:
+          - intent: deny
+          - intent: continue
+      - action: utter_ok_continue
+      - action: edit_task_form
+      - active_loop: null
+      - action: action_edit_task_reset_slots
+      - action: utter_ask_continue_edit_task
+      - checkpoint: checkpoint_edit_task_ask_field
+
+  # user cancel when asked to continue editing
+  - story: user cancel when asked to continue editing
+    steps:
+      - checkpoint: checkpoint_edit_task_ask_field
+      - intent: cancel
+      - action: action_edit_task_reset_form
+      - action: utter_ok_canceled

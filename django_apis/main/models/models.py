@@ -15,7 +15,7 @@ from django.utils.timezone import now
 class Reminder(models.Model):
     date_field = models.DateField(db_column='date_')  # Field renamed because it ended with '_'.
     time_field = models.TimeField(db_column='time_', blank=True, null=True)  # Field renamed because it ended with '_'.
-    content = models.CharField(max_length=200, db_collation='utf8_general_ci')
+    content = models.CharField(max_length=200, db_collation='utf8_general_ci', null=True, blank=True)
 
     is_recurring = models.BooleanField(default=False)
     recurrence_end_date = models.DateField(blank=True, null=True)
@@ -110,8 +110,8 @@ class ReminderInstanceException(models.Model):
     is_edited = models.BooleanField(blank=True, null=True)
     is_deleted = models.BooleanField(blank=True, null=True)
     date_field = models.DateField(db_column='date_')  # Field renamed because it ended with '_'.
-    time_field = models.TimeField(db_column='time_')  # Field renamed because it ended with '_'.
-    content = models.CharField(max_length=200, db_collation='utf8_general_ci')
+    time_field = models.TimeField(db_column='time_', null=True, blank=True)  # Field renamed because it ended with '_'.
+    content = models.CharField(max_length=200, db_collation='utf8_general_ci', null=True, blank=True)
     user_id = models.IntegerField(blank=True, null=True)
     date_created = models.DateTimeField(default=now)
     last_modified = models.DateTimeField(blank=True, null=True)

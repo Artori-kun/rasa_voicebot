@@ -73,7 +73,7 @@ nlu:
       - bỏ nhắc nhở ngày kai lúc chín giờ
       - bỏ nhắc nhở lúc mười giờ thứ hai tuần sau
 
-  - intent: edit_curent_reminder
+  - intent: edit_current_reminder
     examples: |
       - sửa nhắc nhở này
       - thay đổi nhắc nhở này
@@ -81,9 +81,9 @@ nlu:
       - tôi muốn thay đổi nhắc nhở này
       - chỉnh sửa nhắc nhở này
       - sửa nhắc nhở đấy đi
-      - thay đổi nahwcs nhở đấy đi
+      - thay đổi nhắc nhở đấy đi
 
-  - intent: delete_curent_reminder
+  - intent: delete_current_reminder
     examples: |
       - xóa các nhắc nhở này
       - xóa nhắc nhở này

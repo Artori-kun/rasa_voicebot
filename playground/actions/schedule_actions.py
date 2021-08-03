@@ -47,13 +47,17 @@ class ActionRetrieveSchedule(Action):
 
         status = response.status_code
         if status == 400:
-            dispatcher.utter_message("Ối, yêu cầu của bạn không hợp lệ")
+            dispatcher.utter_message("Ối, yêu cầu của bạn không hợp lệ. Vui lòng thử lại")
+            return []
         elif status == 404:
             dispatcher.utter_message("Tôi không tìm thấy thông tin bạn yêu cầu")
+            return []
         elif status == 503:
             dispatcher.utter_message("Xin lỗi, có vẻ server đang bận. Thử lại sau nhé")
+            return []
         elif status < 200 or status >= 300:
             dispatcher.utter_message(f"Ối, đã xảy ra lỗi, bạn hãy thử lại sau nhé. Mã lỗi:{status}")
+            return []
         elif status == 200:
             schedules = response.json()
 
@@ -262,13 +266,17 @@ class ActionDeleteScheduleConfirmInfo(Action):
 
         status = response.status_code
         if status == 400:
-            dispatcher.utter_message("Ối, yêu cầu của bạn không hợp lệ")
+            dispatcher.utter_message("Ối, yêu cầu của bạn không hợp lệ. Vui lòng thử lại")
+            return []
         elif status == 404:
-            dispatcher.utter_message("Tôi không tìm thấy lịch bạn yêu cầu")
+            dispatcher.utter_message("Tôi không tìm thấy thông tin bạn yêu cầu")
+            return []
         elif status == 503:
             dispatcher.utter_message("Xin lỗi, có vẻ server đang bận. Thử lại sau nhé")
+            return []
         elif status < 200 or status >= 300:
             dispatcher.utter_message(f"Ối, đã xảy ra lỗi, bạn hãy thử lại sau nhé. Mã lỗi:{status}")
+            return []
         elif status == 200:
             schedules = response.json()
 
@@ -293,7 +301,8 @@ class ActionDeleteScheduleConfirmInfo(Action):
 
             if len(dates) != 0:
                 if datetime.strptime(dates[0], "%d-%m-%Y") <= datetime.today():
-                    dispatcher.utter_message("Đây có vẻ như là lịch từ những ngày trước hoặc đang diễn ra. Việc xóa chúng có thể làm mất "
+                    dispatcher.utter_message("Đây có vẻ như là lịch từ những ngày trước hoặc đang diễn ra. Việc xóa "
+                                             "chúng có thể làm mất "
                                              "một số thông tin bạn cần sau này")
             else:
                 if len(times) != 0:
@@ -325,7 +334,7 @@ class ActionDeleteSchedule(Action):
 
         for schedule in schedules:
             if schedule['is_recurring'] is False:
-                response = requests.delete(BASE_SCHEDULES_URL + str(schedule['id']))
+                response = requests.delete(BASE_SCHEDULES_URL + str(schedule['id']) + "/")
 
                 # status = response.status_code
                 #
@@ -416,13 +425,17 @@ class ActionEditScheduleConfirmInfo(Action):
 
         status = response.status_code
         if status == 400:
-            dispatcher.utter_message("Ối, yêu cầu của bạn không hợp lệ")
+            dispatcher.utter_message("Ối, yêu cầu của bạn không hợp lệ. Vui lòng thử lại")
+            return []
         elif status == 404:
             dispatcher.utter_message("Tôi không tìm thấy thông tin bạn yêu cầu")
+            return []
         elif status == 503:
             dispatcher.utter_message("Xin lỗi, có vẻ server đang bận. Thử lại sau nhé")
+            return []
         elif status < 200 or status >= 300:
             dispatcher.utter_message(f"Ối, đã xảy ra lỗi, bạn hãy thử lại sau nhé. Mã lỗi:{status}")
+            return []
         elif status == 200:
             schedules = response.json()
 

@@ -1,0 +1,129 @@
+version: "2.0"
+
+nlu:
+  - intent: ask_task
+    examples: |
+      - hôm nay có công việc gì
+      - công việc ngày hôm nay
+      - công việc ngày mai
+      - công việc thứ ba tuần sau
+      - công việc lúc chín giờ hai mươi
+      - ngày kia có công việc gì không
+      - công việc lúc mười giờ ngày mười lăm tháng hai
+      - công việc lúc chín giờ ngày mùng sáu tháng năm
+      - mười giờ ngày mai có công việc gì không
+      - công việc lúc bảy giờ ngày kia
+      - thứ tư có công việc gì lúc hai giờ chiều không
+      - các công việc ngày hai mươi tháng tám
+      - công việc lúc mười giờ ngày mười chín tháng tư
+      - lúc tám giờ ba mươi ngày mai có công việc gì không
+      - cho tôi xem công việc hôm nay
+      - tôi cần xem công việc lúc tám giờ mười lăm ngày mai
+      - tôi muốn xem công việc lúc chín giờ ngày kia
+      - cho tôi xem công việc thứ năm tuần sau
+      - tôi muốn xem công việc lúc bảy giờ ngày mười chín tháng mười
+      - công việc ngày mai là gì
+      - công việc thứ hai tuần tới có những gì
+
+  - intent: create_task
+    examples: |
+      - tạo công việc mới
+      - tôi muốn tạo công việc mới
+      - tạo một công việc mới cho tôi
+      - tạo công việc lúc tám giờ
+      - tạo công việc ngày mai lúc chín giờ hai lăm
+      - tạo công việc vào ngày kia
+      - tạo công việc lúc chín giờ thứ ba tuần sau
+      - tạo cho tôi công việc mới lúc bảy giờ ngày mười sáu tháng mười một
+      - tạo công việc lúc bảy giờ tối ngày mùng bảy tháng một
+      - tạo công việc lúc hai giờ ba mươi chiều
+      - tôi muốn thêm công việc mới
+      - thêm công việc lúc một giờ chiều
+      - thêm công việc bảy giờ sáng mai
+      - thêm công việc lúc ba giờ chiều thứ hai tuần sau
+      - tôi cần thêm công việc mới
+      - thêm công việc vào ngày kia lúc tám giờ
+      - thêm công việc mới
+      - thêm công việc mới lúc tám giờ ngày mai cho tôi
+      - thêm công việc lúc bảy giờ ba mươi ngày hai lăm tháng bảy
+      - tôi cần thêm công việc mới lúc bảy giờ tối
+
+  - intent: edit_task
+    examples: |
+      - sửa công việc lúc chín giờ
+      - thay đổi công việc lúc tám giờ ngày mai
+      - tôi muốn sửa công việc lúc bảy giờ ngày hai lăm tháng tư
+      - sửa công việc thứ hai tuần sau lúc bảy giờ ba mươi
+      - chỉnh sửa công việc lúc hai mươi giờ ngày kia
+      - thay đổi công việc ngày mai lúc hai giờ chiều
+      - sửa công việc lúc bảy giờ hai mươi ngày mai
+      - tôi cần thay đổi nahwcs nhở lúc hai giờ chiều
+      - sửa công việc lúc bảy giờ thứ ba tuần sau
+      - sửa cho tôi công việc lúc hai giờ chiều ngày kia
+      - tôi cần chỉnh sửa công việc lúc tám giờ thứ ba tuần sau
+      - tôi muốn thay đổi công việc lúc mười chín giờ
+
+  - intent: delete_task
+    examples: |
+      - xóa công việc ngày mai
+      - xóa công việc lúc chín giờ
+      - xóa công việc lúc mưười giờ ngày kia
+      - tôi muốn xóa công việc lúc hai mười giờ thứ hai tuần sau
+      - tôi cần xóa công việc ngày hai mươi tháng sáu
+      - xóa công việc lúc tám giờ ngày hai mươi tháng tư
+      - tôi cần xóa công việc ngày mai lúc bảy giờ
+      - xóa công việc ngày kia lúc hai giờ chiều
+      - xóa công việc vào thứ bảy tuần sau lúc ba giờ chiều
+      - bỏ công việc lúc năm giờ chiều
+      - bỏ hêt công việc ngày mai
+      - hủy bỏ công việc ngày mai lúc bảy giờ
+      - bỏ công việc ngày hai mươi tháng sáu
+      - bỏ công việc ngày kai lúc chín giờ
+      - bỏ công việc lúc mười giờ thứ hai tuần sau
+      - hủy công việc ngày mai lúc chín giờ
+      - tôi muốn hủy các công việc ngày kia
+      - hủy công việc lúc sáu giờ tối cho tôi
+      - hủy công việc lúc tám giờ ngày mùng năm tháng bảy
+
+  - intent: edit_current_task
+    examples: |
+      - sửa công việc này
+      - thay đổi công việc này
+      - tôi cần sửa công việc này
+      - tôi muốn thay đổi công việc này
+      - chỉnh sửa công việc này
+      - sửa công việc đấy đi
+      - thay đổi công việc đấy đi
+      - sửa đổi công việc này cho tôi
+
+  - intent: delete_current_task
+    examples: |
+      - xóa các công việc này
+      - xóa công việc này
+      - tôi muốn xóa công việc này
+      - xóa các công việc này chô tôi
+      - xóa công việc này đi
+      - bỏ công việc này đi
+      - hủy bỏ công việc này đi
+      - xóa các công việc này cho tôi
+      - hủy công việc này cho tôi
+      - hủy các công việc này đi
+
+  - intent: ask_remain_task
+    examples: |
+      - hôm nay còn công việc gì nữa không
+      - tôi còn công việc gì nữa không
+      - còn công việc nào nữa không
+      - cho tôi xem các công việc còn lại
+      - các công việc còn lại
+      - tôi muốn xem các công việc còn lại
+
+  - intent: delete_remain_task
+    examples: |
+      - xóa các công việc còn lại
+      - xóa hết các công việc còn lại
+      - bỏ hết các nhắn nhở còn lại đi
+      - tôi muốn xóa hêt các công việc còn lại
+      - xóa hết các công việc khác đi
+      - hủy hết các công việc còn lại
+      - hủy hết các công việc khác đi

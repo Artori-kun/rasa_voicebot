@@ -10,6 +10,22 @@ intents:
   - ask_remain_reminder
   - delete_remain_reminder
 
+actions:
+  - action_retrieve_reminder
+  - action_create_reminder_submit
+  - validate_create_reminder_form
+  - action_create_reminder_confirm_info
+  - action_create_reminder_reset_form
+  - action_delete_reminder_confirm_info
+  - action_delete_reminder
+  - action_edit_reminder_confirm_info
+  - action_edit_reminder_reset_slots
+  - action_edit_reminder_reset_form
+  - action_edit_reminder_confirm_edit_info
+  - action_edit_reminder
+  - validate_edit_reminder_form
+  - action_check_current_reminder
+
 slots:
   # reminder's fields slots
   reminder_date_field:
@@ -144,12 +160,12 @@ responses:
 
   utter_ask_to_confirm_delete_reminder:
     - text: "Bạn chắc chắn muốn xóa nhắc nhở này chứ?"
-    - text: "Bạn có chắc muốn xóa nahwcs nhở này không?"
+    - text: "Bạn có chắc muốn xóa nhắc nhở này không?"
 
   utter_ask_to_confirm_edit_reminder:
     - text: "Bạn chắc chắn muốn sửa nhắc nhở này chứ?"
     - text: "Đây có phải nhắc nhở bạn muốn sửa không?"
-    - text: "Bạn có chắc muốn sửa nahwcs nhở này không?"
+    - text: "Bạn có chắc muốn sửa nhắc nhở này không?"
 
   utter_ask_continue_edit_reminder:
     - text: "Bạn có muốn sửa thêm thông tin gì về nhắc nhở này nữa không?"

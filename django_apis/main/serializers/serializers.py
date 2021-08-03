@@ -101,7 +101,7 @@ class TaskSerializer(serializers.ModelSerializer):
 
         for t in tasks:
             if t.time_field == attrs['time_field']:
-                serializers.ValidationError("Trùng với một tác vụ đã có")
+                serializers.ValidationError("Trùng với một công việc đã có")
 
         return attrs
 

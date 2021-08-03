@@ -4,3 +4,331 @@ stories:
 
   # RETRIEVE REMINDERS
 
+  # User ask for reminder
+  - story: ask reminder
+    steps:
+      - intent: ask_reminder
+      - action: action_retrieve_reminder
+      - checkpoint: checkpoint_retrieve_reminder_retrieved
+
+  # User ask then delete reminder
+  - story: ask then delete current reminder / one current reminder
+    steps:
+      - checkpoint: checkpoint_retrieve_reminder_retrieved
+      - intent: delete_current_reminder
+      - action: action_check_current_reminder
+      - slot_was_set:
+          - reminder_current_num: one
+      - checkpoint: checkpoint_delete_reminder
+
+  - story: ask then delete current reminder / many current reminders
+    steps:
+      - checkpoint: checkpoint_retrieve_reminder_retrieved
+      - intent: delete_current_reminder
+      - action: action_check_current_reminder
+      - slot_was_set:
+          - reminder_current_num: many
+      - checkpoint: checkpoint_delete_reminder
+
+  - story: ask then delete current reminder / none current reminder
+    steps:
+      - checkpoint: checkpoint_retrieve_reminder_retrieved
+      - intent: delete_current_reminder
+      - action: action_check_current_reminder
+      - slot_was_set:
+          - reminder_current_num: none
+      - action: utter_no_current_reminder
+
+  # user ask then edit reminder
+  - story: ask then edit current reminder / one current reminder
+    steps:
+      - checkpoint: checkpoint_retrieve_reminder_retrieved
+      - intent: edit_current_reminder
+      - action: action_check_current_reminder
+      - slot_was_set:
+          - reminder_current_num: one
+      - checkpoint: checkpoint_edit_reminder
+
+  - story: ask then edit current reminder / none current reminder
+    steps:
+      - checkpoint: checkpoint_retrieve_reminder_retrieved
+      - intent: edit_current_reminder
+      - action: action_check_current_reminder
+      - slot_was_set:
+          - reminder_current_num: none
+      - action: utter_no_current_reminder
+
+  - story: ask then edit current reminder / none current reminder
+    steps:
+      - checkpoint: checkpoint_retrieve_reminder_retrieved
+      - intent: edit_current_reminder
+      - action: action_check_current_reminder
+      - slot_was_set:
+         - reminder_current_num: none
+      - action: utter_too_many_current_reminder
+  
+  
+  # CREATE REMINDERS
+
+  - story: User create a reminder
+    steps:
+      - intent: create_reminder
+      - action: utter_ok
+      - action: action_create_reminder_reset_form
+      - checkpoint: checkpoint_create_reminder
+
+  # User affirm submit info
+
+  # User create a reminder / happy path
+  - story: User create a reminder / happy path / affirm submit
+    steps:
+      - checkpoint: checkpoint_create_reminder
+      - action: create_reminder_form
+      - active_loop: create_reminder_form
+      - slot_was_set:
+          - reminder_date_field: 30-6-2021
+      - slot_was_set:
+          - reminder_time_field: 07:00
+      - slot_was_set:
+          - reminder_content: đi làm
+      - slot_was_set:
+          - reminder_is_recurring: True
+      - slot_was_set:
+          - reminder_recurrence: hàng ngày
+      - active_loop: null
+      - action: action_create_reminder_confirm_info
+      - intent: affirm
+      - action: action_create_reminder_submit
+
+  # User create a reminder / cancel
+  - story: User create a reminder / cancel
+    steps:
+      - checkpoint: checkpoint_create_reminder
+      - action: create_reminder_form
+      - active_loop: create_reminder_form
+      - intent: cancel
+      - action: utter_confirm_cancel
+      - or:
+          - intent: affirm
+          - intent: cancel
+      - action: action_deactivate_loop
+      - active_loop: null
+      - action: utter_ok_canceled
+          
+  # User create a reminder / cancel then continue
+  - story: User create a reminder / cancel then continue / affirm submit
+    steps:
+      - checkpoint: checkpoint_create_reminder
+      - action: create_reminder_form
+      - active_loop: create_reminder_form
+      - intent: cancel
+      - action: utter_confirm_cancel
+      - or:
+          - intent: deny
+          - intent: continue
+      - action: utter_ok_continue
+      - action: create_reminder_form
+      - active_loop: null
+      - action: action_create_reminder_confirm_info
+      - intent: affirm
+      - action: action_create_reminder_submit
+          
+  # User deny submit info
+
+  # User create a reminder / happy path
+  - story: User create a reminder / happy path / deny submit
+    steps:
+      - checkpoint: checkpoint_create_reminder
+      - action: create_reminder_form
+      - active_loop: create_reminder_form
+      - slot_was_set:
+          - reminder_date_field: 30-6-2021
+      - slot_was_set:
+          - reminder_time_field: 07:00
+      - slot_was_set:
+          - reminder_content: họp giao ban
+      - slot_was_set:
+          - reminder_is_recurring: True
+      - slot_was_set:
+          - reminder_recurrence: hàng ngày
+      - active_loop: null
+      - action: action_create_reminder_confirm_info
+      - or:
+          - intent: deny
+          - intent: cancel
+      - action: utter_ok
+
+  # User create a reminder / cancel then continue
+  - story: User create a reminder / cancel then continue / deny submit
+    steps:
+      - checkpoint: checkpoint_create_reminder
+      - action: create_reminder_form
+      - active_loop: create_reminder_form
+      - intent: cancel
+      - action: utter_confirm_cancel
+      - or:
+          - intent: deny
+          - intent: continue
+      - action: utter_ok_continue
+      - action: create_reminder_form
+      - active_loop: null
+      - action: action_create_reminder_confirm_info
+      - or:
+          - intent: deny
+          - intent: cancel
+      - action: utter_ok
+  
+  
+  # DELETE REMINDERS
+    
+  - story: User ask to delete reminder
+    steps:
+      - intent: delete_reminder
+      - action: action_delete_reminder_confirm_info
+      - slot_was_set:
+          - reminder_info_provided: true
+      - checkpoint: checkpoint_delete_reminder
+
+  # User ask to delete reminder / no info provided
+  - story: ask to delete reminder / no info provided
+    steps:
+      - intent: delete_reminder
+      - action: action_delete_reminder_confirm_info
+      - slot_was_set:
+          - reminder_info_provided: false
+      - action: utter_please_try_again
+
+  # User ask to delete reminder / affirm / affirm delete recurrence
+  - story: ask to delete reminder / happy path
+    steps:
+      - checkpoint: checkpoint_delete_reminder
+      - action: utter_ask_to_confirm_delete_reminder
+      - intent: affirm
+      - action: action_delete_reminder
+
+  # User ask to delete reminder / cancel
+  - story: ask to delete reminder / cancel
+    steps:
+      - checkpoint: checkpoint_delete_reminder
+      - action: utter_ask_to_confirm_delete_reminder
+      - intent: deny
+      - action: utter_ok
+
+  # EDIT REMINDERS
+
+  # User edit a reminder / no info provided
+  - story: user edit a reminder / no info provided
+    steps:
+      - intent: edit_reminder
+      - action: action_edit_reminder_confirm_info
+      - slot_was_set:
+          - reminder_info_provided: false
+      - action: utter_please_try_again
+
+  # user edit a reminder / info provided
+  - story: user edit a reminder / info provided
+    steps:
+      - intent: edit_reminder
+      - action: action_edit_reminder_confirm_info
+      - slot_was_set:
+          - reminder_info_provided: true
+      - checkpoint: checkpoint_edit_reminder
+      - action: utter_ask_to_confirm_edit_reminder
+      - checkpoint: checkpoint_edit_reminder_ask_field
+
+  # user select field to edit / happy path
+  - story: user select field loop / happy path
+    steps:
+      - checkpoint: checkpoint_edit_reminder_ask_field
+      - intent: affirm
+      - action: edit_reminder_form
+      - active_loop: edit_reminder_form
+      - slot_was_set:
+          - reminder_selected_field: date_field
+      - slot_was_set:
+          - reminder_date_field_edit: 25-08-2021
+      - slot_was_set:
+          - reminder_time_field_edit: 07:30
+      - slot_was_set:
+          - reminder_content_edit: làm cái gì đó
+      - active_loop: null
+      # changes made here
+      - action: action_edit_reminder_reset_slots
+      - action: utter_ask_continue_edit_reminder
+      - checkpoint: checkpoint_edit_reminder_ask_field
+
+  # user finish editing / happy path
+  - story: user finish editing / happy path
+    steps:
+      - checkpoint: checkpoint_edit_reminder_ask_field
+      - intent: deny
+      - slot_was_set:
+          - reminder_change_made: true
+      - action: action_edit_reminder_confirm_edit_info
+      - intent: affirm
+      - action: action_edit_reminder
+
+  # user finish editing / user cancel
+  - story: user finish editing / user cancel
+    steps:
+      - checkpoint: checkpoint_edit_reminder_ask_field
+      - intent: deny
+      - slot_was_set:
+          - reminder_change_made: true
+      - action: action_edit_reminder_confirm_edit_info
+      - or:
+          - intent: deny
+          - intent: cancel
+      - action: utter_ok_canceled
+
+  # user deny after checking edit info
+  - story: user deny after checking edit info
+    steps:
+      - checkpoint: checkpoint_edit_reminder_ask_field
+      - intent: deny
+      - slot_was_set:
+          - reminder_change_made: false
+      - action: utter_sorry_what_else_can_i_do
+
+  # user select field to edit / user cancel while filling form / affirm cancel
+  - story: user select field to edit / user cancel while filling form / affirm cancel
+    steps:
+      - checkpoint: checkpoint_edit_reminder_ask_field
+      - intent: affirm
+      - action: edit_reminder_form
+      - active_loop: edit_reminder_form
+      - intent: cancel
+      - action: utter_confirm_cancel
+      - or:
+          - intent: affirm
+          - intent: cancel
+      - action: action_deactivate_loop
+      - active_loop: null
+      - action: utter_ok_canceled
+
+  # user select field to edit / user cancel while filling form / deny cancel and continue
+  - story: user select field to edit / user cancel while filling form / affirm cancel
+    steps:
+      - checkpoint: checkpoint_edit_reminder_ask_field
+      - intent: affirm
+      - action: edit_reminder_form
+      - active_loop: edit_reminder_form
+      - intent: cancel
+      - action: utter_confirm_cancel
+      - or:
+          - intent: deny
+          - intent: continue
+      - action: utter_ok_continue
+      - action: edit_reminder_form
+      - active_loop: null
+      - action: action_edit_reminder_reset_slots
+      - action: utter_ask_continue_edit_reminder
+      - checkpoint: checkpoint_edit_reminder_ask_field
+
+  # user cancel when asked to continue editing
+  - story: user cancel when asked to continue editing
+    steps:
+      - checkpoint: checkpoint_edit_reminder_ask_field
+      - intent: cancel
+      - action: action_edit_reminder_reset_form
+      - action: utter_ok_canceled
