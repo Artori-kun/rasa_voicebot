@@ -14,6 +14,27 @@ from rasa_sdk.types import DomainDict
 class ValidateCreateTaskForm(FormValidationAction):
     def name(self) -> Text:
         return "validate_create_task_form"
+    
+    async def required_slots(
+        self,
+        slots_mapped_in_domain: List[Text],
+        dispatcher: "CollectingDispatcher",
+        tracker: "Tracker",
+        domain: "DomainDict",
+    ) -> List[Text]:
+        fields = ['task_date_field',
+                  'task_time_field',
+                  'task_content']
+
+        if tracker.get_slot('task_date_field') is not None:
+            # print("required slot date field removed")
+            fields.remove('task_date_field')
+        if tracker.get_slot('task_time_field') is not None:
+            fields.remove('task_time_field')
+        if tracker.get_slot('task_content') is not None:
+            fields.remove('task_content')
+
+        return fields
 
     def validate_task_date_field(self,
                                  slot_value: Any,
@@ -21,6 +42,10 @@ class ValidateCreateTaskForm(FormValidationAction):
                                  tracker: Tracker,
                                  domain: DomainDict,
                                  ) -> Dict[Text, Any]:
+        date_field = tracker.slots.get('task_date_field_preset')
+        if date_field is not None:
+            return {"task_date_field": date_field}
+        
         date_str = slot_value.lower()
         dates = date_extractor.summary_date(date_str)
 
@@ -36,6 +61,10 @@ class ValidateCreateTaskForm(FormValidationAction):
             tracker: "Tracker",
             domain: "DomainDict",
     ) -> Dict[Text, Any]:
+        time_field = tracker.slots.get('task_time_field_preset')
+        if time_field is not None:
+            return {"task_time_field": time_field}
+        
         time_str = slot_value.lower()
         times = date_extractor.summary_time(time_str)
 

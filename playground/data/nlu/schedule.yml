@@ -61,6 +61,11 @@ nlu:
       - thứ bảy tuần sau
       - hai lăm tháng ba
       - hai mươi mốt tháng mười một
+      - ngày kia
+      - thứ hai tuần sau
+      - hôm qua
+      - hai hôm trước
+      - ba ngày sau
 
   - intent: inform_time
     examples: |

@@ -86,7 +86,7 @@ stories:
       - action: create_reminder_form
       - active_loop: create_reminder_form
       - slot_was_set:
-          - reminder_date_field: 30-6-2021
+          - reminder_date_field: 30-06-2021
       - slot_was_set:
           - reminder_time_field: 07:00
       - slot_was_set:

@@ -65,7 +65,7 @@ slots:
     influence_conversation: true
   reminder_current:
     type: any
-  reminder_edit_record:
+  reminder_edited_record:
     type: any
   reminder_current_num:
     type: categorical
@@ -74,6 +74,14 @@ slots:
       - one
       - many
     influence_conversation: true
+
+  # don't ask
+  # this isn't supposed to be a thing
+  # I ran out of solution
+  reminder_date_field_preset:
+    type: text
+  reminder_time_field_preset:
+    type: text
 
 forms:
   # form used to create a new reminder

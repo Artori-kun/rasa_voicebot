@@ -208,12 +208,16 @@ class ActionCreateReminderResetForm(Action):
                   tracker: Tracker,
                   domain: "DomainDict") -> List[Dict[Text, Any]]:
         message = tracker.latest_message.get('text')
+        # print(message)
         dates = date_extractor.summary_date(message)
+        # print(dates[0])
         times = date_extractor.summary_time(message)
 
         if len(dates) == 0:
             if len(times) == 0:
-                return [SlotSet('reminder_date_field', None),
+                return [SlotSet('reminder_date_field_preset', None),
+                        SlotSet('reminder_time_field_preset', None),
+                        SlotSet('reminder_date_field', None),
                         SlotSet('reminder_time_field', None),
                         SlotSet('reminder_content', None),
                         SlotSet('reminder_is_recurring', None),
@@ -224,7 +228,9 @@ class ActionCreateReminderResetForm(Action):
                 date_param = date.today()
                 date_param = date_param.strftime("%d-%m-%Y")
 
-                return [SlotSet('reminder_date_field', date_param),
+                return [SlotSet('reminder_date_field_preset', date_param),
+                        SlotSet('reminder_time_field_preset', times[0]),
+                        SlotSet('reminder_date_field', date_param),
                         SlotSet('reminder_time_field', times[0]),
                         SlotSet('reminder_content', None),
                         SlotSet('reminder_is_recurring', None),
@@ -233,7 +239,9 @@ class ActionCreateReminderResetForm(Action):
                         SlotSet('reminder_separation_count', None)]
         else:
             if len(times) == 0:
-                return [SlotSet('reminder_date_field', dates[0]),
+                return [SlotSet('reminder_date_field_preset', dates[0]),
+                        SlotSet('reminder_time_field_preset', None),
+                        SlotSet('reminder_date_field', dates[0]),
                         SlotSet('reminder_time_field', None),
                         SlotSet('reminder_content', None),
                         SlotSet('reminder_is_recurring', None),
@@ -241,7 +249,9 @@ class ActionCreateReminderResetForm(Action):
                         SlotSet('reminder_recurrence_type', None),
                         SlotSet('reminder_separation_count', None)]
             else:
-                return [SlotSet('reminder_date_field', dates[0]),
+                return [SlotSet('reminder_date_field_preset', dates[0]),
+                        SlotSet('reminder_time_field_preset', times[0]),
+                        SlotSet('reminder_date_field', dates[0]),
                         SlotSet('reminder_time_field', times[0]),
                         SlotSet('reminder_content', None),
                         SlotSet('reminder_is_recurring', None),
@@ -336,6 +346,7 @@ class ActionDeleteReminder(Action):
                   tracker: Tracker,
                   domain: "DomainDict") -> List[Dict[Text, Any]]:
         reminders = tracker.get_slot('reminder_current')
+        reminder_num = tracker.get_slot('reminder_current_num')
         fail_reminders = []
         # recurrent_reminder = []
 
@@ -343,39 +354,29 @@ class ActionDeleteReminder(Action):
             dispatcher.utter_message("Không có gì để xóa")
             return []
 
-        for reminder in reminders:
-            if reminder['is_recurring'] is False:
-                response = requests.delete(BASE_REMINDERS_URL + str(reminder['id']))
-
-                # status = response.status_code
-                #
-                # if status in [400, 404, 503]:
-                #     fail_reminders.append(reminder)
+        if reminder_num == 'one':
+            if reminders['is_recurring'] is False:
+                response = requests.delete(BASE_REMINDERS_URL + str(reminders['id']))
             else:
-                # SlotSet("reminder_has_recurrence", True)
-                # recurrent_reminder.append(reminder)
-                # date_param = reminder['date_field']
-                # reminder['date_field'] = datetime.strptime(reminder['date_field'], "%d-%m-%Y")
-                # reminder['date_field'] = reminder['date_field'].strftime("%Y-%m-%d")
-
-                # headers = {
-                #     'Content-Type': 'application/json; charset=utf-8'
-                # }
-                #
-                # payload = {
-                #     "reminder_id": reminder["id"],
-                #     "date_field": reminder["date_field"]
-                # }
-
-                # payload = json.dumps(payload)
-
                 response = requests.delete(
-                    BASE_REMINDERS_URL + str(reminder['id']) + f"/?date={reminder['date_field']}")
+                    BASE_REMINDERS_URL + str(reminders['id']) + f"/?date={reminders['date_field']}")
 
             status = response.status_code
 
             if status < 200 or status >= 300:
-                fail_reminders.append(reminder)
+                fail_reminders.append(reminders)
+        else:
+            for reminder in reminders:
+                if reminder['is_recurring'] is False:
+                    response = requests.delete(BASE_REMINDERS_URL + str(reminder['id']))
+                else:
+                    response = requests.delete(
+                        BASE_REMINDERS_URL + str(reminder['id']) + f"/?date={reminder['date_field']}")
+
+                status = response.status_code
+
+                if status < 200 or status >= 300:
+                    fail_reminders.append(reminder)
 
         # if len(recurrent_reminder) != 0:
         #     SlotSet("reminder_current_recurrence", recurrent_reminder)

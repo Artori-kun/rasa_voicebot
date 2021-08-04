@@ -247,23 +247,31 @@ class ActionCreateTaskResetForm(Action):
 
         if len(dates) == 0:
             if len(times) == 0:
-                return [SlotSet('task_date_field', None),
+                return [SlotSet('task_date_field_preset', None),
+                        SlotSet('task_time_field_preset', None),
+                        SlotSet('task_date_field', None),
                         SlotSet('task_time_field', None),
                         SlotSet('task_content', None)]
             else:
                 date_param = date.today()
                 date_param = date_param.strftime("%d-%m-%Y")
 
-                return [SlotSet('task_date_field', date_param),
+                return [SlotSet('task_date_field_preset', date_param),
+                        SlotSet('task_time_field_preset', times[0]),
+                        SlotSet('task_date_field', date_param),
                         SlotSet('task_time_field', times[0]),
                         SlotSet('task_content', None)]
         else:
             if len(times) == 0:
-                return [SlotSet('task_date_field', dates[0]),
+                return [SlotSet('task_date_field_preset', dates[0]),
+                        SlotSet('task_time_field_preset', None),
+                        SlotSet('task_date_field', dates[0]),
                         SlotSet('task_time_field', None),
                         SlotSet('task_content', None)]
             else:
-                return [SlotSet('task_date_field', dates[0]),
+                return [SlotSet('task_date_field_preset', dates[0]),
+                        SlotSet('task_time_field_preset', times[0]),
+                        SlotSet('task_date_field', dates[0]),
                         SlotSet('task_time_field', times[0]),
                         SlotSet('task_content', None)]
 
@@ -353,6 +361,7 @@ class ActionDeleteTask(Action):
                   tracker: Tracker,
                   domain: "DomainDict") -> List[Dict[Text, Any]]:
         tasks = tracker.get_slot('task_current')
+        task_num = tracker.get_slot('task_current_num')
         fail_tasks = []
         # recurrent_task = []
 
@@ -360,13 +369,23 @@ class ActionDeleteTask(Action):
             dispatcher.utter_message("Không có gì để xóa")
             return []
 
-        for task in tasks:
-            response = requests.delete(BASE_TASKS_URL + f"{task['id']}/")
+        # print(tasks)
+        if task_num == 'one':
+            response = requests.delete(BASE_TASKS_URL + str(tasks['id']) + "/")
 
             status = response.status_code
 
             if status < 200 or status >= 300:
-                fail_tasks.append(task)
+                fail_tasks.append(tasks)
+        else:
+            for task in tasks:
+                # print(task)
+                response = requests.delete(BASE_TASKS_URL + str(task['id']) + "/")
+
+                status = response.status_code
+
+                if status < 200 or status >= 300:
+                    fail_tasks.append(task)
 
         # if len(recurrent_task) != 0:
         #     SlotSet("task_current_recurrence", recurrent_task)

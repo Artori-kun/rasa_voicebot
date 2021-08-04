@@ -25,6 +25,7 @@ actions:
   - action_edit_task
   - validate_edit_task_form
   - action_check_current_task
+  - action_retrieve_task_remain
 
 slots:
   # task's fields slots
@@ -56,7 +57,7 @@ slots:
     influence_conversation: true
   task_current:
     type: any
-  task_edit_record:
+  task_edited_record:
     type: any
   task_current_num:
     type: categorical
@@ -65,6 +66,13 @@ slots:
       - one
       - many
     influence_conversation: true
+  # don't ask
+  # this isn't supposed to be a thing
+  # I ran out of solution
+  task_date_field_preset:
+    type: text
+  task_time_field_preset:
+    type: text
 
 forms:
   # form used to create a new task

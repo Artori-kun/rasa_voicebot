@@ -22,19 +22,22 @@ class ValidateCreateReminderForm(FormValidationAction):
             tracker: "Tracker",
             domain: "DomainDict",
     ) -> List[Text]:
+        fields = ['reminder_date_field',
+                  'reminder_time_field',
+                  'reminder_content',
+                  'reminder_is_recurring']
+
         if tracker.get_slot('reminder_is_recurring') is True:
-            return ['reminder_date_field',
-                    'reminder_time_field',
-                    'reminder_content',
-                    'reminder_is_recurring',
-                    'reminder_recurrence',
-                    'reminder_recurrence_type',
-                    'reminder_separation_count']
-        else:
-            return ['reminder_date_field',
-                    'reminder_time_field',
-                    'reminder_content',
-                    'reminder_is_recurring']
+            fields.extend(['reminder_recurrence', 'reminder_recurrence_type', 'reminder_separation_count'])
+        if tracker.get_slot('reminder_date_field') is not None:
+            # print("required slot date field removed")
+            fields.remove('reminder_date_field')
+        if tracker.get_slot('reminder_time_field') is not None:
+            fields.remove('reminder_time_field')
+        if tracker.get_slot('reminder_content') is not None:
+            fields.remove('reminder_content')
+
+        return fields
 
     def validate_reminder_date_field(self,
                                      slot_value: Any,
@@ -42,6 +45,10 @@ class ValidateCreateReminderForm(FormValidationAction):
                                      tracker: Tracker,
                                      domain: DomainDict,
                                      ) -> Dict[Text, Any]:
+        date_field = tracker.slots.get('reminder_date_field_preset')
+        if date_field is not None:
+            return {"reminder_date_field": date_field}
+
         date_str = slot_value.lower()
         dates = date_extractor.summary_date(date_str)
 
@@ -57,6 +64,10 @@ class ValidateCreateReminderForm(FormValidationAction):
             tracker: "Tracker",
             domain: "DomainDict",
     ) -> Dict[Text, Any]:
+        time_field = tracker.slots.get('reminder_time_field_preset')
+        if time_field is not None:
+            return {"reminder_time_field": time_field}
+
         time_str = slot_value.lower()
         times = date_extractor.summary_time(time_str)
 

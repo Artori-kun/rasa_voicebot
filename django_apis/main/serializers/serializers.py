@@ -73,7 +73,7 @@ class ReminderSerializer(serializers.ModelSerializer):
         reminder = reminder.filter(id__in=[r.id for r in reminder if check_occurrence(attrs['date_field'], r)])
 
         for r in reminder:
-            if r.time_field == attrs['time']:
+            if r.time_field == attrs['time_field']:
                 serializers.ValidationError(f"Trùng với một nhắc nhở đã có")
 
         return attrs
