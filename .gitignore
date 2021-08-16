@@ -9,3 +9,7 @@ rasavoicebot_venv/
 
 # ignore pycache
 **/__pycache__
+
+# asset files
+client/wavs
+client/tts_modules/assets
