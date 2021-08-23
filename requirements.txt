@@ -26,13 +26,16 @@ cycler==0.10.0
 decorator==4.4.2
 Django==3.2.5
 djangorestframework==3.12.4
+dm-haiku==0.0.4
 dm-tree==0.1.6
 dnspython==1.16.0
 docopt==0.6.2
 fbmessenger==6.0.0
 filelock==3.0.12
+flatbuffers==2.0
 future==0.18.2
 gast==0.3.3
+gdown==3.13.0
 geocoder==1.38.1
 google-auth==1.32.1
 google-auth-oauthlib==0.4.4
@@ -46,6 +49,8 @@ httptools==0.2.0
 httpx==0.15.4
 humanfriendly==9.2
 idna==2.10
+jax==0.2.19
+jaxlib==0.1.70+cuda101
 jmespath==0.10.0
 joblib==1.0.1
 jsonpickle==2.0.0
@@ -57,6 +62,7 @@ Markdown==3.3.4
 matplotlib==3.3.4
 mattermostwrapper==2.2
 multidict==5.1.0
+mysqlclient==2.0.3
 networkx==2.5.1
 nltk==3.6.2
 numpy==1.18.5
@@ -66,12 +72,12 @@ opt-einsum==3.3.0
 packaging==20.9
 pamqp==2.3.0
 Pillow==8.3.1
-pkg-resources==0.0.0
 prompt-toolkit==2.0.10
 protobuf==3.17.3
 psycopg2-binary==2.8.6
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
+PyAudio==0.2.11
 pycparser==2.20
 pydot==1.4.2
 PyJWT==2.1.0
@@ -79,6 +85,7 @@ pykwalify==1.8.0
 pymongo==3.10.1
 pyparsing==2.4.7
 pyrsistent==0.18.0
+PySocks==1.7.1
 pyTelegramBotAPI==3.8.1
 python-crfsuite==0.9.7
 python-dateutil==2.8.1
@@ -115,6 +122,8 @@ six==1.16.0
 sklearn-crfsuite==0.3.6
 slackclient==2.9.3
 sniffio==1.2.0
+sounddevice==0.4.2
+SoundFile==0.10.3.post1
 SQLAlchemy==1.3.24
 sqlparse==0.4.1
 tabulate==0.8.9
@@ -130,6 +139,7 @@ tensorflow-text==2.3.0
 termcolor==1.1.0
 terminaltables==3.1.0
 threadpoolctl==2.2.0
+tk==0.1.0
 tokenizers==0.9.3
 torch==1.5.1
 tqdm==4.59.0
@@ -149,5 +159,3 @@ websockets==8.1
 Werkzeug==2.0.1
 wrapt==1.12.1
 yarl==1.6.3
-
-PyAudio~=0.2.11

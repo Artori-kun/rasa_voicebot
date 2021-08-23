@@ -1,5 +1,5 @@
 # ignore virtual env
-rasavoicebot_venv/
+voicebot_venv/
 
 # ignore system file
 .idea/
@@ -13,3 +13,4 @@ rasavoicebot_venv/
 # asset files
 client/wavs
 client/tts_modules/assets
+client/tts_modules/scripts

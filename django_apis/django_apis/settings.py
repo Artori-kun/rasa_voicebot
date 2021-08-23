@@ -81,7 +81,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'rasa_voicebot',
         'USER': 'minhhiu',
-        'PASSWORD': '1',
+        'PASSWORD': '1234',
         'HOST': 'localhost',
         'PORT': '3306'
     }

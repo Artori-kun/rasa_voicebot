@@ -47,6 +47,3 @@ class CustomUserAdmin(admin.ModelAdmin):
 @admin.register(ScheduleInstanceException)
 class ScheduleInstanceException(admin.ModelAdmin):
     exclude = ('date_created', 'last_modified')
-
-
-

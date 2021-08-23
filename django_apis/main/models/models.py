@@ -58,7 +58,9 @@ class MySchedule(models.Model):
     is_active = models.BooleanField(default=True)
 
     is_recurring = models.BooleanField(default=False)
-    recurring_type = models.CharField(max_length=50, blank=True, null=True)
+    recurring_type = models.CharField(max_length=50, blank=True, null=True,
+                                      choices=[('daily', 'daily'), ('weekly', 'weekly'),
+                                               ('monthly', 'monthly'), ('yearly', 'yearly')])
     separation_count = models.IntegerField(blank=True, null=True)
     max_number_of_occurrences = models.IntegerField(blank=True, null=True)
     recurrence_end_date = models.DateField(blank=True, null=True)
@@ -73,7 +75,8 @@ class MySchedule(models.Model):
 
 class Contact(models.Model):
     owner_id = models.IntegerField(blank=True, null=True)
-    name_field = models.CharField(db_column='name_', max_length=200, db_collation='utf8_general_ci')  # Field renamed because it ended with '_'.
+    name_field = models.CharField(db_column='name_', max_length=200, db_collation='utf8_general_ci')  # Field renamed
+    # because it ended with '_'.
     email = models.CharField(max_length=200, blank=True, null=True)
     dob = models.DateField(blank=True, null=True)
     description_field = models.CharField(db_column='description_', max_length=200, db_collation='utf8_general_ci', blank=True, null=True)  # Field renamed because it ended with '_'.
