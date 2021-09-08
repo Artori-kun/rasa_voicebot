@@ -146,14 +146,14 @@ class ActionCheckCurrentTask(Action):
                   domain: "DomainDict") -> List[Dict[Text, Any]]:
         current_task = tracker.get_slot('task_current')
 
-        if len(current_task) == 1:
+        if current_task is None:
+            return [SlotSet('task_current_num', 'none')]
+        elif len(current_task) == 1:
             return [SlotSet('task_current_num', 'one'),
                     SlotSet('task_edited_record', current_task[0]),
                     SlotSet('task_current', current_task[0])]
         elif len(current_task) > 1:
             return [SlotSet('task_current_num', 'many')]
-        elif current_task is None:
-            return [SlotSet('task_current_num', 'none')]
 
 
 # CREATE TASK ACTIONS

@@ -1,0 +1,382 @@
+version: "2.0"
+
+nlu:
+# lookup table for news categories
+  - lookup: category
+    examples: |
+      - chính trị
+      - thời sự
+      - chống tham nhũng
+      - quốc hội
+      - an toàn giao thông
+      - môi trường
+      - bhxh - bhyt
+      - quốc phòng
+      - kinh doanh
+      - tài chính
+      - đầu tư
+      - thị trường
+      - doanh nhân
+      - thế giới
+      - quân sự thế giới
+      - giáo dục
+      - tuyển sinh
+      - du học
+      - khoa học
+      - đời sống
+      - gia đình
+      - giới trẻ
+      - ẩm thực
+      - pháp luật
+      - thể thao
+      - bóng đá việt nam
+      - bóng đá quốc tế
+      - công nghệ
+      - thông tin truyền thông
+      - sức khỏe
+      - bất động sản
+      - du lịch
+
+# lookup table for provinces
+  - lookup: province
+    examples: |
+      - hồ chí minh
+      - bình dương
+      - đồng nai
+      - long an
+      - tiền giang
+      - khánh hòa
+      - đồng tháp
+      - bắc giang
+      - tây ninh
+      - đà nẵng
+      - cần thơ
+      - hà nội
+      - bà rịa - vũng tàu
+      - phú yên
+      - bình thuận
+      - vĩnh long
+      - an giang
+      - bắc ninh
+      - bến tre
+      - kiên giang
+      - nghệ an
+      - trà vinh
+      - đắk lắk
+      - hải dương
+      - sóc trăng
+      - ninh thuận
+      - bình định
+      - thừa thiên huế
+      - quảng ngãi
+      - quảng nam
+      - gia lai
+      - quảng bình
+      - hậu giang
+      - hà tĩnh
+      - bình phước
+      - hưng yên
+      - thanh hóa
+      - đắk nông
+      - vĩnh phúc
+      - lâm đồng
+      - bạc liêu
+      - sơn la
+      - lạng sơn
+      - ninh bình
+      - cà mau
+      - thái bình
+      - quảng trị
+      - quảng ninh
+      - lào cai
+      - hà nam
+      - điện biên
+      - hải phòng
+      - nam định
+      - hoà bình
+      - phú thọ
+      - hà giang
+      - kon tum
+      - thái nguyên
+      - yên bái
+      - bắc cạn
+      - tuyên quang
+      - lai châu
+      - cao bằng
+
+
+  # synonyms for news categories and sub-categories
+
+  - synonym: chống tham nhũng
+    examples: |
+      - tham nhũng
+      - phòng chống tham nhũng
+
+  - synonym: an toàn giao thông
+    examples: |
+      - giao thông
+
+  - synonym: môi trường
+    examples: |
+      - ô nhiễm môi trường
+
+  - synonym: bhxh - bhyt
+    examples: |
+      - bảo hiểm
+      - bảo hiểm xã hội
+      - bảo hiểm y tế
+
+  - synonym: quốc phòng
+    examples: |
+      - an ninh quốc phòng
+      - bộ đội
+      - quân sự việt nam
+      - quân đội
+      - quân đội việt nam
+      - quân sự trong nước
+
+  - synonym: doanh nhân
+    examples: |
+      - doanh nghiệp
+      - người kinh doanh
+
+  - synonym: thế giới
+    examples: |
+      - quốc tế
+      - ngoại quốc
+      - nước ngoài
+
+  - synonym: quân sự thế giới
+    examples: |
+      - chiến sự thế giới
+      - quân sự nước ngoài
+      - quân sự quốc tế
+      - quân đội quốc tế
+      - quân đội nước ngoài
+      - quân đội thế giới
+
+  - synonym: du học
+    examples: |
+      - du học sinh
+      - học tập tại nước ngoài
+      - giáo dục ngoại quốc
+
+  - synonym: khoa học
+    examples: |
+      - giới khoa học
+
+  - synonym: giới trẻ
+    examples: |
+      - thanh niên
+      - người trẻ
+      - thanh thiếu niên
+      - thiếu niên
+      - thế hệ trẻ
+
+  - synonym: pháp luật
+    examples: |
+      - luật pháp
+      - hình sự
+
+  - synonym: bóng đá việt nam
+    examples: |
+      - bóng đá
+      - bóng đá trong nước
+      - bóng đá nước nhà
+
+  - synonym: bóng đá thế giới
+    examples: |
+      - bóng đá quốc tế
+      - bóng đá nước ngoài
+      - bóng đá ngoại quốc
+
+  - synonym: thông tin truyền thông
+    examples: |
+      - truyền thông
+      - công nghệ thông tin
+
+  # synonyms for order
+  - synonym: thứ nhất
+    examples: |
+      - đầu tiên
+      - đầu
+
+  - synonym: thứ ba
+    examples: |
+      - cuối cùng
+      - cuối
+
+  - intent: request_news
+    examples: |
+      - tin tức mới
+      - tin tức về [chính trị]{"entity": "category", "value": "chính trị"}
+      - tin tức [thời sự]{"entity": "category", "value": "thời sự"}
+      - tin mới về [tham nhũng]{"entity": "category", "value": "chống tham nhũng"}
+      - tôi muốn xem tin tức về [phòng chống tham nhũng]{"entity": "category", "value": "chống tham nhũng"}
+      - tin tức về [chống tham nhũng]{"entity": "category", "value": "chóng tham nhũng"}
+      - [giao thông]{"entity": "category", "value": "an toàn giao thông"} có tin tức gì mới
+      - tìm tin tức [an toàn giao thông]{"entity": "category", "value": "an toàn giao thông"}
+      - tin tức mới về [quốc hội]{"entity": "category", "value": "quốc hội"}
+      - tin tức về [an toàn giao thông]{"entity": "category", "value": "an toàn giao thông"} có gì mới không
+      - cho tôi xem các tin về [môi trường]{"entity": "category", "value": "môi trường"}
+      - tin về [ô nhiễm môi trường]{"entity": "category", "value": "môi trường"} có gì mới
+      - tin về [bảo hiểm]{"entity": "category", "value": "bhxh - bhyt"}
+      - tin tức về [bảo hiểm xã hội]{"entity": "category", "value": "bhxh - bhyt"}
+      - tìm tin tức về [bảo hiểm y tế]{"entity": "category", "value": "bhxh - bhyt"}
+      - tin tức [quốc phòng]{"entity": "category", "value": "quốc phòng"}
+      - thế còn tin tức [quân sự việt nam]{"entity": "category", "value": "quốc phòng"}
+      - tin tức [quân sự trong nước]{"entity": "category", "value": "quốc phòng"} thì sao
+      - cho tôi nghe tin về [bộ đội]{"entity": "category", "value": "quốc phòng"}
+      - tin tức [quân đội]{"entity": "category", "value": "quốc phòng"}
+      - tôi cần tìm tin về [an ninh quốc phòng]{"entity": "category", "value": "quốc phòng"}
+      - tôi muốn nghe tin về [quân đội việt nam]{"entity": "category", "value": "quốc phòng"}
+      - tìm tin về [kinh doanh]{"entity": "category", "value": "kinh doanh"}
+      - tìm tin tức về [tài chính]{"entity": "category", "value": "tài chính"}
+      - tin mới về [đầu tư]{"entity": "category", "value": "đầu tư"}
+      - tin tức về chủ đề [thị trường]{"entity": "category", "value": "thị trường"}
+      - đọc tin tức về [doanh nhân]{"entity": "category", "value": "doanh nhân"}
+      - tôi muốn nghe tin tức về [doanh nghiệp]{"entity": "category", "value": "doanh nhân"}
+      - cho tôi xem tin tức [thế giới]{"entity": "category", "value": "thế giới"}
+      - tin tức [quốc tế]{"entity": "category", "value": "thế giới"}
+      - tin tức [nước ngoài]{"entity": "category", "value": "thế giới"} có gì mới
+      - tin tức về [quân sự thế giới]{"entity": "category", "value": "quân sự thế giới"}
+      - tin mới về [quân sự nước ngoài]{"entity": "category", "value": "quân sự thế giới"}
+      - tôi cần nghe tin [quân sự quốc tế]{"entity": "category", "value": "quân sự thế giới"}
+      - tìm tin [quân đội nước ngoài]{"entity": "category", "value": "quân sự thế giới"}
+      - tin tức [quân đội quốc tế]{"entity": "category", "value": "quân sự thế giới"}
+      - tin tức [quân đội thế giới]{"entity": "category", "value": "quân sự thế giới"} mới
+      - các tin tức [giáo dục]{"entity": "category", "value": "giáo dục"}
+      - tin tức [tuyển sinh]{"entity": "category", "value": "tuyển sinh"}
+      - tin tức [du học]{"entity": "category", "value": "du học"} có gì mới
+      - tin tức dành cho [du học sinh]{"entity": "category", "value": "du học"}
+      - cho tôi xem tin tức mới về [khoa học]{"entity": "category", "value": "khoa học"}
+      - hãy tìm tin tức liên quan đến [giới khoa học]{"entity": "category", "value": "khoa học"}
+      - tin tức liên quan đến [giới trẻ]{"entity": "category", "value": "giới trẻ"}
+      - tin tức về chủ đề [thanh niên]{"entity": "category", "value": "giới trẻ"}
+      - tin mới về [thế hệ trẻ]{"entity": "category", "value": "giới trẻ"}
+      - tin tức về [đời sống]{"entity": "category", "value": "đời sống"}
+      - cho tôi xem tin về chủ đề [gia đình]{"entity": "category", "value": "gia đình"}
+      - tìm tin liên quan đến [ẩm thực]{"entity": "category", "value": "ẩm thực"}
+      - [pháp luật]{"entity": "category", "value": "pháp luật"} có tin gì mới không
+      - tin tức [luật pháp]{"entity": "category", "value": "pháp luật"} có gì mới
+      - thế còn tin về [thể thao]{"entity": "category", "value": "thể thao"} thì sao
+      - tin tức về [bóng đá việt nam]{"entity": "category", "value": "bóng đá việt nam"}
+      - tìm tin về [bóng đá]{"entity": "category", "value": "bóng đá việt nam"}
+      - tin tức mới về [bóng đá trong nước]{"entity": "category", "value": "bóng đá việt nam"}
+      - tôi muốn xem tin tức [bóng đá nước nhà]{"entity": "category", "value": "bóng đá việt nam"}
+      - tin tức [bóng đá thế giới]{"entity": "category", "value": "bóng đá thế giới"}
+      - tôi cần nghe tin [bóng đá quốc tế]{"entity": "category", "value": "bóng đá thế giới"}
+      - cho tôi nghe tin tức [bóng đá nước ngoài]{"entity": "category", "value": "bóng đá thế giới"}
+      - tin tức chủ đề [công nghệ]{"entity": "category", "value": "công nghệ"}
+      - tin mới về [thông tin truyền thông]{"entity": "category", "value": "thông tin truyền thông"}
+      - tìm tin tức về [truyền thông]{"entity": "category", "value": "thông tin truyền thông"} cho tôi
+      - tin tức về [sức khỏe]{"entity": "category", "value": "sức khỏe"}
+      - đọc cho tôi tin tức về [bất động sản]{"entity": "category", "value": "bất động sản"}
+      - tin tức [du lịch]{"entity": "category", "value": "du lịch"}
+      - tôi muốn nghe các tin tức mới
+      - tôi cần nghe tin tức
+      - tin tức
+      - tôi muốn nghe tin tức
+
+  - intent: request_covid_news
+    examples: |
+      - tôi muốn nghe tin về cô vít
+      - tìm tin tức về dịch bệnh
+      - tin tức về cô vít mười chín
+      - tìm cho tôi các tin tức về dịch bệnh
+      - tin tức mới về dịch bệnh
+
+  - intent: request_covid_numbers
+    examples: |
+      - tình hình dịch bệnh
+      - cho tôi nghe tình hình về dịch bệnh [trong nước](domestic)
+      - tôi cần nghe tình hình dịch bệnh ở [việt nam](domestic)
+      - tình hình dịch bệnh [trong nước](domestic)
+      - tình hình cô vít [trong nước](domestic)
+      - cho tôi biết số liệu về dịch bệnh ở [việt nam](domestic)
+      - tình hình dịch bệnh [nước ta](domestic)
+      - tôi muốn nghe tình hình dịch cô vít ở [nước ta](domestic)
+      - tôi cần biết tình hình cô vít ở [việt nam](domestic)
+      - tình hình dịch bệnh [thế giới](foreign)
+      - tôi muốn nghe tình hình dịch bệnh [thế giới](foreign)
+      - số liệu cô vít [nước ngoài](foreign)
+      - tình hình dịch cô vít trên [thế giới](foreign)
+      - tôi muốn nghe tình hình dịch bệnh trên [thế giới](foreign)
+      - cho tôi biết tình hình dịch cô vít [thế giới](foreign)
+      - tôi muốn nghe tình hình cô vít
+      - số liệu về dịch bệnh
+      - tình hình dịch bệnh
+      - tình hình dịch cô vít
+      - cho tôi biết tình dịch bệnh hiện nay
+      - tôi muốn biết tình hình dịch cô vít
+      - tình hình cô vít tại thành phố [hồ chí minh](province)
+      - tình hình dịch bệnh ở [bình dương](province) thế nào
+      - tôi cần nghe tình hình cô vít ở tỉnh [đồng nai](province)
+      - tôi muốn biết tình hình dịch ở [long an](province)
+      - tình hình dịch tại [tiền giang](province) thế nào
+      - cho tôi biết tình hình cô vít tại [khánh hòa](province)
+      - tình hình dịch bệnh tại [đồng tháp](province)
+      - tôi cần biết tình hình cô vít tại [bắc giang](province) và [tây ninh](province)
+      - tôi muốn nghe về tình hình dịch ở [đà nẵng](province) và [cần thơ](province)
+      - tình hình dịch bệnh tại các tỉnh [bà rịa vũng tàu](province), [phú yên](province) và [bình thuận](province)
+      - tình hình dịch tại thủ đô [hà nội](province)
+      - cho tôi biết tình hình dịch cô vít tại [vĩnh long](province) và [an giang](province)
+      - tình hình cô vít ở các tỉnh [bắc ninh](province) và [bến tre](province)
+
+  - intent: request_covid_timeline
+    examples: |
+      - diễn biến dịch bệnh
+      - diễn biến dịch cô vít
+      - diễn biến dịch cô vít mười chín tại hiện nay
+      - diễn biến dịch bệnh hiện nay
+      - diễn biến dịch bệnh thế nào
+      - tôi muốn biết diễn biến dịch bệnh
+      - cho tôi biết diễn biến dịch bệnh hiện nay
+      - tôi cần biết diễn biến dịch cô vít hiện tại
+      - diễn biến dịch bệnh hôm nay thế nào
+
+  - intent: choose_news
+    examples: |
+      - đọc tin [thứ nhất]{"entity": "news_order", "value": "thứ nhất"}
+      - tin [thứ hai]{"entity": "news_order", "value": "thứ hai"}
+      - đọc cho tôi tin [thứ ba]{"entity": "news_order", "value": "thứ ba"}
+      - đọc tin [đầu tiên]{"entity": "news_order", "value": "thứ nhất"} đi
+      - đọc tin [cuối]{"entity": "news_order", "value": "thứ ba"} cho tôi
+      - tin [cuối cùng]{"entity": "news_order", "value": "thứ ba"}
+      - tôi muốn nghe tin [đầu]{"entity": "news_order", "value": "thứ nhất"}
+      - hãy đọc tin [thứ hai]{"entity": "news_order", "value": "thứ hai"}
+      - tôi muốn nghe tin [thứ nhất]{"entity": "news_order", "value": "thứ nhất"}
+      - tin [cuối cùng]{"entity": "news_order", "value": "thứ ba"}
+      - đọc tin [đầu]{"entity": "news_order", "value": "thứ nhất"} đi
+      - cho tôi nghe tin [cuối]{"entity": "news_order", "value": "thứ ba"}
+      - đọc tin [đầu]{"entity": "news_order", "value": "thứ nhất"} và tin [thứ hai]{"entity": "news_order", "value": "thứ hai"}
+      - tôi muốn nghe tin [thứ hai]{"entity": "news_order", "value": "thứ hai"} và [cuối cùng]{"entity": "news_order", "value": "thứ ba"}
+
+  - intent: request_next_news
+    examples: |
+      - các tin khác đi
+      - các tin tiếp theo
+      - tin khác
+      - các tin khác
+      - tin khác xem nào
+      - còn tin nào khác không
+      - còn tin nào nữa không
+      - cho tôi nghe các tin khác
+      - đọc các tin khác đi
+      - tin tiếp theo
+
+#  - intent: read_news
+#    examples: |
+#      - tôi muốn đọc tin
+#      - tôi sẽ đọc tin
+#      - đọc tin
+#      - mở cho tôi đọc
+#      - mở tin cho tôi đọc
+#
+#  - intent: listen_news
+#    examples: |
+#      - tôi muốn nghe tin
+#      - tôi sẽ nghe tin
+#      - nghe tin
+#      - nghe tin đi
+#      - đọc cho tôi nghe

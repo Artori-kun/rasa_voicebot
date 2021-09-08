@@ -1,0 +1,48 @@
+version: "2.0"
+
+intents:
+  - request_news
+  - request_covid_news
+  - request_covid_numbers
+  - request_covid_timeline
+  - choose_news
+  - request_next_news
+
+entities:
+  - category
+  - domestic
+  - foreign
+  - province
+  - news_order
+
+actions:
+  - action_retrieve_news_headlines
+  - action_read_news_headlines
+  - action_news_reset_slots
+  - action_retrieve_news_content
+  - action_retrieve_covid_numbers
+  - action_retrieve_covid_timeline
+
+slots:
+  # this is a dictionary
+  # articles' title as keys
+  # links to articles as value
+  news_headlines:
+    type: any
+
+  # this is a list
+  # containing articles' title that are read to the user
+  news_headlines_current:
+    type: any
+
+
+
+responses:
+  utter_news_read_or_listen:
+    - text: "bạn muốn đọc tin hay nghe tôi đọc tin"
+
+  utter_here_your_headlines:
+    - text: "đây là các tin tức bạn yêu cầu"
+
+  utter_please_choose_news:
+    - text: "hãy chọn tin bạn muốn nghe"

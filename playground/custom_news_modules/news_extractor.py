@@ -3,6 +3,7 @@ import requests
 import re
 import unicodedata
 from difflib import SequenceMatcher
+import json
 
 
 class NewsExtractor:
@@ -17,7 +18,7 @@ class NewsExtractor:
 
     @staticmethod
     def clean_the_fucking_text(text):
-        characters_need_to_eliminate_regex = re.compile(r'[•\-+():\n]')
+        characters_need_to_eliminate_regex = re.compile(r'[•\-+():]')
         # slashes_need_to_interpret_regex = re.compile(r'((\d+/\d+)|(\w+/\d+)|(\d+/\w+)|(\w+/\w+))')
         dots_need_to_interpret_regex = re.compile(r'(\d+.\d+)')
         time_regex = re.compile(r'((2[0-4]|[0-1][0-9]|[0-9]):([0-5][0-9]|[1-9]))')
@@ -70,10 +71,14 @@ class NewsExtractor:
 
         return text
 
-    def get_headline(self, category='', subcategory=''):
+    def get_headline(self, category):
+        with open('custom_news_modules/category.json', 'r', encoding='utf-8') as fr:
+            categories_dict = json.load(fr)
+
+        slug = categories_dict[category]
         header = {"User-Agent": self.user_agent}
 
-        response = requests.get(f"{self.base_url}/vn/{category}/{subcategory}", headers=header)
+        response = requests.get(self.base_url + slug, headers=header)
         # content = response.content
         result = {}
 
@@ -109,7 +114,10 @@ class NewsExtractor:
         return result
 
     def get_article(self, slug):
-        response = requests.get(self.base_url + slug, headers={"User-Agent": self.user_agent})
+        if self.base_url in slug:
+            response = requests.get(slug, headers={"User-Agent": self.user_agent})
+        else:
+            response = requests.get(self.base_url + slug, headers={"User-Agent": self.user_agent})
 
         if response.status_code >= 300:
             return None
@@ -167,9 +175,10 @@ class NewsExtractor:
         for r in soup.find_all('tr', {"style": "font-weight: 600"}):
             r = r.find_all('td')
 
-            s = SequenceMatcher(None, r[0].get_text().lowercase(), province)
+            s = SequenceMatcher(None, r[0].get_text().lower(), province)
+            print(s.ratio())
 
-            if s.ratio() > 0.85:
+            if s.ratio() > 0.8:
                 result = {"cases": r[1].get_text(),
                           "latest": r[2].get_text().strip('+'),
                           "death": r[3].get_text()}

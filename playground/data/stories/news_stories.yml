@@ -1,0 +1,61 @@
+version: "2.0"
+
+stories:
+  # REQUEST NEWS
+  - story: request news headline / normal
+    steps:
+      - intent: request_news
+      - action: action_news_reset_slots
+      - action: action_retrieve_news_headlines
+      - action: utter_here_your_headlines
+      - checkpoint: checkpoint_news_retrieve_headlines
+      - action: action_read_news_headlines
+      - checkpoint: checkpoint_news_headlines_retrieved
+
+  - story: request news headline / covid
+    steps:
+      - intent: request_covid_news
+      - action: action_news_reset_slots
+      - action: action_retrieve_news_headlines
+      - action: utter_here_your_headlines
+      - checkpoint: checkpoint_news_retrieve_headlines
+      - action: action_read_news_headlines
+      - action: utter_please_choose_news
+      - checkpoint: checkpoint_news_headlines_retrieved
+
+  - story: request news headline / continue requesting
+    steps:
+      - checkpoint: checkpoint_news_headlines_retrieved
+      - intent: request_next_news
+      - checkpoint: checkpoint_news_retrieve_headlines
+
+  - story: request news headline / choose news / user read content
+    steps:
+      - checkpoint: checkpoint_news_headlines_retrieved
+      - intent: choose_news
+      - action: action_retrieve_news_content
+      - checkpoint: checkpoint_news_headlines_retrieved
+#      - action: utter_news_read_or_listen
+#      - intent: read_news
+#      - action: action_show_news_content
+
+#  - story: request news headline / choose news / user listen content
+#    steps:
+#      - checkpoint: checkpoint_news_headlines_retrieved
+#      - intent: choose_news
+#      - action: action_retrieve_news_content
+#      - action: utter_news_read_or_listen
+#      - intent: listen_news
+#      - action: action_read_news_content
+
+  # REQUEST COVID NUMBERS
+  - story: request covid numbers
+    steps:
+      - intent: request_covid_numbers
+      - action: action_retrieve_covid_numbers
+
+  # REQUEST COVID TIMELINE
+  - story: request covid timeline
+    steps:
+      - intent: request_covid_timeline
+      - action: action_retrieve_covid_timeline
