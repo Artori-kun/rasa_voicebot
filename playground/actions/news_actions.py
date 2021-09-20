@@ -48,25 +48,31 @@ class ActionReadNewsHeadlines(Action):
                   domain: "DomainDict") -> List[Dict[Text, Any]]:
         headlines_slot = tracker.get_slot('news_headlines')
         current_headlines = tracker.get_slot('news_headlines_current')
+        # print(headlines_slot.keys())
 
-        try:
-            if current_headlines is not None:
-                for h in current_headlines:
-                    headlines_slot.pop(h)
+        if headlines_slot is None:
+            dispatcher.utter_message("không tìm thấy tin tức liên quan đến chủ đề bạn cần")
+        else:
+            try:
+                if current_headlines is not None:
+                    for h in current_headlines:
+                        headlines_slot.pop(h)
 
-            current_headlines = headlines_slot.keys()[:3]
+                current_headlines = list(headlines_slot.keys())[:3]
 
-            news_order = ["tin thứ nhất: ",
-                          "tin thứ hai: ",
-                          "tin thứ ba: "]
+                news_order = ["tin thứ nhất: ",
+                              "tin thứ hai: ",
+                              "tin thứ ba: "]
 
-            for i in range(3):
-                dispatcher.utter_message(news_order[i] + current_headlines[i])
+                dispatcher.utter_message("đây là những tin bạn yêu cầu")
 
-            dispatcher.utter_message("bạn muốn nghe tin nào")
+                for i in range(3):
+                    dispatcher.utter_message(news_order[i] + current_headlines[i])
 
-        except IndexError or KeyError:
-            dispatcher.utter_message(f"Đã hết tin")
+                dispatcher.utter_message("bạn muốn nghe tin nào")
+
+            except IndexError or KeyError:
+                dispatcher.utter_message(f"Đã hết tin")
 
         return [SlotSet("news_headlines", headlines_slot),
                 SlotSet("news_headlines_current", current_headlines)]
@@ -102,20 +108,20 @@ class ActionRetrieveNewsContent(Action):
         e = NewsExtractor()
 
         for entity in entities:
-            if entity['entity'] == 'news_order':
+            if entity['entity'] == "news_order_st":
                 entity_provided = True
-                news_order = entity['value']
+                content = e.get_article(headlines_slot[current_headlines[0]])
+                dispatcher.utter_message(content)
+            elif entity['entity'] == "news_order_nd":
+                entity_provided = True
+                content = e.get_article(headlines_slot[current_headlines[1]])
+                dispatcher.utter_message(content)
+            elif entity['entity'] == "news_order_rd":
+                entity_provided = True
+                content = e.get_article(headlines_slot[current_headlines[2]])
+                dispatcher.utter_message(content)
 
-                if news_order == "thứ nhất":
-                    content = e.get_article(headlines_slot[current_headlines[0]])
-                    dispatcher.utter_message(content)
-                elif news_order == "thứ hai":
-                    content = e.get_article(headlines_slot[current_headlines[1]])
-                    dispatcher.utter_message(content)
-                elif news_order == "thứ ba":
-                    content = e.get_article(headlines_slot[current_headlines[2]])
-                    dispatcher.utter_message(content)
-        if not entity_provided:
+        if entity_provided is False:
             dispatcher.utter_message("bạn chưa chọn tin nào")
 
         return None

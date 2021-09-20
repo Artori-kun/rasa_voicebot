@@ -14,3 +14,6 @@ voicebot_venv/
 client/wavs
 client/tts_modules/assets
 client/tts_modules/scripts
+playground/custom_components/wavs
+playground/custom_components/tts_modules/assets
+playground/custom_components/tts_modules/scripts

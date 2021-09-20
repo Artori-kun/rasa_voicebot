@@ -217,7 +217,7 @@ nlu:
       - [giao thông]{"entity": "category", "value": "an toàn giao thông"} có tin tức gì mới
       - tìm tin tức [an toàn giao thông]{"entity": "category", "value": "an toàn giao thông"}
       - tin tức mới về [quốc hội]{"entity": "category", "value": "quốc hội"}
-      - tin tức về [an toàn giao thông]{"entity": "category", "value": "an toàn giao thông"} có gì mới không
+      - tin tức về [giao thông]{"entity": "category", "value": "an toàn giao thông"} có gì mới không
       - cho tôi xem các tin về [môi trường]{"entity": "category", "value": "môi trường"}
       - tin về [ô nhiễm môi trường]{"entity": "category", "value": "môi trường"} có gì mới
       - tin về [bảo hiểm]{"entity": "category", "value": "bhxh - bhyt"}
@@ -337,20 +337,25 @@ nlu:
 
   - intent: choose_news
     examples: |
-      - đọc tin [thứ nhất]{"entity": "news_order", "value": "thứ nhất"}
-      - tin [thứ hai]{"entity": "news_order", "value": "thứ hai"}
-      - đọc cho tôi tin [thứ ba]{"entity": "news_order", "value": "thứ ba"}
-      - đọc tin [đầu tiên]{"entity": "news_order", "value": "thứ nhất"} đi
-      - đọc tin [cuối]{"entity": "news_order", "value": "thứ ba"} cho tôi
-      - tin [cuối cùng]{"entity": "news_order", "value": "thứ ba"}
-      - tôi muốn nghe tin [đầu]{"entity": "news_order", "value": "thứ nhất"}
-      - hãy đọc tin [thứ hai]{"entity": "news_order", "value": "thứ hai"}
-      - tôi muốn nghe tin [thứ nhất]{"entity": "news_order", "value": "thứ nhất"}
-      - tin [cuối cùng]{"entity": "news_order", "value": "thứ ba"}
-      - đọc tin [đầu]{"entity": "news_order", "value": "thứ nhất"} đi
-      - cho tôi nghe tin [cuối]{"entity": "news_order", "value": "thứ ba"}
-      - đọc tin [đầu]{"entity": "news_order", "value": "thứ nhất"} và tin [thứ hai]{"entity": "news_order", "value": "thứ hai"}
-      - tôi muốn nghe tin [thứ hai]{"entity": "news_order", "value": "thứ hai"} và [cuối cùng]{"entity": "news_order", "value": "thứ ba"}
+      - đọc tin [thứ nhất](news_order_st)
+      - đọc tin [đầu tiên](news_order_st) đi
+      - tôi muốn nghe tin [đầu](news_order_st)
+      - tôi muốn nghe tin [thứ nhất](news_order_st)
+      - đọc tin [đầu](news_order_st) đi
+      - tin [thứ hai](news_order_nd)
+      - hãy đọc tin [thứ hai](news_order_nd)
+      - đọc cho tôi tin [thứ hai](news_order_nd)
+      - tôi muốn nghe tin [thứ hai](news_order_nd)
+      - đọc cho tôi tin [thứ ba](news_order_rd)
+      - đọc tin [cuối](news_order_rd) cho tôi
+      - tin [cuối cùng](news_order_rd)
+      - tin [cuối cùng](news_order_rd)
+      - cho tôi nghe tin [cuối](news_order_rd)
+      - tôi muốn nghe tin [thứ ba](news_order_rd)
+      - đọc tin [cuối cùng](news_order_rd)
+      - đọc tin [đầu](news_order_st) và tin [thứ hai](news_order_nd)
+      - tôi muốn nghe tin [thứ hai](news_order_nd) và [cuối cùng](news_order_rd)
+      - tin [đầu tiên](news_order_st) và tin [cuối cùng](news_order_rd)
 
   - intent: request_next_news
     examples: |
