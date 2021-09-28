@@ -39,21 +39,24 @@ class SocketIoOutput(OutputChannel):
         self.bot_message_evt = bot_message_evt
         self.message = message
 
-        self.tts = Synthesizer()
+        self.tts = VoiceModules()
 
-    async def _send_message(self, socket_id, response, **kwargs: Any):
-        self.tts.synthesize(response['text'])
+    async def _send_message(self, socket_id, response_message, **kwargs: Any):
+        print("Start synthesizing")
+        print(f"Message: {response_message['text']}")
+        self.tts.text_to_speech(response_message['text'])
+        print("Synthesized")
 
         await self.sio.emit(self.bot_message_evt,
-                            {"text": response['text'],
-                             "link": "file://local/home/minhhiu/My "
-                                     "Projects/rasa_voicebot/playground/wavs/output.wav"},
+                            {"text": response_message['text'],
+                             "link": "http://192.168.134.178:8888/output.wav"},
                             room=socket_id)
+        print("emitted")
 
     async def send_text_message(
             self, recipient_id: Text, text: Text, **kwargs: Any
     ) -> None:
-        await self._send_message(self.sio, {"text": text})
+        await self._send_message(self.sid, {"text": text})
 
 
 class SocketIoInput(InputChannel):
@@ -132,7 +135,7 @@ class SocketIoInput(InputChannel):
                 message = data['message']
             else:
                 ## receive audio as .ogg
-                received_file = "custom_components/wavs" + sid + '.wav'
+                received_file = "custom_components/wavs/input_raw.wav"
 
                 urlretrieve(data['message'], received_file)
                 path = os.path.dirname(__file__)
@@ -140,10 +143,11 @@ class SocketIoInput(InputChannel):
                 # print(sid)
                 # convert .ogg file into int16 wave file by ffmpeg
                 # -ar 44100
-                os.system("ffmpeg -y -i {0} -ar 16000 custom_components/wavs/output.wav".format(received_file))
+                os.system("ffmpeg -y -i {0} -ar 16000 custom_components/wavs/input.wav".format(received_file))
                 # os.system("ffmpeg -y -i {0} -c:a pcm_s161e output_{1}.wav".format(received_file,sid))
 
-                message = self.stt.speech_to_text()
+                message = self.stt.speech_to_text().lower()
+                print(f"Message in: {message}")
 
                 # await self.sio.emit(self.bot_message_evt, response, room=socket_id)
                 await sio.emit("user_uttered", {"text": message}, room=sid)

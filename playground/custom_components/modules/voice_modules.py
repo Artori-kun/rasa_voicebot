@@ -59,28 +59,29 @@ class VoiceModules:
                 fw.write(audio.read())
             fw.close()
 
-            wr = wave.open(self.output_path, 'rb')
-
-            pa = pyaudio.PyAudio()
-
-            stream = pa.open(format=pa.get_format_from_width(wr.getsampwidth()),
-                             channels=wr.getnchannels(),
-                             rate=wr.getframerate(),
-                             output=True)
-
-            data = wr.readframes(1024)
-
-            while True:
-                if data != '':
-                    stream.write(data)
-                    data = wr.readframes(1024)
-                if data == b'':
-                    break
-
-            stream.stop_stream()
-            stream.close()
-            pa.terminate()
+            # wr = wave.open(self.output_path, 'rb')
+            #
+            # pa = pyaudio.PyAudio()
+            #
+            # stream = pa.open(format=pa.get_format_from_width(wr.getsampwidth()),
+            #                  channels=wr.getnchannels(),
+            #                  rate=wr.getframerate(),
+            #                  output=True)
+            #
+            # data = wr.readframes(1024)
+            #
+            # while True:
+            #     if data != '':
+            #         stream.write(data)
+            #         data = wr.readframes(1024)
+            #     if data == b'':
+            #         break
+            #
+            # stream.stop_stream()
+            # stream.close()
+            # pa.terminate()
             # print("stream closed")
         else:
             print("tts failed")
+            print(response)
             return None

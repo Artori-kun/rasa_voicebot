@@ -11,15 +11,20 @@ pipeline:
     max_ngram: 4
     use_shared_vocab: True
     lowercase: True
+  - name: custom_components.fasttext_featurizer.FastTextFeaturizer
+    cache_dir: custom_components/pre-trained
+    file: cc.vi.300.bin
+#  - name: custom_components.printer.Printer
+#    alias: after fasttext
   - name: DIETClassifier
     entity_recognition: False
     epochs: 300
-    constrain_similarities: true
-    batch_strategy: sequence
+    constrain_similarities: True
+    batch_strategy: balanced
   - name: ResponseSelector
     featurizers: [ CountVectorsFeaturizer ]
     epochs: 100
-    constrain_similarities: true
+    constrain_similarities: True
   - name: FallbackClassifier
     threshold: 0.3
     ambiguity_threshold: 0.1

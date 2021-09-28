@@ -18,7 +18,7 @@ class AttrDict(dict):
 
 
 def mel2wave(mel, model_params):
-    config_file = 'tts_modules/assets/hifigan/config.json'
+    config_file = 'custom_components/tts_modules/assets/hifigan/config.json'
     MAX_WAV_VALUE = 32768.0
     with open(config_file) as f:
         data = f.read()
