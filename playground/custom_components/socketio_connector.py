@@ -39,12 +39,12 @@ class SocketIoOutput(OutputChannel):
         self.bot_message_evt = bot_message_evt
         self.message = message
 
-        self.tts = VoiceModules()
+        self.tts = Synthesizer()
 
     async def _send_message(self, socket_id, response_message, **kwargs: Any):
         print("Start synthesizing")
         print(f"Message: {response_message['text']}")
-        self.tts.text_to_speech(response_message['text'])
+        self.tts.synthesize(response_message['text'])
         print("Synthesized")
 
         await self.sio.emit(self.bot_message_evt,

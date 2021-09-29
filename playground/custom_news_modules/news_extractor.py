@@ -4,6 +4,7 @@ import re
 import unicodedata
 from difflib import SequenceMatcher
 import json
+from requests_html import HTMLSession
 
 
 class NewsExtractor:
@@ -133,55 +134,69 @@ class NewsExtractor:
 
         return self.clean_the_fucking_text(content_text)
 
-    def get_general_covid_info(self):
+    def get_general_covid_info_vn(self):
         header = {"User-Agent": self.user_agent}
 
-        response = requests.get("https://ncov.moh.gov.vn/web/guest/trang-chu", headers=header, verify=False)
+        response = requests.get("https://vietnamnet.vn/interactive/covid-19/viet-nam.html", headers=header,
+                                verify=False)
 
         if response.status_code >= 300:
             return None
 
-        soup = BeautifulSoup(response.content, 'html.parser').find_all('div', {"class": "row mt-5"})
+        soup = BeautifulSoup(response.content, 'html.parser')
 
-        vietnam = soup[0]
-        world = soup[1]
+        general_stat = soup.find('div', {"class": "row data"}).find_all('span')
 
-        vietnam = vietnam.find_all('span', {"class": "font24"})
-        world = world.find_all('span', {"class": "font24"})
+        vietnam_result = {"cases": general_stat[0].get_text(),
+                          "death": general_stat[2].get_text(),
+                          "cured": general_stat[3].get_text()}
 
-        vietnam_result = {"cases": vietnam[0].get_text(),
-                          "on-treatment": vietnam[1].get_text(),
-                          "cured": vietnam[2].get_text(),
-                          "death": vietnam[3].get_text()}
+        new_stat = soup.find('div', {"class": "col col-md-2"}).find('span')
+        vietnam_result["new-cases"] = new_stat.get_text().strip('+')
 
-        world_result = {"cases": world[0].get_text(),
-                        "on-treatment": world[1].get_text(),
-                        "cured": world[2].get_text(),
-                        "death": world[3].get_text()}
+        return vietnam_result
 
-        return {"Vietnam": vietnam_result,
-                "World": world_result}
+    def get_general_covid_info_world(self):
+        header = {"User-Agent": self.user_agent}
+
+        response = requests.get("https://vietnamnet.vn/interactive/covid-19/the-gioi.html", headers=header,
+                                verify=False)
+
+        if response.status_code >= 300:
+            return None
+
+        soup = BeautifulSoup(response.content, 'html.parser')
+
+        general_stat = soup.find('div', {"row data"}).find_all('span')
+
+        world_result = {"cases": general_stat[0].get_text(),
+                        "death": general_stat[2].get_text(),
+                        "cured": general_stat[3].get_text()}
+
+        return world_result
 
     def get_province_covid_info(self, province):
         header = {"User-Agent": self.user_agent}
 
-        response = requests.get("https://ncov.moh.gov.vn/web/guest/trang-chu", headers=header, verify=False)
+        response = requests.get("https://vietnamnet.vn/interactive/covid-19/viet-nam.html", headers=header,
+                                verify=False)
 
         if response.status_code >= 300:
             return None
 
-        soup = BeautifulSoup(response.content, 'html.parser').find('table', {"id": "sailorTable"})
+        soup = BeautifulSoup(response.content, 'html.parser') \
+            .find('tbody', {"id": "tbody-sparkline"})
 
-        for r in soup.find_all('tr', {"style": "font-weight: 600"}):
-            r = r.find_all('td')
+        for r in soup.find_all('tr'):
+            province_tag = r.find_all('th')
 
-            s = SequenceMatcher(None, r[0].get_text().lower(), province)
+            s = SequenceMatcher(None, province_tag.get_text().lower(), province)
             print(s.ratio())
 
             if s.ratio() > 0.8:
-                result = {"cases": r[1].get_text(),
-                          "latest": r[2].get_text().strip('+'),
-                          "death": r[3].get_text()}
+                stat = r.find_all('td')
+                result = {"new-cases": stat[0].get_text().strip('+'),
+                          "cases": stat[1].get_text()}
 
                 return result
 
@@ -190,31 +205,39 @@ class NewsExtractor:
     def get_covid_timeline(self):
         header = {"User-Agent": self.user_agent}
 
-        response = requests.get("https://ncov.moh.gov.vn/dong-thoi-gian", headers=header, verify=False)
+        response = requests.get("https://covid19.gov.vn/", headers=header, verify=False)
 
         if response.status_code >= 300:
             return None
 
-        soup = BeautifulSoup(response.content, 'html.parser').find('div', {"class": "timeline-detail"})
+        soup = BeautifulSoup(response.content, 'html.parser') \
+            .find('div', {"class": "home__focus-position"}) \
+            .find('div', {"class": "item active"})
 
-        timestamp = soup.find('div', {"class": "timeline-head"}).find('h3').get_text()
+        timestamp = soup.find('p', {"class": "time"}).get_text()
 
-        timeline = soup.find('div', {"class": "timeline-content"}).find_all('p')
+        timeline_title = soup.find('span', {"class": "box-focus-link-title"}).get_text()
 
-        timeline = ' '.join(p.get_text() for p in timeline)
+        timeline = soup.find('div', {"class": "box-focus-sapo"}).find_all('p')
+
+        timeline = timeline_title + '\n' + ' '.join(p.get_text() for p in timeline)
 
         return {"timestamp": self.clean_the_fucking_text(timestamp),
                 "timeline": self.clean_the_fucking_text(timeline)}
 
     def get_covid_headline(self):
-        header = {"User-Agent": self.user_agent}
+        session = HTMLSession()
+        response = session.get(self.base_url + "/interactive/covid-19/index.html")
+        response.html.render()
 
-        response = requests.get(self.base_url + "/interactive/covid-19/index.html", headers=header, verify=False)
+        # header = {"User-Agent": self.user_agent}
+        #
+        # response = requests.get(self.base_url + "/interactive/covid-19/index.html", headers=header, verify=False)
+        #
+        # if response.status_code >= 300:
+        #     return None
 
-        if response.status_code >= 300:
-            return None
-
-        soup = BeautifulSoup(response.content, 'html.parser')
+        soup = BeautifulSoup(response, 'html.parser')
 
         result = {}
 

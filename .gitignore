@@ -11,9 +11,14 @@ voicebot_venv/
 **/__pycache__
 
 # asset files
-client/wavs
-client/tts_modules/assets
-client/tts_modules/scripts
 playground/custom_components/wavs
 playground/custom_components/tts_modules/assets
 playground/custom_components/tts_modules/scripts
+playground/custom_components/pre-trained
+
+# migrated modules
+django_apis/
+client/
+db.sql
+db_diagram.mwb
+triggers.sql

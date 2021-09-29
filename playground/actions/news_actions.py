@@ -144,20 +144,19 @@ class ActionRetrieveCovidNumber(Action):
             print(entity)
             if entity['entity'] == 'domestic':
                 entity_provided = True
-                data = e.get_general_covid_info()['Vietnam']
+                data = e.get_general_covid_info_vn()
 
                 dispatcher.utter_message(f"Tình hình dịch bệnh trong nước:\n"
                                          f"Số ca nhiễm: {data['cases']}\n"
-                                         f"Đang điều trị: {data['on-treatment']}\n"
+                                         f"Số ca mới: {data['new-cases']}\n"
                                          f"Đã khỏi: {data['cured']}\n"
                                          f"Tử vong: {data['death']}")
             elif entity['entity'] == 'foreign':
                 entity_provided = True
-                data = e.get_general_covid_info()['World']
+                data = e.get_general_covid_info_world()
 
                 dispatcher.utter_message(f"Tình hình dịch bệnh thế giới:\n"
                                          f"Số ca nhiễm: {data['cases']}\n"
-                                         f"Đang điều trị: {data['on-treatment']}\n"
                                          f"Đã khỏi: {data['cured']}\n"
                                          f"Tử vong: {data['death']}")
             elif entity['entity'] == 'province':
@@ -169,23 +168,22 @@ class ActionRetrieveCovidNumber(Action):
                 print(data)
                 dispatcher.utter_message(f"Tình hình dịch bệnh tại {province}:\n"
                                          f"Số ca nhiễm: {data['cases']}\n"
-                                         f"Số ca mới: {data['latest']}\n"
-                                         f"Tử vong: {data['death']}")
+                                         f"Số ca mới: {data['new-cases']}\n")
 
         if not entity_provided:
-            data = e.get_general_covid_info()
+            data_vn = e.get_general_covid_info_vn()
+            data_world = e.get_general_covid_info_world()
 
             dispatcher.utter_message(f"Tình hình dịch bệnh trong nước:\n"
-                                     f"Số ca nhiễm: {data['Vietnam']['cases']}\n"
-                                     f"Đang điều trị: {data['Vietnam']['on-treatment']}\n"
-                                     f"Đã khỏi: {data['Vietnam']['cured']}\n"
-                                     f"Tử vong: {data['Vietnam']['death']}")
+                                     f"Số ca nhiễm: {data_vn['cases']}\n"
+                                     f"Số ca mới: {data_vn['new-cases']}\n"
+                                     f"Đã khỏi: {data_vn['cured']}\n"
+                                     f"Tử vong: {data_vn['death']}")
 
             dispatcher.utter_message(f"Tình hình dịch bệnh thế giới:\n"
-                                     f"Số ca nhiễm: {data['World']['cases']}\n"
-                                     f"Đang điều trị: {data['World']['on-treatment']}\n"
-                                     f"Đã khỏi: {data['World']['cured']}\n"
-                                     f"Tử vong: {data['World']['death']}")
+                                     f"Số ca nhiễm: {data_world['cases']}\n"
+                                     f"Đã khỏi: {data_world['cured']}\n"
+                                     f"Tử vong: {data_world['death']}")
 
         return None
 
