@@ -1,0 +1,42 @@
+version: "2.0"
+
+rules:
+  - rule: user ask wether im a bot or human
+    steps:
+      - intent: are_you_human_or_machine
+      - action: utter_iamabot
+
+  - rule: user ask what am i
+    steps:
+      - intent: what_are_you
+      - action: utter_iam
+
+  - rule: user ask me to introduce
+    steps:
+      - intent: introduce_yourself
+      - action: utter_introduce
+
+  - rule: user hey me
+    steps:
+      - intent: hey_you
+      - action: utter_how_can_help
+
+  - rule: user ask who made me
+    steps:
+      - intent: who_made_you
+      - action: utter_my_creator
+
+  - rule: user ask time
+    steps:
+      - intent: what_time_is_it
+      - action: action_faq_current_time
+
+  - rule: user ask date
+    steps:
+      - intent: what_day_is_it
+      - action: action_faq_current_date
+
+  - rule: user ask weekday
+    steps:
+      - intent: what_weekday_is_it
+      - action: action_faq_current_weekday

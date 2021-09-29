@@ -4,7 +4,7 @@ import re
 import unicodedata
 from difflib import SequenceMatcher
 import json
-from requests_html import HTMLSession
+import time
 
 
 class NewsExtractor:
@@ -19,6 +19,7 @@ class NewsExtractor:
 
     @staticmethod
     def clean_the_fucking_text(text):
+        text.strip()
         characters_need_to_eliminate_regex = re.compile(r'[•\-+():]')
         # slashes_need_to_interpret_regex = re.compile(r'((\d+/\d+)|(\w+/\d+)|(\d+/\w+)|(\w+/\w+))')
         dots_need_to_interpret_regex = re.compile(r'(\d+.\d+)')
@@ -135,84 +136,78 @@ class NewsExtractor:
         return self.clean_the_fucking_text(content_text)
 
     def get_general_covid_info_vn(self):
-        header = {"User-Agent": self.user_agent}
+        header = {"User-Agent": self.user_agent,
+                  "Referer": "https://covid19.gov.vn"}
 
-        response = requests.get("https://vietnamnet.vn/interactive/covid-19/viet-nam.html", headers=header,
-                                verify=False)
+        response = requests.get("https://static.pipezero.com/covid/data.json", headers=header)
 
         if response.status_code >= 300:
             return None
 
-        soup = BeautifulSoup(response.content, 'html.parser')
+        data = response.json()
 
-        general_stat = soup.find('div', {"class": "row data"}).find_all('span')
-
-        vietnam_result = {"cases": general_stat[0].get_text(),
-                          "death": general_stat[2].get_text(),
-                          "cured": general_stat[3].get_text()}
-
-        new_stat = soup.find('div', {"class": "col col-md-2"}).find('span')
-        vietnam_result["new-cases"] = new_stat.get_text().strip('+')
+        vietnam_result = {"cases": data["total"]["internal"]["cases"],
+                          "death": data["total"]["internal"]["death"],
+                          "recovered": data["total"]["internal"]["recovered"],
+                          "treating": data["total"]["internal"]["treating"],
+                          "new-cases": data["today"]["internal"]["cases"]}
 
         return vietnam_result
 
     def get_general_covid_info_world(self):
-        header = {"User-Agent": self.user_agent}
+        header = {"User-Agent": self.user_agent,
+                  "Referer": "https://covid19.gov.vn"}
 
-        response = requests.get("https://vietnamnet.vn/interactive/covid-19/the-gioi.html", headers=header,
-                                verify=False)
+        response = requests.get("https://static.pipezero.com/covid/data.json", headers=header)
 
         if response.status_code >= 300:
             return None
 
-        soup = BeautifulSoup(response.content, 'html.parser')
+        data = response.json()
 
-        general_stat = soup.find('div', {"row data"}).find_all('span')
-
-        world_result = {"cases": general_stat[0].get_text(),
-                        "death": general_stat[2].get_text(),
-                        "cured": general_stat[3].get_text()}
+        world_result = {"cases": data["total"]["world"]["cases"],
+                        "death": data["total"]["world"]["death"],
+                        "new-cases": data["today"]["world"]["cases"]}
 
         return world_result
 
     def get_province_covid_info(self, province):
-        header = {"User-Agent": self.user_agent}
+        header = {"User-Agent": self.user_agent,
+                  "Referer": "https://covid19.gov.vn"}
 
-        response = requests.get("https://vietnamnet.vn/interactive/covid-19/viet-nam.html", headers=header,
-                                verify=False)
+        response = requests.get("https://static.pipezero.com/covid/data.json", headers=header)
 
         if response.status_code >= 300:
             return None
 
-        soup = BeautifulSoup(response.content, 'html.parser') \
-            .find('tbody', {"id": "tbody-sparkline"})
+        data = response.json()
 
-        for r in soup.find_all('tr'):
-            province_tag = r.find_all('th')
+        for r in data["locations"]:
 
-            s = SequenceMatcher(None, province_tag.get_text().lower(), province)
-            print(s.ratio())
+            s = SequenceMatcher(None, r["name"].lower(), province)
+            # print(s.ratio())
 
             if s.ratio() > 0.8:
-                stat = r.find_all('td')
-                result = {"new-cases": stat[0].get_text().strip('+'),
-                          "cases": stat[1].get_text()}
+                result = {"new-cases": r["casesToday"],
+                          "cases": r["cases"],
+                          "death": r["death"]}
 
                 return result
 
         return None
 
     def get_covid_timeline(self):
-        header = {"User-Agent": self.user_agent}
 
-        response = requests.get("https://covid19.gov.vn/", headers=header, verify=False)
+        header = {"User-Agent": self.user_agent,
+                  "Referer": "https://covid19.gov.vn"}
+
+        response = requests.get("https://covid19.gov.vn/ajax/dien-bien-dich.htm", headers=header)
 
         if response.status_code >= 300:
             return None
 
         soup = BeautifulSoup(response.content, 'html.parser') \
-            .find('div', {"class": "home__focus-position"}) \
-            .find('div', {"class": "item active"})
+            .find('div', {"class": "swiper-slide", "data-index": "0"})
 
         timestamp = soup.find('p', {"class": "time"}).get_text()
 
@@ -226,29 +221,41 @@ class NewsExtractor:
                 "timeline": self.clean_the_fucking_text(timeline)}
 
     def get_covid_headline(self):
-        session = HTMLSession()
-        response = session.get(self.base_url + "/interactive/covid-19/index.html")
-        response.html.render()
+        def convert_to_proper_json(text):
+            text = text.replace("=", ":")
+            text = text.replace("retvar", "\"retvar\"")
+            text = "{" + text + "}"
 
-        # header = {"User-Agent": self.user_agent}
-        #
-        # response = requests.get(self.base_url + "/interactive/covid-19/index.html", headers=header, verify=False)
-        #
-        # if response.status_code >= 300:
-        #     return None
+            fw = open("custom_news_modules/stupid_response.json", "w", encoding="utf-8")
+            fw.write(text)
+            fw.close()
 
-        soup = BeautifulSoup(response, 'html.parser')
+            fr = open("custom_news_modules/stupid_response.json", "r", encoding="utf-8")
+            data = json.load(fr)
+
+            return data
+
+        header = {"User-Agent": self.user_agent,
+                  "Referer": "https://vietnamnet.vn/interactive/covid-19/index.html"}
+
+        response_main = requests.get("https://vietnamnet.vn/jsx/loadmore/?domain=desktop&c=covid-19&p=1&s=5&a=0",
+                                     headers=header)
+
+        response_sub = requests.get(" https://vietnamnet.vn/jsx/loadmore/?domain=desktop&c=covid-19&p=1&s=20&a=5",
+                                    headers=header)
+
+        if response_main.status_code >= 300 or response_sub.status_code >= 300:
+            return None
 
         result = {}
 
-        hot_headlines = soup.find_all('a', {"class": "title-content text-white title-articletype_1"})
+        data_main = convert_to_proper_json(response_main.text)
+        data_sub = convert_to_proper_json(response_sub.text)
 
-        for a in hot_headlines:
-            result[a.get_text()] = a["href"]
+        for r in data_main["retvar"]:
+            result[r["title"]] = r["link"].replace("http://vietnamnet.vn", "")
 
-        other_headlines = soup.find_all('div', {"class": "row m-0 p-3 "})
-
-        for div in other_headlines:
-            result[div.find('h5').find('a').get_text()] = div.find('h5').find('a')["href"]
+        for r in data_sub["retvar"]:
+            result[r["title"]] = r["link"].replace("http://vietnamnet.vn", "")
 
         return result

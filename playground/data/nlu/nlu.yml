@@ -13,6 +13,7 @@ nlu:
     - hế lô
     - bắt đầu
     - hi
+    - chao xìn
 
 - intent: goodbye
   examples: |
@@ -122,10 +123,96 @@ nlu:
     - cảm ơn nhé
     - cảm ơn nhiều
     - cảm ơn nha
+    - cảm ơn bạn rất nhiều
+    - xin cảm ơn
+    - cảm ơn rất nhiều
+    - cảm ơn bạn
 
-- intent: bot_challenge
+- intent: are_you_human_or_machine
   examples: |
-    - are you a bot?
-    - are you a human?
-    - am I talking to a bot?
-    - am I talking to a human?
+    - bạn có phải là người không
+    - bạn là máy à
+    - tôi đang nói chuyện với máy à
+    - tôi có đang nói chuyện với người không
+    - đây là người hay máy
+    - bạn là người hay máy
+    - người hay máy đấy
+    - tôi đang nói chuyện với ai đây
+    - ai đang nói đấy
+
+- intent: what_are_you
+  examples: |
+    - bạn tên gì
+    - tên bạn là gì
+    - bạn có tên không
+    - bạn là gì thế
+    - bạn là ai vậy
+    - đây là ai vậy
+    - ai đấy
+    - bạn có tên chứ
+    - tôi muốn biết tên bạn
+    - cho tôi biết bạn là ai
+    - hãy cho tôi biết bạn là ai
+    - nói cho tôi tên bạn là gì
+
+- intent: introduce_yourself
+  examples: |
+    - hãy giới thiệu về bản thân mình đi
+    - giới thiệu về mình đi
+    - giới thiệu về bạn đi
+    - tôi muốn nghe bạn giới thiệu chính mình
+    - hãy giới thiệu bản thân cho mọi người đi
+    - giới thiệu bản thân đi
+    - cho mọi người biết bạn là ai đi
+    - hãy cho mọi người biết bạn là ai
+
+- intent: what_time_is_it
+  examples: |
+    - mấy giờ rồi
+    - bây giờ là mấy giờ
+    - mấy giờ rồi nhỉ
+    - tôi cần biết mấy giờ rồi
+    - cho tôi biết mấy giờ rồi
+    - tôi muốn biết mấy giờ rồi
+    - cho tôi biết bây giờ là mấy giờ
+    - hiển thị thời gian
+    - hiển thị đồng hồ
+    - đồng hồ
+
+- intent: what_day_is_it
+  examples: |
+    - hôm nay là ngày bao nhiêu
+    - ngày hôm nay là ngày bao nhiêu
+    - hôm nay là bao nhiêu rồi nhỉ
+    - hôm nay là ngày nào
+    - hôm nay là ngày mấy
+    - cho tôi biết ngày mấy rồi
+    - tôi muốn biết hôm nay là ngày mấy rồi
+
+- intent: what_weekday_is_it
+  examples: |
+    - hôm nay là thứ mấy
+    - thứ mấy rồi nhỉ
+    - ngày hôm nay là thứ mấy
+    - thứ mấy rồi
+    - hôm nay thứ mấy rồi
+
+- intent: hey_you
+  examples: |
+    - ê xỉu
+    - này xỉu
+    - xỉu ơi
+    - xỉu ơi nhờ tí
+    - xỉu
+    - xỉu này
+
+- intent: who_made_you
+  examples: |
+    - ai tạo ra bạn
+    - ai là người tạo ra bạn
+    - người tạo ra bạn là ai
+    - bố mày là ai
+    - bạn được tạo ra bởi ai
+    - ai làm ra bạn
+    - bạn được ai tạo ra thế
+    - ai tạo ra bạn vậy

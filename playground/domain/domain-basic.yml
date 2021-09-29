@@ -9,7 +9,14 @@ intents:
   - mood_great
   - mood_unhappy
   - thanks
-  - bot_challenge
+  - are_you_human_or_machine
+  - what_are_you
+  - introduce_yourself
+  - hey_you
+  - who_made_you
+  - what_time_is_it
+  - what_day_is_it
+  - what_weekday_is_it
   - ask_weather_here
   - ask_weather_city
 
@@ -52,11 +59,11 @@ responses:
     - text: "Tạm biệt nhé"
 
   utter_default:
-    - text: "Tôi là đâu và đây là ai?"
+    - text: "Tôi không hiểu ý định của bạn. hãy thử lại"
 
   utter_sorry:
-    - text: "Xin lỗi :<"
-    - text: "Tôi xin lỗi!"
+    - text: "Xin lỗi"
+    - text: "Tôi xin lỗi"
 
   utter_ur_welcome:
     - text: "Không có gì!"
@@ -69,11 +76,30 @@ responses:
     - text: "Bạn có cần tôi giúp gì nữa không?"
 
   utter_iamabot:
-    - text: "I am a bot, powered by Rasa."
+    - text: "Tôi là máy"
+    - text: "Tất nhiên là máy rồi"
+    - text: "Tôi là một trợ lý ảo"
+    - text: "Tôi là máy chứ, người sao được"
 
   utter_ok:
     - text: "Ok"
     - text: "Được thôi"
+
+  utter_iam:
+    - text: "Tôi là Xỉu. Tôi là một trợ lý ảo được xây dựng trên nền tảng Rasa"
+    - text: "Tên tôi là Xỉu, trợ lý ảo."
+    - text: "Tôi tên là Bạc Xỉu. Bạn có thể gọi tôi là Xỉu cho gọn"
+    - text: "Tôi tên là Xỉu. Tôi là một trợ lý ảo"
+
+  utter_introduce:
+    - text: "Xin chào. Tên tôi là Bạc Xỉu. Hãy cứ gọi tôi là Xỉu cho gọn. Nếu bạn thắc mắc thì tên tôi được đặt theo tên con mèo của người tạo ra tôi.
+    Tôi là một trợ lý ảo được xây dựng trên nền tảng Rasa. Tôi có nhiệm vụ hỗ trợ bạn trong việc quản lý lịch cá nhân của mình và cung cấp cho bạn những
+    tin tức nóng hổi và mới nhất để bạn không trở thành người tối cổ. Yêu cầu của bạn là mệnh lệnh của tôi, trừ khi tôi không hiểu bạn đang muốn cái gì."
+
+  utter_my_creator:
+    - text: "Tôi được tạo ra bởi Nguyễn Minh Hiếu. Nếu bạn không biết đó là ai, đừng search google. Nhưng cũng đừng lo, bạn có thể liên lạc với hắn bằng địa chỉ mail:
+    nguyenminhhieu.it1.k52@gmail.com. Nhớ đãi hắn một cốc cà phê trước khi nói chuyện công việc nhé."
+
 
 
 actions:

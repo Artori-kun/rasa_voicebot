@@ -206,6 +206,19 @@ nlu:
       - cuối cùng
       - cuối
 
+  # province synonyms
+  - synonym: đắk lắk
+    examples: |
+      - đắc lắc
+
+  - synonym: đắk nông
+    examples: |
+      - đắc nông
+
+  - synonym: thừa thiên huế
+    examples: |
+      - huế
+
   - intent: request_news
     examples: |
       - tin tức mới
@@ -322,6 +335,31 @@ nlu:
       - tình hình dịch tại thủ đô [hà nội](province)
       - cho tôi biết tình hình dịch cô vít tại [vĩnh long](province) và [an giang](province)
       - tình hình cô vít ở các tỉnh [bắc ninh](province) và [bến tre](province)
+      - tình hình dịch tại [kiên giang](province) và [nghệ an](province) sao rồi
+      - thông tin về dịch bệnh tại [trà vinh](province)
+      - thông tin dịch cô vít tại [đắc lắc]{"entity": "province", "value": "đắk lắk"}
+      - thông tin về dịch tại hai tỉnh [hải dương](province) và [sóc trăng](province)
+      - cho tôi biết thông tin về dịch tại tỉnh [sóc trăng](province) và [ninh thuận](province)
+      - tôi cần biết thông tin cô vít tại [bình định](province)
+      - tôi muốn nghe thông tin dịch tại [huế]{"entity": "province", "value": "thừa thiên huế"}
+      - thông tin dịch cô vít mười chín tại [thừa thiên huế](province) và [quảng ngãi](province)
+      - thống kê vê dịch bệnh tại [quảng nam](province), [gia lai](province) và [quảng bình](province)
+      - thống kê dịch bệnh ở tỉnh [hậu giang](province)
+      - số liệu thống kê về dịch tại [hà tĩnh](province) và [bình phước](province)
+      - thống kê dịch cô vít tại tỉnh [hưng yên](province)
+      - thông tin thống kê về dịch bệnh tại [thanh hóa](province) và [đắc nông]{"entity": "province", "value": "đắk nông"}
+      - tôi muốn nghe thống kê tình hình dịch bệnh tại [vĩnh phúc](province) và [lâm đồng](province)
+      - đọc cho tôi thông tin dịch bệnh tại tỉnh [bạc liêu](province) và tỉnh [sơn la](province)
+      - cho tôi nghe thống kê dịch cô vít ở tỉnh [lạng sơn](province) và ở [ninh bình](province)
+      - tình hình dịch của [cà mau](province) và của [thái bình](province)
+      - tôi muốn nghe số liệu thống kê về dịch của [quảng trị](province)
+      - thông tin dịch tại [quảng ninh](province) và [lào cai](province)
+      - thống kê dịch bệnh tại [hà nam](province), [điện biện](province) và [hải phòng](province)
+      - thống kê về dịch cô vít mười chín tại [nam định](province) và [hòa bình](province)
+      - số liệu thống kê dịch bệnh tại [phú thọ](province) và [hà giang](province)
+      - thống kê tình hình dịch ở [con tum](province) với cả [thái nguyên](province)
+      - tôi muốn nghe thống kê về dịch cô vít của tỉnh [yên bái](province) và của [bắc cạn](province)
+      - tôi cần nghe thông tin về dịch bệnh ở [tuyên quang](province), [lai châu](province) và [cao bằng](province)
 
   - intent: request_covid_timeline
     examples: |
@@ -334,6 +372,10 @@ nlu:
       - cho tôi biết diễn biến dịch bệnh hiện nay
       - tôi cần biết diễn biến dịch cô vít hiện tại
       - diễn biến dịch bệnh hôm nay thế nào
+      - đọc cho tôi thông báo về dịch bệnh
+      - thông báo về dịch cô vít
+      - thông báo mới về dịch bệnh
+      - thông báo mới về dịch
 
   - intent: choose_news
     examples: |

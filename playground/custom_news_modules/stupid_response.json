@@ -1,0 +1,343 @@
+{
+      "retvar" :[
+        {
+        "aid": "778897",
+        "categoryname": "Thời sự",
+        "catealias":"thoi-su",
+        "cateid":"3",
+        "urlcate": "/vn/thoi-su/",
+        "atype": "1",
+        "title": "Điều tra vụ nhập cảnh trái phép làm lây lan dịch Covid-19 ở Quảng Trị",
+        "image": "https://vnn-imgs-f.vgcloud.vn/2021/09/28/17/cach-ly-65-hoc-sinh-va-giao-vien-o-quang-tri-vi-thuoc-dien-f1-1.jpeg",
+        "publishtime": "12:44",
+        "publishdate": "2 giờ trước",
+        "lead": "Một thanh niên mắc Covid-19 ở xã Cam Thủy, huyện Cam Lộ đã xuất nhập cảnh trái phép, khai báo quanh co làm lây lan dịch bệnh. Hiện, người này đang bị các cơ quan chức năng điều tra.",
+        "link": "http://vietnamnet.vn/vn/thoi-su/dieu-tra-vu-nhap-canh-trai-phep-lam-lay-lan-dich-covid-19-o-quang-tri-778897.html",
+        "tags": "quảng trị"
+        }
+
+      ,
+        {
+        "aid": "778899",
+        "categoryname": "Sức khỏe",
+        "catealias":"suc-khoe",
+        "cateid":"15",
+        "urlcate": "/vn/suc-khoe/",
+        "atype": "1",
+        "title": "Trưa 29/9, Hà Nội thêm 1 ca Covid-19 tại quận Long Biên",
+        "image": "https://vnn-imgs-f.vgcloud.vn/2021/06/14/11/90149856-1124202111276386-4964693873021419520-n.jpg",
+        "publishtime": "12:34",
+        "publishdate": "2 giờ trước",
+        "lead": "Sở Y tế Hà Nội trưa nay công bố 1 trường hợp dương tính SARS-CoV-2 mới, là người trong khu vực phong tỏa, thuộc chùm F1 của các trường hợp sàng lọc ho, sốt.",
+        "link": "http://vietnamnet.vn/vn/suc-khoe/trua-29-9-ha-noi-ghi-nhan-them-1-ca-covid-19-tai-quan-long-bien-778899.html",
+        "tags": "Covid-19 Hà Nội,Sở Y tế Hà Nội"
+        }
+
+      ,
+        {
+        "aid": "778873",
+        "categoryname": "Thế giới",
+        "catealias":"the-gioi",
+        "cateid":"6",
+        "urlcate": "/vn/the-gioi/",
+        "atype": "1",
+        "title": "Phí xét nghiệm Covid-19 ở các nước đắt hay rẻ?",
+        "image": "https://vnn-imgs-f.vgcloud.vn/2021/09/29/11/phi-xet-nghiem-covid-19-o-cac-nuoc-cao-toi-dau-1.jpg",
+        "publishtime": "12:32",
+        "publishdate": "2 giờ trước",
+        "lead": "Chi phí xét nghiệm Covid-19 ở các nước hiện rất chênh lệch, trong khi người Anh được miễn phí thì người Mỹ phải trả hàng chục đôla cho một lần xét nghiệm nhanh.",
+        "link": "http://vietnamnet.vn/vn/the-gioi/phi-xet-nghiem-covid-19-o-cac-nuoc-dat-hay-re-778873.html",
+        "tags": "Covid-19 thế giới,virus corona"
+        }
+
+      ,
+        {
+        "aid": "778888",
+        "categoryname": "Thế giới",
+        "catealias":"the-gioi",
+        "cateid":"6",
+        "urlcate": "/vn/the-gioi/",
+        "atype": "3",
+        "title": "Singapore khủng hoảng vì Covid-19, Sydney mạnh tay với người không tiêm chủng",
+        "image": "https://vnn-imgs-f.vgcloud.vn/2021/09/29/12/covid-19-singapore-khung-hoang-sydney-manh-tay-voi-nguoi-khong-tiem-chung-1.jpg",
+        "publishtime": "12:14",
+        "publishdate": "2 giờ trước",
+        "lead": "Tại Sydney, Australia, những người không tiêm vắc xin có thể sẽ bị cấm tham gia các hoạt động xã hội, khi thành phố này dỡ bỏ hầu hết các hạn chế phòng dịch vào tháng 12 tới.",
+        "link": "http://vietnamnet.vn/vn/the-gioi/covid-19-singapore-khung-hoang-sydney-manh-tay-voi-nguoi-khong-tiem-chung-778888.html",
+        "tags": "Covid-19 thế giới"
+        }
+
+      ,
+        {
+        "aid": "778857",
+        "categoryname": "Thời sự",
+        "catealias":"thoi-su",
+        "cateid":"3",
+        "urlcate": "/vn/thoi-su/",
+        "atype": "2",
+        "title": "Tiểu thương Nghệ An 'vui như Tết' khi chợ hoạt động trở lại",
+        "image": "https://vnn-imgs-f.vgcloud.vn/2021/09/29/10/hinh-anh-9-cho-o-tp-vinh-hoat-dong-tro-lai-theo-trang-chua-tung-thay.jpg",
+        "publishtime": "11:15",
+        "publishdate": "29/09/2021",
+        "lead": "Sau hơn 1 tháng dừng hoạt động, các chợ trên địa bàn TP Vinh (Nghệ An) được phép hoạt động trở lại.  theo ‘trạng thái mới’ chưa từng thấy để phòng, chống dịch Covid-19.",
+        "link": "http://vietnamnet.vn/vn/thoi-su/tieu-thuong-nghe-an-vui-nhu-tet-khi-cho-hoat-dong-tro-lai-778857.html",
+        "tags": "Tiểu Thương,Đi Chợ,Giãn Cách,Chợ TP Vinh,Nghệ An"
+        }
+
+      ,
+        {
+        "aid": "778863",
+        "categoryname": "Sức khỏe",
+        "catealias":"suc-khoe",
+        "cateid":"15",
+        "urlcate": "/vn/suc-khoe/",
+        "atype": "1",
+        "title": "Xét nghiệm nCoV bằng nước bọt có độ chính xác cao",
+        "image": "https://vnn-imgs-f.vgcloud.vn/2021/09/29/11/xet-nghiem-ncov-bang-nuoc-bot-co-do-chinh-xac-cao.jpg",
+        "publishtime": "11:04",
+        "publishdate": "29/09/2021",
+        "lead": "Hình thức xét nghiệm bằng nước bọt thậm chí còn phát hiện cả các ca Covid-19 mà phương pháp lấy mẫu dịch tỵ hầu bỏ sót.",
+        "link": "http://vietnamnet.vn/vn/suc-khoe/xet-nghiem-covid-19-bang-nuoc-bot-co-do-chinh-xac-cao-778863.html",
+        "tags": "Xét nghiệm Covid-19"
+        }
+
+      ,
+        {
+        "aid": "778843",
+        "categoryname": "Sức khỏe",
+        "catealias":"suc-khoe",
+        "cateid":"15",
+        "urlcate": "/vn/suc-khoe/",
+        "atype": "1",
+        "title": "Bộ Y tế: Không thể đánh đồng, so sánh giá xét nghiệm Covid-19",
+        "image": "https://vnn-imgs-f.vgcloud.vn/2021/09/09/17/viet-nam.jpg",
+        "publishtime": "10:12",
+        "publishdate": "29/09/2021",
+        "lead": "Theo Bộ Y tế, việc mua kit test vào thời điểm dịch bệnh căng thẳng, thị trường khan hiếm, giá thường cao... nên không thể so sánh giá kit xét nghiệm ở các thời điểm khác nhau.",
+        "link": "http://vietnamnet.vn/vn/suc-khoe/bo-y-te-khong-the-danh-dong-so-sanh-gia-xet-nghiem-covid-19-778843.html",
+        "tags": "Bộ Y tế,xét nghiệm Covid-19"
+        }
+
+      ,
+        {
+        "aid": "778835",
+        "categoryname": "Thời sự",
+        "catealias":"thoi-su",
+        "cateid":"3",
+        "urlcate": "/vn/thoi-su/",
+        "atype": "1",
+        "title": "Hướng dẫn mới nhất cho người ngoại tỉnh ra, vào Thái Nguyên",
+        "image": "https://vnn-imgs-f.vgcloud.vn/2021/09/29/09/thai-nguyen-huong-dan-nguoi-tinh-khac-ra-vao-tinh-trong-tinh-hinh-moi-2.jpg",
+        "publishtime": "10:06",
+        "publishdate": "29/09/2021",
+        "lead": "Chiều 28/9, tỉnh Thái Nguyên công bố phương án mới nhất về việc đi lại, ra vào địa phương trong tình hình bình thường mới.",
+        "link": "http://vietnamnet.vn/vn/thoi-su/huong-dan-moi-nhat-cho-nguoi-ngoai-tinh-ra-vao-thai-nguyen-778835.html",
+        "tags": "Thái Nguyên,trạng thái bình thường mới"
+        }
+
+      ,
+        {
+        "aid": "778827",
+        "categoryname": "Sức khỏe",
+        "catealias":"suc-khoe",
+        "cateid":"15",
+        "urlcate": "/vn/suc-khoe/",
+        "atype": "1",
+        "title": "Từ tháng 10 vắc xin Covid-19 về nhiều, Bộ Y tế yêu cầu đẩy nhanh tiến độ tiêm",
+        "image": "https://vnn-imgs-f.vgcloud.vn/2021/09/18/17/ha-noi.jpg",
+        "publishtime": "09:04",
+        "publishdate": "29/09/2021",
+        "lead": "Bộ Y tế đề nghị các tỉnh, thành phố đẩy nhanh tiến độ tiêm chủng vắc xin Covid-19 do từ nay đến cuối năm, Việt Nam có thể sẽ tiếp nhận số lượng vắc xin nhiều hơn.",
+        "link": "http://vietnamnet.vn/vn/suc-khoe/tu-thang-10-vac-xin-covid-19-ve-nhieu-bo-y-te-yeu-cau-day-nhanh-tien-do-tiem-chung-778827.html",
+        "tags": "Bộ Y tế,vắc xin Covid-19,vaccine Covid-19"
+        }
+
+      ,
+        {
+        "aid": "778786",
+        "categoryname": "Thế giới",
+        "catealias":"the-gioi",
+        "cateid":"6",
+        "urlcate": "/vn/the-gioi/",
+        "atype": "1",
+        "title": "Nga gánh kỷ lục buồn, Philippines tiêm ngừa Covid-19 cho trẻ từ 12 tuổi",
+        "image": "https://vnn-imgs-f.vgcloud.vn/2021/09/28/22/tin-tuc-covid-19-the-gioi-ngay-29-9.jpg",
+        "publishtime": "06:51",
+        "publishdate": "29/09/2021",
+        "lead": "Thế giới có thêm khoảng 400.000 ca nhiễm và hơn 7.500 người tử vong vì Covid-19 trong 24 giờ qua.",
+        "link": "http://vietnamnet.vn/vn/the-gioi/tin-tuc-covid-19-the-gioi-ngay-29-9-philippines-tiem-ngua-covid-19-cho-tre-tu-12-tuoi-778786.html",
+        "tags": "Virus corona,Vaccine Covid-19,Covid-19 thế giới"
+        }
+
+      ,
+        {
+        "aid": "778792",
+        "categoryname": "Sức khỏe",
+        "catealias":"suc-khoe",
+        "cateid":"15",
+        "urlcate": "/vn/suc-khoe/",
+        "atype": "1",
+        "title": "Thứ trưởng Trần Văn Thuấn: Bộ Y tế chưa mua test kháng nguyên nhanh",
+        "image": "https://vnn-imgs-f.vgcloud.vn/2021/09/29/00/thu-truong-tran-van-thuan-bo-y-te-chua-mua-test-khang-nguyen-nhanh.jpeg",
+        "publishtime": "06:25",
+        "publishdate": "29/09/2021",
+        "lead": "Đến nay, Bộ Y tế chưa mua sắm test kháng nguyên nhanh. Do thực hiện phương châm “4 tại chỗ” nên các đơn vị, địa phương thực hiện việc mua sắm, đấu thầu theo quy định.",
+        "link": "http://vietnamnet.vn/vn/suc-khoe/thu-truong-tran-van-thuan-bo-y-te-chua-mua-test-khang-nguyen-nhanh-778792.html",
+        "tags": "Bộ Y tế,xét nghiệm Covid-19"
+        }
+
+      ,
+        {
+        "aid": "778698",
+        "categoryname": "Thế giới",
+        "catealias":"the-gioi",
+        "cateid":"6",
+        "urlcate": "/vn/the-gioi/",
+        "atype": "1",
+        "title": "Chuyên gia dự đoán thời điểm kết thúc đại dịch Covid-19",
+        "image": "https://vnn-imgs-f.vgcloud.vn/2021/09/28/15/khi-nao-dai-dich-covid-19-se-ket-thuc.jpg",
+        "publishtime": "05:45",
+        "publishdate": "29/09/2021",
+        "lead": "Thế giới sẽ quay trở lại cuộc sống bình thường trong vòng một năm nữa, và mọi người sẽ phải tiêm nhắc lại vắc xin Covid-19 hàng năm.",
+        "link": "http://vietnamnet.vn/vn/the-gioi/chuyen-gia-du-doan-thoi-diem-ket-thuc-dai-dich-covid-19-778698.html",
+        "tags": "Virus corona,Vaccine Covid-19,Covid-19 thế giới"
+        }
+
+      ,
+        {
+        "aid": "778774",
+        "categoryname": "Thời sự",
+        "catealias":"thoi-su",
+        "cateid":"3",
+        "urlcate": "/vn/thoi-su/",
+        "atype": "6",
+        "title": "Chống dịch gian khó, khi thích ứng phải an toàn",
+        "image": "https://vnn-imgs-f.vgcloud.vn/2021/09/28/21/chong-dich-gian-kho-khi-thich-ung-phai-an-toan-3.png",
+        "publishtime": "05:30",
+        "publishdate": "29/09/2021",
+        "lead": "Những nỗ lực của cả hệ thống chính trị và người dân trong cuộc chiến chống dịch đầy gian khó, đã mở ra chặng đường bình thường mới; chuyển trạng thái, từ mục tiêu “không có Covid” sang thích ứng an toàn, linh hoạt, kiểm soát hiệu quả.",
+        "link": "http://vietnamnet.vn/vn/thoi-su/chong-dich-gian-kho-khi-thich-ung-phai-an-toan-778774.html",
+        "tags": "Covid-19 TP.HCM,giãn cách xã hội,tiêm vắc xin,vắc xin Covid-19,xét nghiệm Covid-19,Chỉ thị 16,Phạm Minh Chính"
+        }
+
+      ,
+        {
+        "aid": "778787",
+        "categoryname": "Chính trị",
+        "catealias":"thoi-su-chinh-tri",
+        "cateid":"416",
+        "urlcate": "/vn/thoi-su/chinh-tri/",
+        "atype": "1",
+        "title": "Việt Nam đề nghị Nga tiếp tục hỗ trợ thuốc, công nghệ sản xuất vắc xin",
+        "image": "https://vnn-imgs-f.vgcloud.vn/2021/09/28/22/viet-nam-de-nghi-nga-tiep-tuc-ho-tro-thuoc-cong-nghe-san-xuat-vac-xin-covid-19.jpg",
+        "publishtime": "22:44",
+        "publishdate": "28/09/2021",
+        "lead": "Việt Nam và Nga đã tích cực hợp tác phòng chống Covid-19, chia sẻ vật tư, thiết bị y tế. Trong đó, Nga đã chuyển giao sinh phẩm để Việt Nam sản xuất 1 triệu liều vắc xin Sputnik V.",
+        "link": "http://vietnamnet.vn/vn/thoi-su/chinh-tri/viet-nam-de-nghi-nga-tiep-tuc-ho-tro-thuoc-cong-nghe-san-xuat-vac-xin-covid-19-778787.html",
+        "tags": "Bùi Thanh Sơn,Việt-Nga,vắc xin Covid-19,Sputnik V"
+        }
+
+      ,
+        {
+        "aid": "778769",
+        "categoryname": "Thế giới",
+        "catealias":"the-gioi",
+        "cateid":"6",
+        "urlcate": "/vn/the-gioi/",
+        "atype": "1",
+        "title": "Nga trải qua ngày kỷ lục số người tử vong vì Covid-19",
+        "image": "https://vnn-imgs-f.vgcloud.vn/2021/09/28/20/nga-trai-qua-ngay-ky-luc-so-ca-covid-19-tu-vong-1.jpg",
+        "publishtime": "21:18",
+        "publishdate": "28/09/2021",
+        "lead": "Nga, hôm nay (28/9), ghi nhận 852 bệnh nhân Covid-19 thiệt mạng, mức tử vong cao chưa từng có vì dịch bệnh trong một ngày đơn lẻ ở nước này.",
+        "link": "http://vietnamnet.vn/vn/the-gioi/nga-trai-qua-ngay-ky-luc-so-nguoi-tu-vong-vi-covid-19-778769.html",
+        "tags": "Virus corona,Vaccine Covid-19,Covid-19 thế giới,Nga"
+        }
+
+      ,
+        {
+        "aid": "778761",
+        "categoryname": "Thời sự",
+        "catealias":"thoi-su",
+        "cateid":"3",
+        "urlcate": "/vn/thoi-su/",
+        "atype": "1",
+        "title": "Đà Nẵng cho tắm biển, mở lại quán cắt tóc, chợ truyền thống từ 30/9",
+        "image": "https://vnn-imgs-f.vgcloud.vn/2021/09/28/21/anhdaidien.jpg",
+        "publishtime": "20:54",
+        "publishdate": "28/09/2021",
+        "lead": "Tối 28/9, UBND TP Đà Nẵng ban hành công văn về việc áp dụng một số biện pháp phòng, chống dịch trong tình hình hiện nay.",
+        "link": "http://vietnamnet.vn/vn/thoi-su/da-nang-cho-tam-bien-mo-lai-quan-cat-toc-cho-truyen-thong-tu-30-9-778761.html",
+        "tags": "đà nẵng,giãn cách xã hội"
+        }
+
+      ,
+        {
+        "aid": "778762",
+        "categoryname": "Sức khỏe",
+        "catealias":"suc-khoe",
+        "cateid":"15",
+        "urlcate": "/vn/suc-khoe/",
+        "atype": "1",
+        "title": "Hà Nội được phân bổ thêm 100.000 liều vắc xin AstraZeneca",
+        "image": "https://vnn-imgs-f.vgcloud.vn/2021/09/28/20/ha-noi-duoc-phan-bo-them-100-000-lieu-vac-xin-astrazeneca.jpg",
+        "publishtime": "20:27",
+        "publishdate": "28/09/2021",
+        "lead": "Bộ Y tế yêu cầu các đơn vị tổ chức tiêm ngay số vắc xin Covid-19 được cấp cho người dân trên địa bàn Hà Nội, đảm bảo sử dụng hiệu quả, đúng mục đích, đối tượng.",
+        "link": "http://vietnamnet.vn/vn/suc-khoe/ha-noi-duoc-phan-bo-them-100-000-lieu-vac-xin-covid-19-astrazeneca-778762.html",
+        "tags": "vắc xin Covid-19,Covid-19 Hà Nội,AstraZeneca,vaccine Covid-19"
+        }
+
+      ,
+        {
+        "aid": "778752",
+        "categoryname": "Sức khỏe",
+        "catealias":"suc-khoe",
+        "cateid":"15",
+        "urlcate": "/vn/suc-khoe/",
+        "atype": "1",
+        "title": "Ngày 28/9, Việt Nam ghi nhận số ca mắc Covid-19 thấp kỷ lục trong hơn 2 tháng",
+        "image": "https://vnn-imgs-f.vgcloud.vn/2021/08/31/18/ttt-6216-1.jpg",
+        "publishtime": "19:05",
+        "publishdate": "28/09/2021",
+        "lead": "Bộ Y tế cho biết, hôm nay cả nước phát hiện 4.589 ca Covid-19 mới, giảm 4.759 bệnh nhân so với ngày 27/9. Hiện tổng số người mắc Covid-19 tại Việt Nam là 770.640 trường hợp.",
+        "link": "http://vietnamnet.vn/vn/suc-khoe/tin-tuc-covid-19-hom-nay-28-9-viet-nam-ghi-nhan-4-589-ca-covid-19-giam-4-759-benh-nhan-so-voi-hom-qua-778752.html",
+        "tags": "Bộ Y tế,Covid-19 TP.HCM,Covid-19 Bình Dương,cách ly,Covid-19 Đồng Nai,Covid-19 Long An,Covid-19 An Giang,Covid-19 Kiên Giang"
+        }
+
+      ,
+        {
+        "aid": "778745",
+        "categoryname": "Sức khỏe",
+        "catealias":"suc-khoe",
+        "cateid":"15",
+        "urlcate": "/vn/suc-khoe/",
+        "atype": "1",
+        "title": "Hà Nội tối nay không có ca Covid-19 mới, cả ngày có 2 bệnh nhân",
+        "image": "https://vnn-imgs-f.vgcloud.vn/2021/07/09/15/bac-ninh-ghi-nhan-12-ca-duong-tinh-ncov-2-moi-trong-cong-dong.jpg",
+        "publishtime": "18:13",
+        "publishdate": "28/09/2021",
+        "lead": "Tối 28/9, Sở Y tế Hà Nội cho biết địa phương không ghi nhận trường hợp mắc Covid-19 mới. Tổng số ca nhiễm tới nay là 3.971 bệnh nhân.",
+        "link": "http://vietnamnet.vn/vn/suc-khoe/ha-noi-toi-nay-khong-co-ca-covid-19-moi-ca-ngay-28-9-co-2-benh-nhan-778745.html",
+        "tags": "Covid-19 Hà Nội,Sở Y tế Hà Nội"
+        }
+
+      ,
+        {
+        "aid": "778735",
+        "categoryname": "Thời sự",
+        "catealias":"thoi-su",
+        "cateid":"3",
+        "urlcate": "/vn/thoi-su/",
+        "atype": "1",
+        "title": "Phong tỏa tạm thời bệnh viện Tim mạch Cần Thơ",
+        "image": "https://vnn-imgs-f.vgcloud.vn/2021/09/28/17/phong-toa-tam-thoi-toan-bo-benh-vien-tim-mach-can-tho.jpg",
+        "publishtime": "16:57",
+        "publishdate": "28/09/2021",
+        "lead": "Toàn bộ Bệnh viện Tim mạch TP Cần Thơ bị phong tỏa tạm thời từ 17h chiều 28/9 đến ngày 12/10, để ngăn chặn việc lây nhiễm trong cộng đồng liên quan ca F0.  ",
+        "link": "http://vietnamnet.vn/vn/thoi-su/phong-toa-tam-thoi-benh-vien-tim-mach-can-tho-778735.html",
+        "tags": "Covid-19 Cần  Thơ,Cần Thơ,phong tỏa"
+        }
+
+      ]
+    }
