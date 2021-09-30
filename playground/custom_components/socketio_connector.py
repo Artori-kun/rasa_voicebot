@@ -42,14 +42,17 @@ class SocketIoOutput(OutputChannel):
         self.tts = Synthesizer()
 
     async def _send_message(self, socket_id, response_message, **kwargs: Any):
+
+        uid = uuid.uuid4()
+
         print("Start synthesizing")
         print(f"Message: {response_message['text']}")
-        self.tts.synthesize(response_message['text'])
+        self.tts.synthesize_uuid(response_message['text'], uid, socket_id)
         print("Synthesized")
 
         await self.sio.emit(self.bot_message_evt,
                             {"text": response_message['text'],
-                             "link": "http://192.168.134.178:8888/output.wav"},
+                             "link": f"http://192.168.191.178:8888/output-{socket_id}-{uid}.wav"},
                             room=socket_id)
         print("emitted")
 
@@ -134,7 +137,7 @@ class SocketIoInput(InputChannel):
             if data['message'] == "/get_started":
                 message = data['message']
             else:
-                ## receive audio as .ogg
+                # receive audio as .ogg
                 received_file = "custom_components/wavs/input_raw.wav"
 
                 urlretrieve(data['message'], received_file)

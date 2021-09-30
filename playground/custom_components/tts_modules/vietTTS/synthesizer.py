@@ -13,6 +13,11 @@ from .hifigan.mel2wave import mel2wave
 from .nat.config import FLAGS
 from .nat.text2mel import text2mel, load_lexicon
 from .nat.data_loader import load_phonemes_set_from_lexicon_file
+
+from scipy.io.wavfile import write
+import numpy as np
+
+
 # import tensorflow as tf
 # gpus = tf.config.experimental.list_physical_devices('GPU')
 # tf.config.experimental.set_memory_growth(gpus[0], True)
@@ -77,15 +82,25 @@ class Synthesizer:
         wave = mel2wave(mel=mel,
                         model_params=self.hk_hifi_params)
 
-        with wv.open("custom_components/wavs/output.wav", "wb") as fw:
-            fw.setnchannels(1)
-            fw.setsampwidth(2)
-            fw.setframerate(16000)
-            fw.writeframes(wave)
+        # print(wave)
 
-        fw.close()
+        write("custom_components/wavs/output.wav", 16000, wave.astype(np.float32))
 
-        # sd.play(wave, samplerate=16000)
+    def synthesize_uuid(self, input_text, uid, socketid):
+        input_text = self.nat_normalize_text(input_text)
+        mel = text2mel(text=input_text,
+                       phonemes=self.phonemes,
+                       lexicon=self.lexicon,
+                       duration_dic=self.duration_dic,
+                       acoustic_dic=self.acoustic_dic,
+                       silence_duration=self.silence_duration)
+
+        wave = mel2wave(mel=mel,
+                        model_params=self.hk_hifi_params)
+
+        # print(wave)
+
+        write(f"custom_components/wavs/output-{socketid}-{uid}.wav", 16000, wave.astype(np.float32))
 
 # text = nat_normalize_text(args.text)
 # print('Normalized text input:', text)

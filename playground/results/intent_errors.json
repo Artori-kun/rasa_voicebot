@@ -1,0 +1,682 @@
+[
+  {
+    "text": "thế còn tin về thể thao thì sao",
+    "intent": "request_news",
+    "intent_prediction": {
+      "name": "inform_content_schedule",
+      "confidence": 0.32363665103912354
+    }
+  },
+  {
+    "text": "cho tôi biết tình dịch bệnh hiện nay",
+    "intent": "request_covid_numbers",
+    "intent_prediction": {
+      "name": "request_covid_timeline",
+      "confidence": 0.7467338442802429
+    }
+  },
+  {
+    "text": "chao xìn",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.23173896968364716
+    }
+  },
+  {
+    "text": "bái bai",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "thanks",
+      "confidence": 0.3139702379703522
+    }
+  },
+  {
+    "text": "goodbye",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "cancel",
+      "confidence": 0.2494368851184845
+    }
+  },
+  {
+    "text": "vâng",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "greet",
+      "confidence": 0.543973982334137
+    }
+  },
+  {
+    "text": "nghe hay đó",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.43191614747047424
+    }
+  },
+  {
+    "text": "ok",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "mood_great",
+      "confidence": 0.40186330676078796
+    }
+  },
+  {
+    "text": "đáng kinh ngạc",
+    "intent": "mood_great",
+    "intent_prediction": {
+      "name": "mood_unhappy",
+      "confidence": 0.9212846755981445
+    }
+  },
+  {
+    "text": "hu hu",
+    "intent": "mood_unhappy",
+    "intent_prediction": {
+      "name": "cancel",
+      "confidence": 0.6559034585952759
+    }
+  },
+  {
+    "text": "nhắc nhở lúc mười giờ ngày mười chín tháng tư",
+    "intent": "ask_reminder",
+    "intent_prediction": {
+      "name": "ask_task",
+      "confidence": 0.5216900110244751
+    }
+  },
+  {
+    "text": "xóa nhắc nhở vào thứ bảy tuần sau lúc ba giờ chiều",
+    "intent": "delete_reminder",
+    "intent_prediction": {
+      "name": "delete_task",
+      "confidence": 0.9239175915718079
+    }
+  },
+  {
+    "text": "lịch ngày mai thế nào",
+    "intent": "ask_schedule",
+    "intent_prediction": {
+      "name": "delete_schedule",
+      "confidence": 0.8657614588737488
+    }
+  },
+  {
+    "text": "lịch làm việc mai ra sao",
+    "intent": "ask_schedule",
+    "intent_prediction": {
+      "name": "delete_schedule",
+      "confidence": 0.43736928701400757
+    }
+  },
+  {
+    "text": "lịch ngày mai",
+    "intent": "ask_schedule",
+    "intent_prediction": {
+      "name": "delete_schedule",
+      "confidence": 0.9004027247428894
+    }
+  },
+  {
+    "text": "lịch thứ tư tuần sau lúc tám giờ sáng",
+    "intent": "ask_schedule",
+    "intent_prediction": {
+      "name": "delete_schedule",
+      "confidence": 0.9833725094795227
+    }
+  },
+  {
+    "text": "kế hoạch ngày mùng tám tháng tư lúc tám giờ",
+    "intent": "ask_schedule",
+    "intent_prediction": {
+      "name": "edit_schedule",
+      "confidence": 0.4619448184967041
+    }
+  },
+  {
+    "text": "Tọa đàm nghiên cứu khoa học",
+    "intent": "inform_content_schedule",
+    "intent_prediction": {
+      "name": "inform_date",
+      "confidence": 0.5604400634765625
+    }
+  },
+  {
+    "text": "ngày tháng",
+    "intent": "inform_field",
+    "intent_prediction": {
+      "name": "inform_date",
+      "confidence": 0.7026951313018799
+    }
+  },
+  {
+    "text": "Tôi cần sửa lịch",
+    "intent": "edit_schedule",
+    "intent_prediction": {
+      "name": "edit_current_schedule",
+      "confidence": 0.5863732099533081
+    }
+  },
+  {
+    "text": "các công việc ngày hai mươi tháng tám",
+    "intent": "ask_task",
+    "intent_prediction": {
+      "name": "delete_task",
+      "confidence": 0.5036806464195251
+    }
+  },
+  {
+    "text": "bỏ hết các nhắn nhở còn lại đi",
+    "intent": "delete_remain_task",
+    "intent_prediction": {
+      "name": "delete_remain_reminder",
+      "confidence": 0.9272087216377258
+    }
+  },
+  {
+    "text": "cho tôi nghe tin về bộ đội",
+    "intent": "request_news",
+    "intent_prediction": {
+      "name": "choose_news",
+      "confidence": 0.7642521858215332
+    }
+  },
+  {
+    "text": "tìm tin liên quan đến ẩm thực",
+    "intent": "request_news",
+    "intent_prediction": {
+      "name": "choose_news",
+      "confidence": 0.5136237144470215
+    }
+  },
+  {
+    "text": "bắt đầu",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "inform_field",
+      "confidence": 0.8631490468978882
+    }
+  },
+  {
+    "text": "okay",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "goodbye",
+      "confidence": 0.33547836542129517
+    }
+  },
+  {
+    "text": "ô kê",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "cancel",
+      "confidence": 0.7106694579124451
+    }
+  },
+  {
+    "text": "tuyệt vời",
+    "intent": "mood_great",
+    "intent_prediction": {
+      "name": "cancel",
+      "confidence": 0.291476309299469
+    }
+  },
+  {
+    "text": "hoàn hảo",
+    "intent": "mood_great",
+    "intent_prediction": {
+      "name": "goodbye",
+      "confidence": 0.6400048136711121
+    }
+  },
+  {
+    "text": "ai đang nói đấy",
+    "intent": "are_you_human_or_machine",
+    "intent_prediction": {
+      "name": "what_are_you",
+      "confidence": 0.9007924199104309
+    }
+  },
+  {
+    "text": "bỏ hết các nhắn nhở còn lại đi",
+    "intent": "delete_remain_reminder",
+    "intent_prediction": {
+      "name": "delete_remain_task",
+      "confidence": 0.9225420951843262
+    }
+  },
+  {
+    "text": "ngày mười sáu tháng tám năm hai không hai mươi",
+    "intent": "inform_date",
+    "intent_prediction": {
+      "name": "ask_task",
+      "confidence": 0.25837334990501404
+    }
+  },
+  {
+    "text": "hôm qua",
+    "intent": "inform_date",
+    "intent_prediction": {
+      "name": "goodbye",
+      "confidence": 0.35504764318466187
+    }
+  },
+  {
+    "text": "hai mươi mốt giờ mười phút",
+    "intent": "inform_time",
+    "intent_prediction": {
+      "name": "inform_date",
+      "confidence": 0.6044224500656128
+    }
+  },
+  {
+    "text": "Chơi thể thao",
+    "intent": "inform_content_schedule",
+    "intent_prediction": {
+      "name": "cancel",
+      "confidence": 0.21459649503231049
+    }
+  },
+  {
+    "text": "địa điểm",
+    "intent": "inform_field",
+    "intent_prediction": {
+      "name": "cancel",
+      "confidence": 0.35246410965919495
+    }
+  },
+  {
+    "text": "hủy kế hoạch hai giờ chiều thứ tư tuần này",
+    "intent": "delete_schedule",
+    "intent_prediction": {
+      "name": "ask_schedule",
+      "confidence": 0.28269675374031067
+    }
+  },
+  {
+    "text": "xóa lịch chủ nhật tuần này",
+    "intent": "delete_schedule",
+    "intent_prediction": {
+      "name": "delete_current_schedule",
+      "confidence": 0.7486165761947632
+    }
+  },
+  {
+    "text": "tôi cần thay đổi lịch này",
+    "intent": "edit_current_schedule",
+    "intent_prediction": {
+      "name": "edit_schedule",
+      "confidence": 0.4189024865627289
+    }
+  },
+  {
+    "text": "tìm tin về kinh doanh",
+    "intent": "request_news",
+    "intent_prediction": {
+      "name": "request_covid_news",
+      "confidence": 0.2251807302236557
+    }
+  },
+  {
+    "text": "tin mới về đầu tư",
+    "intent": "request_news",
+    "intent_prediction": {
+      "name": "choose_news",
+      "confidence": 0.3144741952419281
+    }
+  },
+  {
+    "text": "tôi muốn nghe các tin tức mới",
+    "intent": "request_news",
+    "intent_prediction": {
+      "name": "request_next_news",
+      "confidence": 0.3121269643306732
+    }
+  },
+  {
+    "text": "tôi muốn nghe tin về cô vít",
+    "intent": "request_covid_news",
+    "intent_prediction": {
+      "name": "choose_news",
+      "confidence": 0.8862121105194092
+    }
+  },
+  {
+    "text": "chính xác",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "mood_unhappy",
+      "confidence": 0.4922720193862915
+    }
+  },
+  {
+    "text": "ừ",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "greet",
+      "confidence": 0.6007913947105408
+    }
+  },
+  {
+    "text": "kế hoạch ngày hai lăm tháng tám",
+    "intent": "ask_schedule",
+    "intent_prediction": {
+      "name": "delete_schedule",
+      "confidence": 0.5214861035346985
+    }
+  },
+  {
+    "text": "lịch ngày mai lúc chín giờ hai mươi",
+    "intent": "ask_schedule",
+    "intent_prediction": {
+      "name": "delete_schedule",
+      "confidence": 0.5061578154563904
+    }
+  },
+  {
+    "text": "lịch lúc hai mươi giờ ngày kia",
+    "intent": "ask_schedule",
+    "intent_prediction": {
+      "name": "delete_schedule",
+      "confidence": 0.5441055297851562
+    }
+  },
+  {
+    "text": "lịch ngày mười chín tháng sau lúc bảy giờ",
+    "intent": "ask_schedule",
+    "intent_prediction": {
+      "name": "delete_schedule",
+      "confidence": 0.4791894257068634
+    }
+  },
+  {
+    "text": "tôi cần lên lịch",
+    "intent": "add_new_schedule",
+    "intent_prediction": {
+      "name": "delete_current_schedule",
+      "confidence": 0.2469109445810318
+    }
+  },
+  {
+    "text": "đặt lịch cho tôi",
+    "intent": "add_new_schedule",
+    "intent_prediction": {
+      "name": "edit_schedule",
+      "confidence": 0.523611843585968
+    }
+  },
+  {
+    "text": "hai mươi mốt tháng mười một",
+    "intent": "inform_date",
+    "intent_prediction": {
+      "name": "inform_time",
+      "confidence": 0.5294334888458252
+    }
+  },
+  {
+    "text": "Học tập tại trường",
+    "intent": "inform_content_schedule",
+    "intent_prediction": {
+      "name": "thanks",
+      "confidence": 0.32633545994758606
+    }
+  },
+  {
+    "text": "nội dung",
+    "intent": "inform_field",
+    "intent_prediction": {
+      "name": "cancel",
+      "confidence": 0.5975691080093384
+    }
+  },
+  {
+    "text": "hủy lịch thứ tư tuần sau lúc chín giờ",
+    "intent": "delete_schedule",
+    "intent_prediction": {
+      "name": "ask_schedule",
+      "confidence": 0.4443857669830322
+    }
+  },
+  {
+    "text": "sửa lịch lúc mười gia ba mươi ngày kia",
+    "intent": "edit_schedule",
+    "intent_prediction": {
+      "name": "delete_schedule",
+      "confidence": 0.44951552152633667
+    }
+  },
+  {
+    "text": "công việc ngày mai",
+    "intent": "ask_task",
+    "intent_prediction": {
+      "name": "delete_task",
+      "confidence": 0.7305206656455994
+    }
+  },
+  {
+    "text": "tôi muốn hủy các công việc ngày kia",
+    "intent": "delete_task",
+    "intent_prediction": {
+      "name": "ask_task",
+      "confidence": 0.7455562949180603
+    }
+  },
+  {
+    "text": "xóa các công việc còn lại",
+    "intent": "delete_remain_task",
+    "intent_prediction": {
+      "name": "ask_remain_task",
+      "confidence": 0.361441433429718
+    }
+  },
+  {
+    "text": "tin tức mới về dịch bệnh",
+    "intent": "request_covid_news",
+    "intent_prediction": {
+      "name": "request_news",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "hi",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.9273722767829895
+    }
+  },
+  {
+    "text": "có lẽ không",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "cancel",
+      "confidence": 0.737491250038147
+    }
+  },
+  {
+    "text": "bạn là máy à",
+    "intent": "are_you_human_or_machine",
+    "intent_prediction": {
+      "name": "what_are_you",
+      "confidence": 0.37145039439201355
+    }
+  },
+  {
+    "text": "bố mày là ai",
+    "intent": "who_made_you",
+    "intent_prediction": {
+      "name": "what_are_you",
+      "confidence": 0.8736974000930786
+    }
+  },
+  {
+    "text": "xóa các nhắc nhở còn lại",
+    "intent": "delete_remain_reminder",
+    "intent_prediction": {
+      "name": "delete_current_reminder",
+      "confidence": 0.5915631651878357
+    }
+  },
+  {
+    "text": "Họp giao ban tuần",
+    "intent": "inform_content_schedule",
+    "intent_prediction": {
+      "name": "inform_date",
+      "confidence": 0.6909411549568176
+    }
+  },
+  {
+    "text": "giờ bắt đầu",
+    "intent": "inform_field",
+    "intent_prediction": {
+      "name": "greet",
+      "confidence": 0.45265907049179077
+    }
+  },
+  {
+    "text": "Sửa lịch cho tôi",
+    "intent": "edit_schedule",
+    "intent_prediction": {
+      "name": "edit_current_schedule",
+      "confidence": 0.6215774416923523
+    }
+  },
+  {
+    "text": "tôi cần thay đổi nahwcs nhở lúc hai giờ chiều",
+    "intent": "edit_task",
+    "intent_prediction": {
+      "name": "edit_reminder",
+      "confidence": 0.9533625245094299
+    }
+  },
+  {
+    "text": "còn tin nào nữa không",
+    "intent": "request_next_news",
+    "intent_prediction": {
+      "name": "choose_news",
+      "confidence": 0.47263821959495544
+    }
+  },
+  {
+    "text": "tất nhiên",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "mood_great",
+      "confidence": 0.2474772185087204
+    }
+  },
+  {
+    "text": "hoàn toàn không",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "mood_great",
+      "confidence": 0.7463433146476746
+    }
+  },
+  {
+    "text": "bạn có phải là người không",
+    "intent": "are_you_human_or_machine",
+    "intent_prediction": {
+      "name": "what_are_you",
+      "confidence": 0.19999481737613678
+    }
+  },
+  {
+    "text": "tôi cần thay đổi nahwcs nhở lúc hai giờ chiều",
+    "intent": "edit_reminder",
+    "intent_prediction": {
+      "name": "edit_task",
+      "confidence": 0.9748557209968567
+    }
+  },
+  {
+    "text": "các nhắc nhở còn lại",
+    "intent": "ask_remain_reminder",
+    "intent_prediction": {
+      "name": "delete_remain_reminder",
+      "confidence": 0.7117167115211487
+    }
+  },
+  {
+    "text": "thứ hai tuần tới tôi có lịch gì không",
+    "intent": "ask_schedule",
+    "intent_prediction": {
+      "name": "ask_task",
+      "confidence": 0.40667641162872314
+    }
+  },
+  {
+    "text": "kế hoạch hai giờ ba mươi chiều nay thế nào",
+    "intent": "ask_schedule",
+    "intent_prediction": {
+      "name": "delete_schedule",
+      "confidence": 0.5541515946388245
+    }
+  },
+  {
+    "text": "bảy giờ sáng",
+    "intent": "inform_time",
+    "intent_prediction": {
+      "name": "inform_date",
+      "confidence": 0.5987210273742676
+    }
+  },
+  {
+    "text": "hai giờ chiều",
+    "intent": "inform_time",
+    "intent_prediction": {
+      "name": "inform_date",
+      "confidence": 0.4126587510108948
+    }
+  },
+  {
+    "text": "đá bóng tại sân vân động",
+    "intent": "inform_content_schedule",
+    "intent_prediction": {
+      "name": "delete_schedule",
+      "confidence": 0.21602071821689606
+    }
+  },
+  {
+    "text": "ngày",
+    "intent": "inform_field",
+    "intent_prediction": {
+      "name": "inform_date",
+      "confidence": 0.8191869258880615
+    }
+  },
+  {
+    "text": "tất cả",
+    "intent": "inform_field",
+    "intent_prediction": {
+      "name": "goodbye",
+      "confidence": 0.2560923099517822
+    }
+  },
+  {
+    "text": "các công việc còn lại",
+    "intent": "ask_remain_task",
+    "intent_prediction": {
+      "name": "delete_remain_task",
+      "confidence": 0.8088855147361755
+    }
+  },
+  {
+    "text": "Hôm nay trời thế nào",
+    "intent": "ask_weather_here",
+    "intent_prediction": {
+      "name": "what_time_is_it",
+      "confidence": 0.24964968860149384
+    }
+  },
+  {
+    "text": "Ngoài trời thế nào",
+    "intent": "ask_weather_here",
+    "intent_prediction": {
+      "name": "inform_field",
+      "confidence": 0.31488484144210815
+    }
+  }
+]

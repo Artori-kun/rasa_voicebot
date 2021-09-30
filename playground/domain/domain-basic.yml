@@ -105,6 +105,9 @@ responses:
 actions:
   - action_weather_here
   - action_weather_city
+  - action_faq_current_time
+  - action_faq_current_date
+  - action_faq_current_weekday
 
 
 session_config:

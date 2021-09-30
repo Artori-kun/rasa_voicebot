@@ -1,0 +1,1068 @@
+[
+  {
+    "text": "tin tức thời sự",
+    "entities": [
+      {
+        "start": 8,
+        "end": 15,
+        "value": "thời sự",
+        "entity": "category"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "tin mới về thế hệ trẻ",
+    "entities": [
+      {
+        "start": 11,
+        "end": 21,
+        "value": "giới trẻ",
+        "entity": "category"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "pháp luật có tin gì mới không",
+    "entities": [
+      {
+        "start": 0,
+        "end": 9,
+        "value": "pháp luật",
+        "entity": "category"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "thế còn tin về thể thao thì sao",
+    "entities": [
+      {
+        "start": 15,
+        "end": 23,
+        "value": "thể thao",
+        "entity": "category"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "cho tôi biết thông tin về dịch tại tỉnh sóc trăng và ninh thuận",
+    "entities": [
+      {
+        "start": 40,
+        "end": 49,
+        "value": "sóc trăng",
+        "entity": "province"
+      },
+      {
+        "start": 53,
+        "end": 63,
+        "value": "ninh thuận",
+        "entity": "province"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "province",
+        "start": 35,
+        "end": 49,
+        "confidence_entity": 0.5229147497709892,
+        "value": "tỉnh sóc trăng",
+        "extractor": "CRFEntityExtractor"
+      },
+      {
+        "entity": "province",
+        "start": 53,
+        "end": 63,
+        "confidence_entity": 0.6498228527170925,
+        "value": "ninh thuận",
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "thống kê dịch cô vít tại tỉnh hưng yên",
+    "entities": [
+      {
+        "start": 30,
+        "end": 38,
+        "value": "hưng yên",
+        "entity": "province"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "đọc cho tôi thông tin dịch bệnh tại tỉnh bạc liêu và tỉnh sơn la",
+    "entities": [
+      {
+        "start": 41,
+        "end": 49,
+        "value": "bạc liêu",
+        "entity": "province"
+      },
+      {
+        "start": 58,
+        "end": 64,
+        "value": "sơn la",
+        "entity": "province"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "tôi muốn nghe số liệu thống kê về dịch của quảng trị",
+    "entities": [
+      {
+        "start": 43,
+        "end": 52,
+        "value": "quảng trị",
+        "entity": "province"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "tôi muốn nghe thống kê về dịch cô vít của tỉnh yên bái và của bắc cạn",
+    "entities": [
+      {
+        "start": 47,
+        "end": 54,
+        "value": "yên bái",
+        "entity": "province"
+      },
+      {
+        "start": 62,
+        "end": 69,
+        "value": "bắc cạn",
+        "entity": "province"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "cho tôi xem tin tức thế giới",
+    "entities": [
+      {
+        "start": 20,
+        "end": 28,
+        "value": "thế giới",
+        "entity": "category"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "foreign",
+        "start": 20,
+        "end": 28,
+        "confidence_entity": 0.805728874025916,
+        "value": "thế giới",
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "tin tức quân đội thế giới mới",
+    "entities": [
+      {
+        "start": 8,
+        "end": 25,
+        "value": "quân sự thế giới",
+        "entity": "category"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "category",
+        "start": 8,
+        "end": 16,
+        "confidence_entity": 0.6015275958051925,
+        "value": "quốc phòng",
+        "extractor": "CRFEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "hãy tìm tin tức liên quan đến giới khoa học",
+    "entities": [
+      {
+        "start": 30,
+        "end": 43,
+        "value": "khoa học",
+        "entity": "category"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "tin tức liên quan đến giới trẻ",
+    "entities": [
+      {
+        "start": 22,
+        "end": 30,
+        "value": "giới trẻ",
+        "entity": "category"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "tìm tin liên quan đến ẩm thực",
+    "entities": [
+      {
+        "start": 22,
+        "end": 29,
+        "value": "ẩm thực",
+        "entity": "category"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "tin tức mới về bóng đá trong nước",
+    "entities": [
+      {
+        "start": 15,
+        "end": 33,
+        "value": "bóng đá việt nam",
+        "entity": "category"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "category",
+        "start": 15,
+        "end": 22,
+        "confidence_entity": 0.9346017382928495,
+        "value": "bóng đá việt nam",
+        "extractor": "CRFEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "domestic",
+        "start": 23,
+        "end": 33,
+        "confidence_entity": 0.508073100091683,
+        "value": "trong nước",
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "tin tức du lịch",
+    "entities": [
+      {
+        "start": 8,
+        "end": 15,
+        "value": "du lịch",
+        "entity": "category"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "tình hình dịch bệnh nước ta",
+    "entities": [
+      {
+        "start": 20,
+        "end": 27,
+        "value": "nước ta",
+        "entity": "domestic"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "thông tin dịch cô vít tại đắc lắc",
+    "entities": [
+      {
+        "start": 26,
+        "end": 33,
+        "value": "đắk lắk",
+        "entity": "province"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "thống kê dịch bệnh tại hà nam, điện biện và hải phòng",
+    "entities": [
+      {
+        "start": 23,
+        "end": 29,
+        "value": "hà nam",
+        "entity": "province"
+      },
+      {
+        "start": 31,
+        "end": 40,
+        "value": "điện biện",
+        "entity": "province"
+      },
+      {
+        "start": 44,
+        "end": 53,
+        "value": "hải phòng",
+        "entity": "province"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "province",
+        "start": 23,
+        "end": 29,
+        "confidence_entity": 0.6472434415428067,
+        "value": "hà nam",
+        "extractor": "CRFEntityExtractor"
+      },
+      {
+        "entity": "province",
+        "start": 44,
+        "end": 53,
+        "confidence_entity": 0.7647024262354296,
+        "value": "hải phòng",
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "thống kê về dịch cô vít mười chín tại nam định và hòa bình",
+    "entities": [
+      {
+        "start": 38,
+        "end": 46,
+        "value": "nam định",
+        "entity": "province"
+      },
+      {
+        "start": 50,
+        "end": 58,
+        "value": "hòa bình",
+        "entity": "province"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "province",
+        "start": 42,
+        "end": 46,
+        "confidence_entity": 0.5727479623246994,
+        "value": "định",
+        "extractor": "CRFEntityExtractor"
+      },
+      {
+        "entity": "province",
+        "start": 50,
+        "end": 58,
+        "confidence_entity": 0.9321668248101157,
+        "value": "hòa bình",
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "thống kê tình hình dịch ở con tum với cả thái nguyên",
+    "entities": [
+      {
+        "start": 26,
+        "end": 33,
+        "value": "con tum",
+        "entity": "province"
+      },
+      {
+        "start": 41,
+        "end": 52,
+        "value": "thái nguyên",
+        "entity": "province"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "tôi muốn nghe tin đầu",
+    "entities": [
+      {
+        "start": 18,
+        "end": 21,
+        "value": "đầu",
+        "entity": "news_order_st"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "đọc tin đầu đi",
+    "entities": [
+      {
+        "start": 8,
+        "end": 11,
+        "value": "đầu",
+        "entity": "news_order_st"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "đọc tin đầu và tin thứ hai",
+    "entities": [
+      {
+        "start": 8,
+        "end": 11,
+        "value": "đầu",
+        "entity": "news_order_st"
+      },
+      {
+        "start": 19,
+        "end": 26,
+        "value": "thứ hai",
+        "entity": "news_order_nd"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "news_order_nd",
+        "start": 19,
+        "end": 26,
+        "confidence_entity": 0.8639039776008068,
+        "value": "thứ hai",
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "tôi muốn nghe tin thứ hai và cuối cùng",
+    "entities": [
+      {
+        "start": 18,
+        "end": 25,
+        "value": "thứ hai",
+        "entity": "news_order_nd"
+      },
+      {
+        "start": 29,
+        "end": 38,
+        "value": "cuối cùng",
+        "entity": "news_order_rd"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "province",
+        "start": 18,
+        "end": 25,
+        "confidence_entity": 0.4162554304381697,
+        "value": "thứ hai",
+        "extractor": "CRFEntityExtractor"
+      },
+      {
+        "entity": "news_order_rd",
+        "start": 29,
+        "end": 38,
+        "confidence_entity": 0.49195319714296337,
+        "value": "thứ ba",
+        "extractor": "CRFEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Cho tôi thông tin về thời tiết",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "category",
+        "start": 21,
+        "end": 30,
+        "confidence_entity": 0.8879055980779429,
+        "value": "thời tiết",
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "tin về ô nhiễm môi trường có gì mới",
+    "entities": [
+      {
+        "start": 7,
+        "end": 25,
+        "value": "môi trường",
+        "entity": "category"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "số liệu cô vít nước ngoài",
+    "entities": [
+      {
+        "start": 15,
+        "end": 25,
+        "value": "nước ngoài",
+        "entity": "foreign"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "tình hình cô vít tại thành phố hồ chí minh",
+    "entities": [
+      {
+        "start": 31,
+        "end": 42,
+        "value": "hồ chí minh",
+        "entity": "province"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "tôi cần nghe tình hình cô vít ở tỉnh đồng nai",
+    "entities": [
+      {
+        "start": 37,
+        "end": 45,
+        "value": "đồng nai",
+        "entity": "province"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "tình hình cô vít ở các tỉnh bắc ninh và bến tre",
+    "entities": [
+      {
+        "start": 28,
+        "end": 36,
+        "value": "bắc ninh",
+        "entity": "province"
+      },
+      {
+        "start": 40,
+        "end": 47,
+        "value": "bến tre",
+        "entity": "province"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "province",
+        "start": 28,
+        "end": 36,
+        "confidence_entity": 0.8010033327260079,
+        "value": "bắc ninh",
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "tình hình dịch tại kiên giang và nghệ an sao rồi",
+    "entities": [
+      {
+        "start": 19,
+        "end": 29,
+        "value": "kiên giang",
+        "entity": "province"
+      },
+      {
+        "start": 33,
+        "end": 40,
+        "value": "nghệ an",
+        "entity": "province"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "province",
+        "start": 19,
+        "end": 29,
+        "confidence_entity": 0.9255949821706669,
+        "value": "kiên giang",
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "thống kê vê dịch bệnh tại quảng nam, gia lai và quảng bình",
+    "entities": [
+      {
+        "start": 26,
+        "end": 35,
+        "value": "quảng nam",
+        "entity": "province"
+      },
+      {
+        "start": 37,
+        "end": 44,
+        "value": "gia lai",
+        "entity": "province"
+      },
+      {
+        "start": 48,
+        "end": 58,
+        "value": "quảng bình",
+        "entity": "province"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "province",
+        "start": 48,
+        "end": 58,
+        "confidence_entity": 0.9905218805128025,
+        "value": "quảng bình",
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "thống kê dịch bệnh ở tỉnh hậu giang",
+    "entities": [
+      {
+        "start": 26,
+        "end": 35,
+        "value": "hậu giang",
+        "entity": "province"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "province",
+        "start": 30,
+        "end": 35,
+        "confidence_entity": 0.47295802750738036,
+        "value": "giang",
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "tôi muốn nghe thống kê tình hình dịch bệnh tại vĩnh phúc và lâm đồng",
+    "entities": [
+      {
+        "start": 47,
+        "end": 56,
+        "value": "vĩnh phúc",
+        "entity": "province"
+      },
+      {
+        "start": 60,
+        "end": 68,
+        "value": "lâm đồng",
+        "entity": "province"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "Học tập tại trường",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "province",
+        "start": 12,
+        "end": 18,
+        "confidence_entity": 0.6034740225626971,
+        "value": "trường",
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "giao thông có tin tức gì mới",
+    "entities": [
+      {
+        "start": 0,
+        "end": 10,
+        "value": "an toàn giao thông",
+        "entity": "category"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "tin tức về chủ đề thị trường",
+    "entities": [
+      {
+        "start": 18,
+        "end": 28,
+        "value": "thị trường",
+        "entity": "category"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "tin tức về chủ đề thanh niên",
+    "entities": [
+      {
+        "start": 18,
+        "end": 28,
+        "value": "giới trẻ",
+        "entity": "category"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "tin tức chủ đề công nghệ",
+    "entities": [
+      {
+        "start": 15,
+        "end": 24,
+        "value": "công nghệ",
+        "entity": "category"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "tình hình dịch tại tiền giang thế nào",
+    "entities": [
+      {
+        "start": 19,
+        "end": 29,
+        "value": "tiền giang",
+        "entity": "province"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "cho tôi biết tình hình cô vít tại khánh hòa",
+    "entities": [
+      {
+        "start": 34,
+        "end": 43,
+        "value": "khánh hòa",
+        "entity": "province"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "tình hình dịch tại thủ đô hà nội",
+    "entities": [
+      {
+        "start": 26,
+        "end": 32,
+        "value": "hà nội",
+        "entity": "province"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "tình hình dịch của cà mau và của thái bình",
+    "entities": [
+      {
+        "start": 19,
+        "end": 25,
+        "value": "cà mau",
+        "entity": "province"
+      },
+      {
+        "start": 33,
+        "end": 42,
+        "value": "thái bình",
+        "entity": "province"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "province",
+        "start": 33,
+        "end": 42,
+        "confidence_entity": 0.5718340499833979,
+        "value": "thái bình",
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "tôi cần nghe thông tin về dịch bệnh ở tuyên quang, lai châu và cao bằng",
+    "entities": [
+      {
+        "start": 38,
+        "end": 49,
+        "value": "tuyên quang",
+        "entity": "province"
+      },
+      {
+        "start": 51,
+        "end": 59,
+        "value": "lai châu",
+        "entity": "province"
+      },
+      {
+        "start": 63,
+        "end": 71,
+        "value": "cao bằng",
+        "entity": "province"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "province",
+        "start": 63,
+        "end": 71,
+        "confidence_entity": 0.7388522716851579,
+        "value": "cao bằng",
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "tìm tin tức an toàn giao thông",
+    "entities": [
+      {
+        "start": 12,
+        "end": 30,
+        "value": "an toàn giao thông",
+        "entity": "category"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "category",
+        "start": 20,
+        "end": 30,
+        "confidence_entity": 0.8168426897892093,
+        "value": "an toàn giao thông",
+        "extractor": "CRFEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "tin tức về bảo hiểm xã hội",
+    "entities": [
+      {
+        "start": 11,
+        "end": 26,
+        "value": "bhxh - bhyt",
+        "entity": "category"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "tìm tin tức về bảo hiểm y tế",
+    "entities": [
+      {
+        "start": 15,
+        "end": 28,
+        "value": "bhxh - bhyt",
+        "entity": "category"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "tin tức dành cho du học sinh",
+    "entities": [
+      {
+        "start": 17,
+        "end": 28,
+        "value": "du học",
+        "entity": "category"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "tin mới về thông tin truyền thông",
+    "entities": [
+      {
+        "start": 11,
+        "end": 33,
+        "value": "thông tin truyền thông",
+        "entity": "category"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "tình hình dịch bệnh ở bình dương thế nào",
+    "entities": [
+      {
+        "start": 22,
+        "end": 32,
+        "value": "bình dương",
+        "entity": "province"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "tôi muốn biết tình hình dịch ở long an",
+    "entities": [
+      {
+        "start": 31,
+        "end": 38,
+        "value": "long an",
+        "entity": "province"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "tôi muốn nghe về tình hình dịch ở đà nẵng và cần thơ",
+    "entities": [
+      {
+        "start": 34,
+        "end": 41,
+        "value": "đà nẵng",
+        "entity": "province"
+      },
+      {
+        "start": 45,
+        "end": 52,
+        "value": "cần thơ",
+        "entity": "province"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "tình hình dịch bệnh tại các tỉnh bà rịa vũng tàu, phú yên và bình thuận",
+    "entities": [
+      {
+        "start": 33,
+        "end": 48,
+        "value": "bà rịa vũng tàu",
+        "entity": "province"
+      },
+      {
+        "start": 50,
+        "end": 57,
+        "value": "phú yên",
+        "entity": "province"
+      },
+      {
+        "start": 61,
+        "end": 71,
+        "value": "bình thuận",
+        "entity": "province"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "province",
+        "start": 50,
+        "end": 57,
+        "confidence_entity": 0.8296257615426402,
+        "value": "phú yên",
+        "extractor": "CRFEntityExtractor"
+      },
+      {
+        "entity": "province",
+        "start": 61,
+        "end": 71,
+        "confidence_entity": 0.6424364473891783,
+        "value": "bình thuận",
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "tôi cần biết thông tin cô vít tại bình định",
+    "entities": [
+      {
+        "start": 34,
+        "end": 43,
+        "value": "bình định",
+        "entity": "province"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "tôi muốn nghe thông tin dịch tại huế",
+    "entities": [
+      {
+        "start": 33,
+        "end": 36,
+        "value": "thừa thiên huế",
+        "entity": "province"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "cho tôi nghe thống kê dịch cô vít ở tỉnh lạng sơn và ở ninh bình",
+    "entities": [
+      {
+        "start": 41,
+        "end": 49,
+        "value": "lạng sơn",
+        "entity": "province"
+      },
+      {
+        "start": 55,
+        "end": 64,
+        "value": "ninh bình",
+        "entity": "province"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "province",
+        "start": 55,
+        "end": 64,
+        "confidence_entity": 0.5596053802569998,
+        "value": "ninh bình",
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "thông tin dịch tại quảng ninh và lào cai",
+    "entities": [
+      {
+        "start": 19,
+        "end": 29,
+        "value": "quảng ninh",
+        "entity": "province"
+      },
+      {
+        "start": 33,
+        "end": 40,
+        "value": "lào cai",
+        "entity": "province"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "province",
+        "start": 19,
+        "end": 29,
+        "confidence_entity": 0.9989212827010647,
+        "value": "quảng ninh",
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "đọc tin cuối cho tôi",
+    "entities": [
+      {
+        "start": 8,
+        "end": 12,
+        "value": "cuối",
+        "entity": "news_order_rd"
+      }
+    ],
+    "predicted_entities": []
+  }
+]
