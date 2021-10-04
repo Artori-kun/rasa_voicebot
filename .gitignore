@@ -11,10 +11,10 @@ voicebot_venv/
 **/__pycache__
 
 # asset files
-playground/custom_components/wavs
-playground/custom_components/tts_modules/assets
-playground/custom_components/tts_modules/scripts
-playground/custom_components/pre-trained
+core/custom_components/wavs
+core/custom_components/tts_modules/assets
+core/custom_components/tts_modules/scripts
+core/custom_components/pre-trained
 
 # migrated modules
 django_apis/

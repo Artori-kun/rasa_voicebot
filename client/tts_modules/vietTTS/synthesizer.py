@@ -68,7 +68,7 @@ class Synthesizer:
         wave = mel2wave(mel=mel,
                         model_params=self.hk_hifi_params)
 
-        with wv.open("playground/wavs/output.wav", "w") as fw:
+        with wv.open("core/wavs/output.wav", "w") as fw:
             fw.setchannels(1)
             fw.setsampwidth(2)
             fw.setframerate(16000)

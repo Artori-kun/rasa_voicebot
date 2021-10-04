@@ -73,14 +73,20 @@ class Synthesizer:
 
     @staticmethod
     def prepare_text(text):
+        text = text.lower()
         with open("custom_components/tts_modules/vietTTS/synonyms.json", "r", encoding="utf-8") as fr:
             synonyms = json.load(fr)
+
+        with open("custom_components/tts_modules/vietTTS/acronyms.json", "r", encoding="utf-8") as fr:
+            acronyms = json.load(fr)
 
         def convert_number_lte_3digits(num_text):
             if len(num_text) == 1:
                 num_text = synonyms[num_text]['single']
             elif len(num_text) == 2:
-                if num_text[0] == '0':
+                if num_text == '10':
+                    num_text = "mười"
+                elif num_text[0] == '0':
                     num_text = synonyms[num_text[1]]['single']
                 else:
                     num_text = synonyms[num_text[0]]['ty2'] + " " + synonyms[num_text[1]]['ty1']
@@ -109,15 +115,66 @@ class Synthesizer:
 
             return final_text.strip()
 
+        pattern_date = re.compile(r'\b((3[0-1]|[1-2][0-9]|0[1-9])[/-](1[0-2]|0[1-9]|[1-9])[/-](\d{4}|\d{2}))|((3[0-1]|['
+                                  r'0-2][0-9]|[1-9])[/-](1[0-2]|0[1-9]|[1-9]))\b')
+        pattern_time = re.compile(r'((2[0-4]|[0-1][0-9]|[0-9]):([0-5][0-9]|[1-9]))')
         pattern_digits = re.compile(r"\d+")
 
+        # replace acronyms with full text
+        for k in acronyms.keys():
+            text = re.sub(r'\b' + k + r'\b', acronyms[k], text)
+
+        # convert time format to text
+
+        for match in re.finditer(pattern_time, text):
+            time_text = match.group(0)
+            time_text = time_text.split(':')
+
+            if time_text[1] == '00':
+                time_text = time_text[0] + ' giờ '
+            else:
+                time_text = time_text[0] + ' giờ ' + time_text[1]
+
+            text = text.replace(match.group(0), time_text)
+
+        # convert date format to text
+
+        for match in re.finditer(pattern_date, text):
+            # print(match.group(0))
+            date_text = match.group(0)
+
+            if len(date_text.split('/')) == 1:
+                date_text = date_text.split('-')
+            else:
+                date_text = date_text.split('/')
+
+            if date_text[0].startswith('0'):
+                date_text[0] = date_text[0][1:]
+            if date_text[1].startswith('0'):
+                date_text[1] = date_text[1][1:]
+
+            if len(date_text) == 2:
+                date_text = date_text[0] + ' tháng ' + date_text[1]
+            else:
+                date_text = date_text[0] + ' tháng ' + date_text[1] + ' năm ' + date_text[2]
+
+            # print(date_text)
+            text = text.replace(match.group(0), date_text)
+
+        # convert numbers to text
+        for match in re.finditer(re.compile(r'\d+.\d+'), text):
+            text = text.replace(match.group(0), match.group(0).replace('.', ''))
+
         for match in re.finditer(pattern_digits, text):
-            print(match.group(0))
+            # print(match.group(0))
             text = text.replace(match.group(0), convert_number_to_text(match.group(0)))
+
+        text = text.replace('/', ' trên ')
 
         return text
 
     def synthesize(self, input_text):
+        input_text = self.prepare_text(input_text)
         input_text = self.nat_normalize_text(input_text)
         mel = text2mel(text=input_text,
                        phonemes=self.phonemes,
@@ -134,6 +191,7 @@ class Synthesizer:
         write("custom_components/wavs/output.wav", 16000, wave.astype(np.float32))
 
     def synthesize_uuid(self, input_text, uid, socketid):
+        input_text = self.prepare_text(input_text)
         input_text = self.nat_normalize_text(input_text)
         mel = text2mel(text=input_text,
                        phonemes=self.phonemes,

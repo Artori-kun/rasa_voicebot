@@ -133,7 +133,8 @@ class NewsExtractor:
         for p in article_content.find_all('p'):
             content_text += ' ' + p.get_text(strip=True)
 
-        return self.clean_the_fucking_text(content_text)
+        # return self.clean_the_fucking_text(content_text)
+        return content_text
 
     def get_general_covid_info_vn(self):
         header = {"User-Agent": self.user_agent,
@@ -217,8 +218,10 @@ class NewsExtractor:
 
         timeline = timeline_title + '\n' + ' '.join(p.get_text() for p in timeline)
 
-        return {"timestamp": self.clean_the_fucking_text(timestamp),
-                "timeline": self.clean_the_fucking_text(timeline)}
+        # return {"timestamp": self.clean_the_fucking_text(timestamp),
+        #         "timeline": self.clean_the_fucking_text(timeline)}
+        return {"timestamp": timestamp,
+                "timeline": timeline}
 
     def get_covid_headline(self):
         def convert_to_proper_json(text):
