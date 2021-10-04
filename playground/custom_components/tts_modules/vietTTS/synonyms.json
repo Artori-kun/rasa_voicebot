@@ -1,0 +1,63 @@
+{
+  "0": {
+    "single": "không",
+    "teen": "",
+    "ty1": "mươi",
+    "ty2": "linh"
+  },
+  "1" : {
+    "single": "một",
+    "teen": "một",
+    "ty1": "mốt",
+    "ty2": "mười"
+  },
+  "2": {
+    "single": "hai",
+    "teen": "hai",
+    "ty1": "hai",
+    "ty2": "hai mươi"
+  },
+  "3": {
+    "single": "ba",
+    "teen": "ba",
+    "ty1": "ba",
+    "ty2": "ba mươi"
+  },
+  "4": {
+    "single": "bốn",
+    "teen": "bốn",
+    "ty1": "tư",
+    "ty2": "bốn mươi"
+  },
+  "5": {
+    "single": "năm",
+    "teen": "lăm",
+    "ty1": "lăm",
+    "ty2": "năm mươi"
+  },
+  "6": {
+    "single": "sáu",
+    "teen": "sáu",
+    "ty1": "sáu",
+    "ty2": "sáu mươi"
+  },
+  "7": {
+    "single": "bảy",
+    "teen": "bảy",
+    "ty1": "bảy",
+    "ty2": "bảy mươi"
+  },
+  "8": {
+    "single": "tám",
+    "teen": "tám",
+    "ty1": "tám",
+    "ty2": "tám mươi"
+  },
+  "9": {
+    "single": "chín",
+    "teen": "chín",
+    "ty1": "chín",
+    "ty2": "chín mươi"
+  },
+  "unit": ["","nghìn", "triệu", "tỉ"]
+}

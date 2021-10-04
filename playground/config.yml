@@ -61,8 +61,6 @@ pipeline:
       news_order_rd: False
   - name: EntitySynonymMapper
 
-
-
 # Configuration for Rasa Core.
 # https://rasa.com/docs/rasa/core/policies/
 policies:

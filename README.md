@@ -12,10 +12,12 @@ I am a Vietnamese intelligent virtual assistant *(yes i'm asian and no i'm not h
 My purposes are to assist you in managing your personal schedule and providing you with the latest news out there, so you won't become
 what we like to call "a cave man" :joy_cat:. For now, that's all i can do since somebody has been lazy lately :smirk_cat: .
 
-## So, how do i work ?
-Don't worry, i'm gonna walk you through it.
+## So, how do I work ?
+Don't worry, I'm gonna walk you through it.
 
-First things first, for me to operate entirely, you need 3 different repositories. 
+First things first, what I want you to do is ignore that `client` and `django_apis` directory. They are useless now.
+
+For me to operate entirely, you need 3 different repositories. 
 
 >***That's right people, i'm [horcrux-ing](https://harrypotter.fandom.com/wiki/Horcrux) this :poop:***
 

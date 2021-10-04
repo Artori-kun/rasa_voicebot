@@ -1,18 +1,14 @@
 import logging
 import os
 import uuid
+from typing import Optional, Text, Any
 from urllib.request import urlretrieve
-import sys
-import numpy as np
-from sanic import Blueprint, response
-from sanic.request import Request
-from socketio import AsyncServer
-from typing import Optional, Text, Any, Dict, Iterable
 
-from rasa.core.channels.channel import InputChannel, UserMessage, OutputChannel
-
-from custom_components.tts_modules.vietTTS.synthesizer import Synthesizer
 from custom_components.modules.voice_modules import VoiceModules
+from custom_components.tts_modules.vietTTS.synthesizer import Synthesizer
+from rasa.core.channels.channel import InputChannel, UserMessage, OutputChannel
+from sanic import Blueprint, response
+from socketio import AsyncServer
 
 logger = logging.getLogger(__name__)
 

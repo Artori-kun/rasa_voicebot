@@ -186,7 +186,7 @@ class TaskViewSet(viewsets.ModelViewSet):
 
             if time_param1 is not None:
                 if time_param2 is not None:
-                    queryset = queryset.filter(time_field__gte=time_param1).filter(time_param2__lte=time_param2)
+                    queryset = queryset.filter(time_field__gte=time_param1).filter(time_field__lte=time_param2)
                 else:
                     queryset = queryset.filter(time_field=time_param1)
 

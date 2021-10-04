@@ -149,15 +149,16 @@ class ActionRetrieveCovidNumber(Action):
                 dispatcher.utter_message(f"Tình hình dịch bệnh trong nước:\n"
                                          f"Số ca nhiễm: {data['cases']}\n"
                                          f"Số ca mới: {data['new-cases']}\n"
-                                         f"Đã khỏi: {data['cured']}\n"
-                                         f"Tử vong: {data['death']}")
+                                         f"Đã khỏi: {data['recovered']}\n"
+                                         f"Tử vong: {data['death']}\n"
+                                         f"Đang điều trị: {data['treating']}")
             elif entity['entity'] == 'foreign':
                 entity_provided = True
                 data = e.get_general_covid_info_world()
 
                 dispatcher.utter_message(f"Tình hình dịch bệnh thế giới:\n"
                                          f"Số ca nhiễm: {data['cases']}\n"
-                                         f"Đã khỏi: {data['cured']}\n"
+                                         f"Số ca nhiễm mới: {data['new-cases']}\n"
                                          f"Tử vong: {data['death']}")
             elif entity['entity'] == 'province':
                 entity_provided = True
@@ -168,7 +169,8 @@ class ActionRetrieveCovidNumber(Action):
                 print(data)
                 dispatcher.utter_message(f"Tình hình dịch bệnh tại {province}:\n"
                                          f"Số ca nhiễm: {data['cases']}\n"
-                                         f"Số ca mới: {data['new-cases']}\n")
+                                         f"Số ca mới: {data['new-cases']}\n"
+                                         f"Tử vong: {data['death']}")
 
         if not entity_provided:
             data_vn = e.get_general_covid_info_vn()
@@ -177,12 +179,13 @@ class ActionRetrieveCovidNumber(Action):
             dispatcher.utter_message(f"Tình hình dịch bệnh trong nước:\n"
                                      f"Số ca nhiễm: {data_vn['cases']}\n"
                                      f"Số ca mới: {data_vn['new-cases']}\n"
-                                     f"Đã khỏi: {data_vn['cured']}\n"
-                                     f"Tử vong: {data_vn['death']}")
+                                     f"Đã khỏi: {data_vn['recovered']}\n"
+                                     f"Tử vong: {data_vn['death']}\n"
+                                     f"Đang điều trị: {data_vn['treating']}")
 
             dispatcher.utter_message(f"Tình hình dịch bệnh thế giới:\n"
                                      f"Số ca nhiễm: {data_world['cases']}\n"
-                                     f"Đã khỏi: {data_world['cured']}\n"
+                                     f"Số ca nhiễm mới: {data_world['new-cases']}\n"
                                      f"Tử vong: {data_world['death']}")
 
         return None

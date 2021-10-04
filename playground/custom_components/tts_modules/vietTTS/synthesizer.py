@@ -1,3 +1,4 @@
+import json
 import pickle
 import re
 import unicodedata
@@ -69,6 +70,52 @@ class Synthesizer:
         input_text = re.sub('[ ]+', ' ', input_text)
         input_text = re.sub(f'( {sp}+)+ ', f' {sp} ', input_text)
         return input_text.strip()
+
+    @staticmethod
+    def prepare_text(text):
+        with open("custom_components/tts_modules/vietTTS/synonyms.json", "r", encoding="utf-8") as fr:
+            synonyms = json.load(fr)
+
+        def convert_number_lte_3digits(num_text):
+            if len(num_text) == 1:
+                num_text = synonyms[num_text]['single']
+            elif len(num_text) == 2:
+                if num_text[0] == '0':
+                    num_text = synonyms[num_text[1]]['single']
+                else:
+                    num_text = synonyms[num_text[0]]['ty2'] + " " + synonyms[num_text[1]]['ty1']
+            elif len(num_text) == 3:
+                if num_text[1] == '0':
+                    num_text = synonyms[num_text[0]]['single'] + " trăm " + \
+                               synonyms[num_text[1]]['ty2'] + " " + synonyms[num_text[2]]['single']
+                else:
+                    num_text = synonyms[num_text[0]]['single'] + " trăm " + \
+                               synonyms[num_text[1]]['ty2'] + " " + synonyms[num_text[2]]['ty1']
+            return num_text
+
+        def convert_number_to_text(num_text):
+            final_text = ''
+            iteration = len(num_text) % 3
+
+            for i in range(1, iteration + 1):
+                triple_digit = num_text[-3:]
+                num_text = num_text[:-3]
+                if len(num_text) == 0:
+                    final_text = convert_number_lte_3digits(triple_digit) + " " + final_text
+                else:
+                    final_text = synonyms['unit'][i] + " " + convert_number_lte_3digits(triple_digit) + " " + final_text
+
+            final_text = convert_number_lte_3digits(num_text) + " " + final_text
+
+            return final_text.strip()
+
+        pattern_digits = re.compile(r"\d+")
+
+        for match in re.finditer(pattern_digits, text):
+            print(match.group(0))
+            text = text.replace(match.group(0), convert_number_to_text(match.group(0)))
+
+        return text
 
     def synthesize(self, input_text):
         input_text = self.nat_normalize_text(input_text)
