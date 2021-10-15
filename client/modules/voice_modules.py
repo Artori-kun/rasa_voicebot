@@ -20,8 +20,9 @@ class VoiceModules:
         self.text_to_speech_url = self.config['tts_url']
         self.output_path = self.config['tts_output_path']
 
-    def speech_to_text(self):
-        payload = open(self.input_wav_path, 'rb').read()
+    def speech_to_text(self, input_wav_path):
+        payload = open(input_wav_path, 'rb').read()
+
         headers = {
             'api-key': self.api_key
         }

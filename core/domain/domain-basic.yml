@@ -19,9 +19,22 @@ intents:
   - what_weekday_is_it
   - ask_weather_here
   - ask_weather_city
+  - log_in
+  - sign_in
 
 entities:
   - city
+
+slots:
+  user_id:
+    type: text
+  user_firstname:
+    type: text
+  user_lastname:
+    type: text
+  is_verified:
+    type: bool
+    initial_value: false
 
 
 responses:
@@ -85,6 +98,11 @@ responses:
     - text: "Ok"
     - text: "Được thôi"
 
+  utter_not_verified:
+    - text: "Xin lỗi, tôi không biết bạn là ai"
+    - text: "Xin lỗi, tên bạn không có trong hệ thống"
+    - text: "Xin lỗi, tôi không thể giúp bạn được. Hãy thử đăng kí trước nhé"
+
   utter_iam:
     - text: "Tôi là Xỉu. Tôi là một trợ lý ảo được xây dựng trên nền tảng Rasa"
     - text: "Tên tôi là Xỉu, trợ lý ảo."
@@ -108,6 +126,9 @@ actions:
   - action_faq_current_time
   - action_faq_current_date
   - action_faq_current_weekday
+  - action_verify_speaker
+  - action_unverify_speaker
+  - action_greet_user
 
 
 session_config:

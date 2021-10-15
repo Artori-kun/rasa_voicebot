@@ -74,6 +74,8 @@ class Synthesizer:
     @staticmethod
     def prepare_text(text):
         text = text.lower()
+        text = unicodedata.normalize("NFKD", text)
+
         with open("custom_components/tts_modules/vietTTS/synonyms.json", "r", encoding="utf-8") as fr:
             synonyms = json.load(fr)
 
@@ -101,7 +103,7 @@ class Synthesizer:
 
         def convert_number_to_text(num_text):
             final_text = ''
-            iteration = len(num_text) % 3
+            iteration = int(len(num_text) / 3)
 
             for i in range(1, iteration + 1):
                 triple_digit = num_text[-3:]
@@ -166,10 +168,12 @@ class Synthesizer:
             text = text.replace(match.group(0), match.group(0).replace('.', ''))
 
         for match in re.finditer(pattern_digits, text):
-            # print(match.group(0))
+            print(match.group(0))
             text = text.replace(match.group(0), convert_number_to_text(match.group(0)))
 
         text = text.replace('/', ' trên ')
+
+        text = re.sub(re.compile(r'[•\-+():]'), '', text)
 
         return text
 
@@ -193,6 +197,9 @@ class Synthesizer:
     def synthesize_uuid(self, input_text, uid, socketid):
         input_text = self.prepare_text(input_text)
         input_text = self.nat_normalize_text(input_text)
+
+        print(input_text)
+
         mel = text2mel(text=input_text,
                        phonemes=self.phonemes,
                        lexicon=self.lexicon,

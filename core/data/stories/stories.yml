@@ -20,9 +20,21 @@ stories:
       - action: utter_cheer_up
       - action: utter_how_can_help
 
-  - story: greet
+  - story: greet / known user
     steps:
       - intent: greet
+      - action: action_verify_speaker
+      - slot_was_set:
+          - is_verified: true
+      - action: action_greet_user
+      - action: utter_how_can_help
+
+  - story: greet / unknown user
+    steps:
+      - intent: greet
+      - action: action_verify_speaker
+      - slot_was_set:
+          - is_verified: false
       - action: utter_greet
       - action: utter_how_can_help
 

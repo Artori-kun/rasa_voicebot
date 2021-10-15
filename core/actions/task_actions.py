@@ -26,10 +26,15 @@ class ActionRetrieveTask(Action):
     async def run(self, dispatcher: CollectingDispatcher,
                   tracker: Tracker,
                   domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        user_id = tracker.get_slot('user_id')
+        if user_id is None:
+            dispatcher.utter_message("Bạn không có quyền thực hiền hành động này")
+            return []
+
         message = tracker.latest_message.get('text')
         dates = date_extractor.summary_date(message)
         times = date_extractor.summary_time(message)
-        response = None
+        # response = None
         tasks = []
 
         if len(times) == 0:
@@ -38,14 +43,14 @@ class ActionRetrieveTask(Action):
                 return [SlotSet('task_current'), None]
             else:
                 date_param = dates[0]
-                response = requests.get(BASE_TASKS_URL + f"?date={date_param}")
+                response = requests.get(BASE_TASKS_URL + f"?u_id={user_id}&date={date_param}")
         elif len(dates) == 0:
             date_param = date.today()
             date_param = date_param.strftime("%d-%m-%Y")
-            response = requests.get(BASE_TASKS_URL + f"?date={date_param}&time1={times[0]}")
+            response = requests.get(BASE_TASKS_URL + f"?u_id={user_id}&date={date_param}&time1={times[0]}")
         else:
             date_param = dates[0]
-            response = requests.get(BASE_TASKS_URL + f"?date={date_param}&time1={times[0]}")
+            response = requests.get(BASE_TASKS_URL + f"?u_id={user_id}&date={date_param}&time1={times[0]}")
 
         status = response.status_code
         if status == 400:
@@ -91,6 +96,11 @@ class ActionRetrieveTaskRemain(Action):
                   dispatcher: "CollectingDispatcher",
                   tracker: Tracker,
                   domain: "DomainDict") -> List[Dict[Text, Any]]:
+        user_id = tracker.get_slot('user_id')
+        if user_id is None:
+            dispatcher.utter_message("Bạn không có quyền thực hiền hành động này")
+            return []
+
         time_param1 = datetime.now().time()
         time_param1 = time_param1.strftime("%H:%M")
 
@@ -101,7 +111,7 @@ class ActionRetrieveTaskRemain(Action):
 
         tasks = []
 
-        response = requests.get(BASE_TASKS_URL + f"?date={date_param}&time1={time_param1}&time2={time_param2}")
+        response = requests.get(BASE_TASKS_URL + f"?u_id={user_id}&date={date_param}&time1={time_param1}&time2={time_param2}")
 
         status = response.status_code
         if status == 400:
@@ -166,6 +176,11 @@ class ActionCreateTaskSubmit(Action):
                   dispatcher: CollectingDispatcher,
                   tracker: Tracker,
                   domain: DomainDict) -> List[SlotSet]:
+        user_id = tracker.get_slot('user_id')
+        if user_id is None:
+            dispatcher.utter_message("Bạn không có quyền thực hiền hành động này")
+            return []
+
         date_field = tracker.get_slot('task_date_field')
 
         date_field = datetime.strptime(date_field, "%d-%m-%Y")
@@ -181,14 +196,15 @@ class ActionCreateTaskSubmit(Action):
         payload = {
             "date_field": date_field,
             "time_field": time_field,
-            "content": content
+            "content": content,
+            "user_id": user_id
         }
 
         payload = json.dumps(payload)
 
         # print(payload)
 
-        response = requests.post("http://127.0.0.1:7000/tasks/", data=payload, headers=headers)
+        response = requests.post(BASE_TASKS_URL, data=payload, headers=headers)
 
         status = response.status_code
 
@@ -286,12 +302,17 @@ class ActionDeleteTaskConfirmInfo(Action):
                   dispatcher: "CollectingDispatcher",
                   tracker: Tracker,
                   domain: "DomainDict") -> List[Dict[Text, Any]]:
+        user_id = tracker.get_slot('user_id')
+        if user_id is None:
+            dispatcher.utter_message("Bạn không có quyền thực hiền hành động này")
+            return []
+
         message = tracker.latest_message.get('text')
         dates = date_extractor.summary_date(message)
         times = date_extractor.summary_time(message)
         # date_param = None
         # time_param = None
-        response = None
+        # response = None
         tasks = []
         # print(dates)
         # print(times)
@@ -302,14 +323,14 @@ class ActionDeleteTaskConfirmInfo(Action):
                 return [SlotSet("task_info_provided", False)]
             else:
                 date_param = dates[0]
-                response = requests.get(BASE_TASKS_URL + f"?date={date_param}")
+                response = requests.get(BASE_TASKS_URL + f"?u_id{user_id}&date={date_param}")
         elif len(dates) == 0:
             date_param = date.today()
             date_param = date_param.strftime("%d-%m-%Y")
-            response = requests.get(BASE_TASKS_URL + f"?date={date_param}&time={times[0]}")
+            response = requests.get(BASE_TASKS_URL + f"?u_id{user_id}&date={date_param}&time={times[0]}")
         else:
             date_param = dates[0]
-            response = requests.get(BASE_TASKS_URL + f"?date={date_param}&time={times[0]}")
+            response = requests.get(BASE_TASKS_URL + f"?u_id{user_id}&date={date_param}&time={times[0]}")
 
         status = response.status_code
         if status == 400:
@@ -425,10 +446,15 @@ class ActionEditTaskConfirmInfo(Action):
                   tracker: Tracker,
                   domain: "DomainDict") -> List[Dict[Text, Any]]:
         # SlotSet('task_edited_record', None)
+        user_id = tracker.get_slot('user_id')
+        if user_id is None:
+            dispatcher.utter_message("Bạn không có quyền thực hiền hành động này")
+            return []
+
         message = tracker.latest_message.get('text')
         dates = date_extractor.summary_date(message)
         times = date_extractor.summary_time(message)
-        response = None
+        # response = None
         tasks = []
 
         if len(times) == 0:
@@ -438,10 +464,10 @@ class ActionEditTaskConfirmInfo(Action):
         elif len(dates) == 0:
             date_param = date.today()
             date_param = date_param.strftime("%d-%m-%Y")
-            response = requests.get(BASE_TASKS_URL + f"?date={date_param}&time={times[0]}")
+            response = requests.get(BASE_TASKS_URL + f"?u_id={user_id}&date={date_param}&time={times[0]}")
         else:
             date_param = dates[0]
-            response = requests.get(BASE_TASKS_URL + f"?date={date_param}&time={times[0]}")
+            response = requests.get(BASE_TASKS_URL + f"?u_id={user_id}&date={date_param}&time={times[0]}")
 
         status = response.status_code
         if status == 400:

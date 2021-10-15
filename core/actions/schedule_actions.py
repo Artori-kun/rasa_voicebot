@@ -1,4 +1,5 @@
 import json
+from builtins import property
 from datetime import datetime, date
 import difflib
 from typing import List, Text, Dict, Any, Optional
@@ -12,7 +13,7 @@ from rasa_sdk.forms import FormValidationAction
 from rasa_sdk.types import DomainDict
 
 BASE_SCHEDULES_URL = "http://127.0.0.1:7000/schedules/"
-BASE_SCHEDULE_EXCEPTION_URL = "http://127.0.0.1:7000/schedule-exceptions/"
+# BASE_SCHEDULE_EXCEPTION_URL = "http://127.0.0.1:7000/schedule-exceptions/"
 
 
 # GET SCHEDULES
@@ -27,7 +28,13 @@ class ActionRetrieveSchedule(Action):
         message = tracker.latest_message.get('text')
         dates = date_extractor.summary_date(message)
         times = date_extractor.summary_time(message)
-        response = None
+        user_id = tracker.get_slot('user_id')
+
+        if user_id is None:
+            dispatcher.utter_message("Bạn không có quyền thực hiền hành động này")
+            return []
+
+        # response = None
         schedules = []
 
         if len(times) == 0:
@@ -36,14 +43,14 @@ class ActionRetrieveSchedule(Action):
                 return [SlotSet('schedule_current'), None]
             else:
                 date_param = dates[0]
-                response = requests.get(BASE_SCHEDULES_URL + f"?date={date_param}")
+                response = requests.get(BASE_SCHEDULES_URL + f"?u_id={user_id}&date={date_param}")
         elif len(dates) == 0:
             date_param = date.today()
             date_param = date_param.strftime("%d-%m-%Y")
-            response = requests.get(BASE_SCHEDULES_URL + f"?date={date_param}&time={times[0]}")
+            response = requests.get(BASE_SCHEDULES_URL + f"?u_id={user_id}&date={date_param}&time={times[0]}")
         else:
             date_param = dates[0]
-            response = requests.get(BASE_SCHEDULES_URL + f"?date={date_param}&time={times[0]}")
+            response = requests.get(BASE_SCHEDULES_URL + f"?u_id={user_id}&date={date_param}&time={times[0]}")
 
         status = response.status_code
         if status == 400:
@@ -68,6 +75,10 @@ class ActionRetrieveSchedule(Action):
             dispatcher.utter_message("Bạn không có lịch gì")
             return [SlotSet('schedule_current', None)]
         else:
+            user_name = tracker.get_slot('user_firstname')
+            if user_name is not None:
+                dispatcher.utter_message(f"Đây là lịch {user_name} yêu cầu:")
+
             for schedule in schedules:
                 schedule['date_field'] = date_param
                 # date_field = schedule['date_field']
@@ -116,6 +127,11 @@ class ActionCreateScheduleSubmit(Action):
                   dispatcher: CollectingDispatcher,
                   tracker: Tracker,
                   domain: DomainDict) -> List[SlotSet]:
+        user_id = tracker.get_slot('user_id')
+        if user_id is None:
+            dispatcher.utter_message("Bạn không có quyền thực hiền hành động này")
+            return []
+
         date_field = tracker.get_slot('schedule_date_field')
 
         date_field = datetime.strptime(date_field, "%d-%m-%Y")
@@ -141,14 +157,15 @@ class ActionCreateScheduleSubmit(Action):
             "location": location,
             "is_recurring": is_recurring,
             "recurring_type": recurrence_type,
-            "separation_count": separation_count
+            "separation_count": separation_count,
+            "user_id": user_id
         }
 
         payload = json.dumps(payload)
 
         # print(payload)
 
-        response = requests.post("http://127.0.0.1:7000/schedules/", data=payload, headers=headers)
+        response = requests.post(BASE_SCHEDULES_URL, data=payload, headers=headers)
 
         status = response.status_code
 
@@ -239,12 +256,17 @@ class ActionDeleteScheduleConfirmInfo(Action):
                   dispatcher: "CollectingDispatcher",
                   tracker: Tracker,
                   domain: "DomainDict") -> List[Dict[Text, Any]]:
+        user_id = tracker.get_slot('user_id')
+        if user_id is None:
+            dispatcher.utter_message("Bạn không có quyền thực hiền hành động này")
+            return []
+
         message = tracker.latest_message.get('text')
         dates = date_extractor.summary_date(message)
         times = date_extractor.summary_time(message)
         # date_param = None
         # time_param = None
-        response = None
+        # response = None
         schedules = []
         # print(dates)
         # print(times)
@@ -255,14 +277,14 @@ class ActionDeleteScheduleConfirmInfo(Action):
                 return [SlotSet("schedule_info_provided", False)]
             else:
                 date_param = dates[0]
-                response = requests.get(BASE_SCHEDULES_URL + f"?date={date_param}")
+                response = requests.get(BASE_SCHEDULES_URL + f"?u_id={user_id}&date={date_param}")
         elif len(dates) == 0:
             date_param = date.today()
             date_param = date_param.strftime("%d-%m-%Y")
-            response = requests.get(BASE_SCHEDULES_URL + f"?date={date_param}&time={times[0]}")
+            response = requests.get(BASE_SCHEDULES_URL + f"?u_id={user_id}&date={date_param}&time={times[0]}")
         else:
             date_param = dates[0]
-            response = requests.get(BASE_SCHEDULES_URL + f"?date={date_param}&time={times[0]}")
+            response = requests.get(BASE_SCHEDULES_URL + f"?u_id={user_id}&date={date_param}&time={times[0]}")
 
         status = response.status_code
         if status == 400:
@@ -325,6 +347,8 @@ class ActionDeleteSchedule(Action):
                   tracker: Tracker,
                   domain: "DomainDict") -> List[Dict[Text, Any]]:
         schedules = tracker.get_slot('schedule_current')
+        schedule_num = tracker.get_slot('schedule_current_num')
+        # print(schedules)
         fail_schedules = []
         # recurrent_schedule = []
 
@@ -332,47 +356,55 @@ class ActionDeleteSchedule(Action):
             dispatcher.utter_message("Không có gì để xóa")
             return []
 
-        for schedule in schedules:
-            if schedule['is_recurring'] is False:
-                response = requests.delete(BASE_SCHEDULES_URL + str(schedule['id']) + "/")
-
-                # status = response.status_code
-                #
-                # if status in [400, 404, 503]:
-                #     fail_schedules.append(schedule)
+        if schedule_num == 'one':
+            if schedules['is_recurring'] is False:
+                response = requests.delete(BASE_SCHEDULES_URL + str(schedules['id']))
             else:
-                # SlotSet("schedule_has_recurrence", True)
-                # recurrent_schedule.append(schedule)
-
-                schedule['date_field'] = datetime.strptime(schedule['date_field'], "%d-%m-%Y")
-                schedule['date_field'] = schedule['date_field'].strftime("%Y-%m-%d")
-
-                headers = {
-                    'Content-Type': 'application/json; charset=utf-8'
-                }
-
-                payload = {
-                    "schedule_id": schedule["id"],
-                    "date_field": schedule["date_field"]
-                }
-
-                payload = json.dumps(payload)
-
-                response = requests.post(BASE_SCHEDULE_EXCEPTION_URL, data=payload, headers=headers)
+                response = requests.delete(
+                    BASE_SCHEDULES_URL + str(schedules['id']) + f"/?date={schedules['date_field']}")
 
             status = response.status_code
 
             if status < 200 or status >= 300:
-                fail_schedules.append(schedule)
+                fail_schedules.append(schedules)
 
-        # if len(recurrent_schedule) != 0:
-        #     SlotSet("schedule_current_recurrence", recurrent_schedule)
+        else:
+            for schedule in schedules:
+                if schedule['is_recurring'] is False:
+                    response = requests.delete(BASE_SCHEDULES_URL + str(schedule['id']) + "/")
+                else:
+                    response = requests.delete(
+                        BASE_SCHEDULES_URL + str(schedules['id']) + f"/?date={schedules['date_field']}")
+                    # schedule['date_field'] = datetime.strptime(schedule['date_field'], "%d-%m-%Y")
+                    # schedule['date_field'] = schedule['date_field'].strftime("%Y-%m-%d")
+                    #
+                    # headers = {
+                    #     'Content-Type': 'application/json; charset=utf-8'
+                    # }
+                    #
+                    # payload = {
+                    #     "schedule_id": schedule["id"],
+                    #     "date_field": schedule["date_field"]
+                    # }
+                    #
+                    # payload = json.dumps(payload)
+                    #
+                    # response = requests.post(BASE_SCHEDULE_EXCEPTION_URL, data=payload, headers=headers)
+
+                status = response.status_code
+
+                if status < 200 or status >= 300:
+                    fail_schedules.append(schedule)
+
+            # if len(recurrent_schedule) != 0:
+            #     SlotSet("schedule_current_recurrence", recurrent_schedule)
 
         if len(fail_schedules) != 0:
             dispatcher.utter_message("Ối, có vẻ đã xảy ra lỗi. Một hoặc một vài kế hoạch mà bạn muốn xóa hiện chưa "
                                      "thể xóa được. Hãy thử lại sau nhé")
         else:
             dispatcher.utter_message("Đã xóa thành công")
+
         return [SlotSet('schedule_current', None)]
 
 
@@ -405,10 +437,15 @@ class ActionEditScheduleConfirmInfo(Action):
                   tracker: Tracker,
                   domain: "DomainDict") -> List[Dict[Text, Any]]:
         # SlotSet('schedule_edited_record', None)
+        user_id = tracker.get_slot('user_id')
+        if user_id is None:
+            dispatcher.utter_message("Bạn không có quyền thực hiền hành động này")
+            return []
+
         message = tracker.latest_message.get('text')
         dates = date_extractor.summary_date(message)
         times = date_extractor.summary_time(message)
-        response = None
+        # response = None
         schedules = []
 
         if len(times) == 0:
@@ -418,10 +455,10 @@ class ActionEditScheduleConfirmInfo(Action):
         elif len(dates) == 0:
             date_param = date.today()
             date_param = date_param.strftime("%d-%m-%Y")
-            response = requests.get(BASE_SCHEDULES_URL + f"?date={date_param}&time={times[0]}")
+            response = requests.get(BASE_SCHEDULES_URL + f"?u_id={user_id}&date={date_param}&time={times[0]}")
         else:
             date_param = dates[0]
-            response = requests.get(BASE_SCHEDULES_URL + f"?date={date_param}&time={times[0]}")
+            response = requests.get(BASE_SCHEDULES_URL + f"?u_id={user_id}&date={date_param}&time={times[0]}")
 
         status = response.status_code
         if status == 400:
@@ -572,7 +609,12 @@ class ActionEditSchedule(Action):
         if current_schedule['is_recurring'] is True:
             payload = json.dumps(payload)
 
-            response = requests.post(BASE_SCHEDULES_URL, data=payload, headers=headers)
+            response = requests.put(BASE_SCHEDULES_URL +
+                                    f"{current_schedule['id']}/?date={current_schedule['date_field']}",
+                                    data=payload,
+                                    headers=headers)
+
+            # response = requests.post(BASE_SCHEDULES_URL, data=payload, headers=headers)
 
             status = response.status_code
             if status == 400:
@@ -589,23 +631,23 @@ class ActionEditSchedule(Action):
                 dispatcher.utter_message(f"Ối, đã xảy ra lỗi, bạn hãy thử lại sau nhé. Mã lỗi:{status}")
                 return []
 
-            current_schedule['date_field'] = datetime.strptime(current_schedule['date_field'], "%d-%m-%Y")
-            current_schedule['date_field'] = current_schedule['date_field'].strftime("%Y-%m-%d")
-
-            exception_payload = {
-                "schedule_id": current_schedule["id"],
-                "date_field": current_schedule["date_field"]
-            }
-
-            exception_payload = json.dumps(exception_payload)
-
-            response = requests.post(BASE_SCHEDULE_EXCEPTION_URL, data=exception_payload, headers=headers)
-
-            status = response.status_code
-
-            if status < 200 or status >= 300:
-                dispatcher.utter_message(f"Ối, đã xảy ra lỗi, bạn hãy thử lại sau nhé. Mã lỗi:{status}")
-                return []
+            # current_schedule['date_field'] = datetime.strptime(current_schedule['date_field'], "%d-%m-%Y")
+            # current_schedule['date_field'] = current_schedule['date_field'].strftime("%Y-%m-%d")
+            #
+            # exception_payload = {
+            #     "schedule_id": current_schedule["id"],
+            #     "date_field": current_schedule["date_field"]
+            # }
+            #
+            # exception_payload = json.dumps(exception_payload)
+            #
+            # response = requests.post(BASE_SCHEDULE_EXCEPTION_URL, data=exception_payload, headers=headers)
+            #
+            # status = response.status_code
+            #
+            # if status < 200 or status >= 300:
+            #     dispatcher.utter_message(f"Ối, đã xảy ra lỗi, bạn hãy thử lại sau nhé. Mã lỗi:{status}")
+            #     return []
         else:
             payload = json.dumps(payload)
 

@@ -26,10 +26,16 @@ class ActionRetrieveReminder(Action):
     async def run(self, dispatcher: CollectingDispatcher,
                   tracker: Tracker,
                   domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        user_id = tracker.get_slot('user_id')
+
+        if user_id is None:
+            dispatcher.utter_message("Bạn không có quyền thực hiền hành động này")
+            return []
+
         message = tracker.latest_message.get('text')
         dates = date_extractor.summary_date(message)
         times = date_extractor.summary_time(message)
-        response = None
+        # response = None
         reminders = []
 
         if len(times) == 0:
@@ -38,14 +44,14 @@ class ActionRetrieveReminder(Action):
                 return [SlotSet('reminder_current'), None]
             else:
                 date_param = dates[0]
-                response = requests.get(BASE_REMINDERS_URL + f"?date={date_param}")
+                response = requests.get(BASE_REMINDERS_URL + f"?u_id={user_id}&date={date_param}")
         elif len(dates) == 0:
             date_param = date.today()
             date_param = date_param.strftime("%d-%m-%Y")
-            response = requests.get(BASE_REMINDERS_URL + f"?date={date_param}&time={times[0]}")
+            response = requests.get(BASE_REMINDERS_URL + f"?u_id={user_id}&date={date_param}&time={times[0]}")
         else:
             date_param = dates[0]
-            response = requests.get(BASE_REMINDERS_URL + f"?date={date_param}&time={times[0]}")
+            response = requests.get(BASE_REMINDERS_URL + f"?u_id={user_id}&date={date_param}&time={times[0]}")
 
         status = response.status_code
         if status == 400:
@@ -114,6 +120,11 @@ class ActionCreateReminderSubmit(Action):
                   dispatcher: CollectingDispatcher,
                   tracker: Tracker,
                   domain: DomainDict) -> List[SlotSet]:
+        user_id = tracker.get_slot('user_id')
+        if user_id is None:
+            dispatcher.utter_message("Bạn không có quyền thực hiền hành động này")
+            return []
+
         date_field = tracker.get_slot('reminder_date_field')
 
         date_field = datetime.strptime(date_field, "%d-%m-%Y")
@@ -135,14 +146,15 @@ class ActionCreateReminderSubmit(Action):
             "content": content,
             "is_recurring": is_recurring,
             "recurring_type": recurrence_type,
-            "separation_count": separation_count
+            "separation_count": separation_count,
+            "user_id": user_id
         }
 
         payload = json.dumps(payload)
 
         # print(payload)
 
-        response = requests.post("http://127.0.0.1:7000/reminders/", data=payload, headers=headers)
+        response = requests.post(BASE_REMINDERS_URL, data=payload, headers=headers)
 
         status = response.status_code
 
@@ -270,6 +282,11 @@ class ActionDeleteReminderConfirmInfo(Action):
                   dispatcher: "CollectingDispatcher",
                   tracker: Tracker,
                   domain: "DomainDict") -> List[Dict[Text, Any]]:
+        user_id = tracker.get_slot('user_id')
+        if user_id is None:
+            dispatcher.utter_message("Bạn không có quyền thực hiền hành động này")
+            return []
+
         message = tracker.latest_message.get('text')
         dates = date_extractor.summary_date(message)
         times = date_extractor.summary_time(message)
@@ -286,14 +303,14 @@ class ActionDeleteReminderConfirmInfo(Action):
                 return [SlotSet("reminder_info_provided", False)]
             else:
                 date_param = dates[0]
-                response = requests.get(BASE_REMINDERS_URL + f"?date={date_param}")
+                response = requests.get(BASE_REMINDERS_URL + f"?u_id={user_id}&date={date_param}")
         elif len(dates) == 0:
             date_param = date.today()
             date_param = date_param.strftime("%d-%m-%Y")
-            response = requests.get(BASE_REMINDERS_URL + f"?date={date_param}&time={times[0]}")
+            response = requests.get(BASE_REMINDERS_URL + f"?u_id={user_id}&date={date_param}&time={times[0]}")
         else:
             date_param = dates[0]
-            response = requests.get(BASE_REMINDERS_URL + f"?date={date_param}&time={times[0]}")
+            response = requests.get(BASE_REMINDERS_URL + f"?u_id={user_id}&date={date_param}&time={times[0]}")
 
         status = response.status_code
         if status == 400:
@@ -415,11 +432,15 @@ class ActionEditReminderConfirmInfo(Action):
                   dispatcher: "CollectingDispatcher",
                   tracker: Tracker,
                   domain: "DomainDict") -> List[Dict[Text, Any]]:
-        # SlotSet('reminder_edited_record', None)
+        user_id = tracker.get_slot('user_id')
+        if user_id is None:
+            dispatcher.utter_message("Bạn không có quyền thực hiền hành động này")
+            return []
+
         message = tracker.latest_message.get('text')
         dates = date_extractor.summary_date(message)
         times = date_extractor.summary_time(message)
-        response = None
+        # response = None
         reminders = []
 
         if len(times) == 0:
@@ -429,10 +450,10 @@ class ActionEditReminderConfirmInfo(Action):
         elif len(dates) == 0:
             date_param = date.today()
             date_param = date_param.strftime("%d-%m-%Y")
-            response = requests.get(BASE_REMINDERS_URL + f"?date={date_param}&time={times[0]}")
+            response = requests.get(BASE_REMINDERS_URL + f"?u_id={user_id}&date={date_param}&time={times[0]}")
         else:
             date_param = dates[0]
-            response = requests.get(BASE_REMINDERS_URL + f"?date={date_param}&time={times[0]}")
+            response = requests.get(BASE_REMINDERS_URL + f"?u_id={user_id}&date={date_param}&time={times[0]}")
 
         status = response.status_code
         if status == 400:
@@ -584,24 +605,6 @@ class ActionEditReminder(Action):
             if status < 200 or status >= 300:
                 dispatcher.utter_message(f"Ối, đã xảy ra lỗi, bạn hãy thử lại sau nhé. Mã lỗi:{status}")
                 return []
-
-            # current_reminder['date_field'] = datetime.strptime(current_reminder['date_field'], "%d-%m-%Y")
-            # current_reminder['date_field'] = current_reminder['date_field'].strftime("%Y-%m-%d")
-            #
-            # exception_payload = {
-            #     "reminder_id": current_reminder["id"],
-            #     "date_field": current_reminder["date_field"]
-            # }
-            #
-            # exception_payload = json.dumps(exception_payload)
-            #
-            # response = requests.post(BASE_reminder_EXCEPTION_URL, data=exception_payload, headers=headers)
-            #
-            # status = response.status_code
-            #
-            # if status < 200 or status >= 300:
-            #     dispatcher.utter_message(f"Ối, đã xảy ra lỗi, bạn hãy thử lại sau nhé. Mã lỗi:{status}")
-            #     return []
         else:
             payload = json.dumps(payload)
 

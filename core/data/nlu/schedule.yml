@@ -30,7 +30,7 @@ nlu:
       - lịch ngày mười chín tháng sau lúc bảy giờ
       - kế hoạch ngày mùng tám tháng tư lúc tám giờ
 
-  - intent: add_new_schedule
+  - intent: create_schedule
     examples: |
       - tôi cần thêm lịch mới
       - tôi cần thêm kế hoạch mới

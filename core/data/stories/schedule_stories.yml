@@ -5,11 +5,24 @@ stories:
   # RETRIEVE SCHEDULES
 
   # User ask for schedule
-  - story: ask schedule
+  - story: ask schedule / known user
     steps:
       - intent: ask_schedule
+      - action: action_unverify_speaker
+      - action: action_verify_speaker
+      - slot_was_set:
+          - is_verified: true
       - action: action_retrieve_schedule
       - checkpoint: checkpoint_retrieve_schedule_retrieved
+
+  - story: ask schedule / unknown user
+    steps:
+      - intent: ask_schedule
+      - action: action_unverify_speaker
+      - action: action_verify_speaker
+      - slot_was_set:
+          - is_verified: false
+      - action: utter_not_verified
 
   # User ask then delete schedule
   - story: ask then delete current schedule / one current schedule
@@ -70,11 +83,29 @@ stories:
 
 
   # DELETE SCHEDULES
+  # Verify user
+  - story: ask to delete schedule / known user
+    steps:
+      - intent: delete_schedule
+      - action: action_unverify_speaker
+      - action: action_verify_speaker
+      - slot_was_set:
+          - is_verified: true
+      - checkpoint: delete_schedule_verified
+
+  - story: ask to delete schedule / unknown user
+    steps:
+      - intent: delete_schedule
+      - action: action_unverify_speaker
+      - action: action_verify_speaker
+      - slot_was_set:
+          - is_verified: false
+      - action: utter_not_verified
 
   # User ask to delete schedule / no info provided
   - story: ask to delete schedule / no info provided
     steps:
-      - intent: delete_schedule
+      - checkpoint: delete_schedule_verified
       - action: action_delete_schedule_confirm_info
       - slot_was_set:
           - schedule_info_provided: false
@@ -83,7 +114,7 @@ stories:
   # User ask to delete schedule / affirm / affirm delete recurrence
   - story: ask to delete schedule / happy path
     steps:
-      - intent: delete_schedule
+      - checkpoint: delete_schedule_verified
       - action: action_delete_schedule_confirm_info
       - slot_was_set:
           - schedule_info_provided: true
@@ -95,7 +126,7 @@ stories:
   # User ask to delete schedule / cancel
   - story: ask to delete schedule / cancel
     steps:
-      - intent: delete_schedule
+      - checkpoint: delete_schedule_verified
       - action: action_delete_schedule_confirm_info
       - slot_was_set:
           - schedule_info_provided: true
@@ -105,12 +136,32 @@ stories:
       - action: utter_ok
 
   # CREATE SCHEDULES
-  # User affirm submit info
+
+  # Verify user
+  - story: User create a schedule / known user
+    steps:
+      - intent: create_schedule
+      - action: action_unverify_speaker
+      - action: action_verify_speaker
+      - slot_was_set:
+          - is_verified: true
+      - checkpoint: create_schedule_verified
+
+  - story: User create a schedule / unknown user
+    steps:
+      - intent: create_schedule
+      - action: action_unverify_speaker
+      - action: action_verify_speaker
+      - slot_was_set:
+          - is_verified: false
+      - action: utter_not_verified
+
+  # User confirm submit info
 
   # User create a schedule / happy path
   - story: User create a schedule / happy path / affirm submit
     steps:
-      - intent: add_new_schedule
+      - checkpoint: create_schedule_verified
       - action: utter_ok
       - action: action_create_schedule_reset_form
       - action: create_schedule_form
@@ -137,7 +188,7 @@ stories:
   # User create a schedule / cancel
   - story: User create a schedule / cancel
     steps:
-      - intent: add_new_schedule
+      - checkpoint: create_schedule_verified
       - action: utter_ok
       - action: action_create_schedule_reset_form
       - action: create_schedule_form
@@ -154,7 +205,7 @@ stories:
   # User create a schedule / cancel then continue
   - story: User create a schedule / cancel then continue / affirm submit
     steps:
-      - intent: add_new_schedule
+      - checkpoint: create_schedule_verified
       - action: utter_ok
       - action: action_create_schedule_reset_form
       - action: create_schedule_form
@@ -176,7 +227,7 @@ stories:
   # User create a schedule / happy path
   - story: User create a schedule / happy path / deny submit
     steps:
-      - intent: add_new_schedule
+      - checkpoint: create_schedule_verified
       - action: utter_ok
       - action: action_create_schedule_reset_form
       - action: create_schedule_form
@@ -205,7 +256,7 @@ stories:
   # User create a schedule / cancel then continue
   - story: User create a schedule / cancel then continue / deny submit
     steps:
-      - intent: add_new_schedule
+      - checkpoint: create_schedule_verified
       - action: utter_ok
       - action: action_create_schedule_reset_form
       - action: create_schedule_form
@@ -226,10 +277,29 @@ stories:
 
   # EDIT SCHEDULES
 
+  # Verify user
+  - story: User edit a schedule / known user
+    steps:
+      - intent: edit_schedule
+      - action: action_unverify_speaker
+      - action: action_verify_speaker
+      - slot_was_set:
+          - is_verified: true
+      - checkpoint: edit_schedule_verified
+
+  - story: User edit a schedule / unknown user
+    steps:
+      - intent: edit_schedule
+      - action: action_unverify_speaker
+      - action: action_verify_speaker
+      - slot_was_set:
+          - is_verified: false
+      - action: utter_not_verified
+
   # User edit a schedule / no info provided
   - story: user edit a schedule / no info provided
     steps:
-      - intent: edit_schedule
+      - checkpoint: edit_schedule_verified
       - action: action_edit_schedule_confirm_info
       - slot_was_set:
           - schedule_info_provided: false
@@ -238,7 +308,7 @@ stories:
   # user edit a schedule / info provided
   - story: user edit a schedule / info provided
     steps:
-      - intent: edit_schedule
+      - checkpoint: edit_schedule_verified
       - action: action_edit_schedule_confirm_info
       - slot_was_set:
           - schedule_info_provided: true

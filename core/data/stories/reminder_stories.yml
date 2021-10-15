@@ -5,11 +5,24 @@ stories:
   # RETRIEVE REMINDERS
 
   # User ask for reminder
-  - story: ask reminder
+  - story: ask reminder / known user
     steps:
       - intent: ask_reminder
+      - action: action_unverify_speaker
+      - action: action_verify_speaker
+      - slot_was_set:
+          - is_verified: true
       - action: action_retrieve_reminder
       - checkpoint: checkpoint_retrieve_reminder_retrieved
+
+  - story: ask reminder / unknown user
+    steps:
+      - intent: ask_reminder
+      - action: action_unverify_speaker
+      - action: action_verify_speaker
+      - slot_was_set:
+          - is_verified: false
+      - action: utter_not_verified
 
   # User ask then delete reminder
   - story: ask then delete current reminder / one current reminder
@@ -66,23 +79,44 @@ stories:
       - slot_was_set:
          - reminder_current_num: none
       - action: utter_too_many_current_reminder
-  
-  
+
+
   # CREATE REMINDERS
 
-  - story: User create a reminder
+  # Verify user
+  - story: User create a reminder / known user
     steps:
       - intent: create_reminder
-      - action: utter_ok
-      - action: action_create_reminder_reset_form
-      - checkpoint: checkpoint_create_reminder
+      - action: action_unverify_speaker
+      - action: action_verify_speaker
+      - slot_was_set:
+          - is_verified: true
+      - checkpoint: create_reminder_verified
+
+  - story: User create a reminder / unknown user
+    steps:
+      - intent: create_reminder
+      - action: action_unverify_speaker
+      - action: action_verify_speaker
+      - slot_was_set:
+          - is_verified: false
+      - action: utter_not_verified
+
+#  - story: User create a reminder
+#    steps:
+#      - checkpoint: create_reminder_verified
+#      - action: utter_ok
+#      - action: action_create_reminder_reset_form
+#      - checkpoint: checkpoint_create_reminder
 
   # User affirm submit info
 
   # User create a reminder / happy path
   - story: User create a reminder / happy path / affirm submit
     steps:
-      - checkpoint: checkpoint_create_reminder
+      - checkpoint: create_reminder_verified
+      - action: utter_ok
+      - action: action_create_reminder_reset_form
       - action: create_reminder_form
       - active_loop: create_reminder_form
       - slot_was_set:
@@ -103,7 +137,9 @@ stories:
   # User create a reminder / cancel
   - story: User create a reminder / cancel
     steps:
-      - checkpoint: checkpoint_create_reminder
+      - checkpoint: create_reminder_verified
+      - action: utter_ok
+      - action: action_create_reminder_reset_form
       - action: create_reminder_form
       - active_loop: create_reminder_form
       - intent: cancel
@@ -114,11 +150,13 @@ stories:
       - action: action_deactivate_loop
       - active_loop: null
       - action: utter_ok_canceled
-          
+
   # User create a reminder / cancel then continue
   - story: User create a reminder / cancel then continue / affirm submit
     steps:
-      - checkpoint: checkpoint_create_reminder
+      - checkpoint: create_reminder_verified
+      - action: utter_ok
+      - action: action_create_reminder_reset_form
       - action: create_reminder_form
       - active_loop: create_reminder_form
       - intent: cancel
@@ -132,13 +170,15 @@ stories:
       - action: action_create_reminder_confirm_info
       - intent: affirm
       - action: action_create_reminder_submit
-          
+
   # User deny submit info
 
   # User create a reminder / happy path
   - story: User create a reminder / happy path / deny submit
     steps:
-      - checkpoint: checkpoint_create_reminder
+      - checkpoint: create_reminder_verified
+      - action: utter_ok
+      - action: action_create_reminder_reset_form
       - action: create_reminder_form
       - active_loop: create_reminder_form
       - slot_was_set:
@@ -161,7 +201,9 @@ stories:
   # User create a reminder / cancel then continue
   - story: User create a reminder / cancel then continue / deny submit
     steps:
-      - checkpoint: checkpoint_create_reminder
+      - checkpoint: create_reminder_verified
+      - action: utter_ok
+      - action: action_create_reminder_reset_form
       - action: create_reminder_form
       - active_loop: create_reminder_form
       - intent: cancel
@@ -177,22 +219,33 @@ stories:
           - intent: deny
           - intent: cancel
       - action: utter_ok
-  
-  
+
+
   # DELETE REMINDERS
-    
-  - story: User ask to delete reminder
+
+  # Verify user
+  - story: ask to delete reminder / known user
     steps:
       - intent: delete_reminder
-      - action: action_delete_reminder_confirm_info
+      - action: action_unverify_speaker
+      - action: action_verify_speaker
       - slot_was_set:
-          - reminder_info_provided: true
-      - checkpoint: checkpoint_delete_reminder
+          - is_verified: true
+      - checkpoint: delete_reminder_verified
+
+  - story: ask to delete reminder / unknown user
+    steps:
+      - intent: delete_reminder
+      - action: action_unverify_speaker
+      - action: action_verify_speaker
+      - slot_was_set:
+          - is_verified: false
+      - action: utter_not_verified
 
   # User ask to delete reminder / no info provided
   - story: ask to delete reminder / no info provided
     steps:
-      - intent: delete_reminder
+      - checkpoint: delete_reminder_verified
       - action: action_delete_reminder_confirm_info
       - slot_was_set:
           - reminder_info_provided: false
@@ -201,6 +254,10 @@ stories:
   # User ask to delete reminder / affirm / affirm delete recurrence
   - story: ask to delete reminder / happy path
     steps:
+      - checkpoint: delete_reminder_verified
+      - action: action_delete_reminder_confirm_info
+      - slot_was_set:
+          - reminder_info_provided: true
       - checkpoint: checkpoint_delete_reminder
       - action: utter_ask_to_confirm_delete_reminder
       - intent: affirm
@@ -209,6 +266,10 @@ stories:
   # User ask to delete reminder / cancel
   - story: ask to delete reminder / cancel
     steps:
+      - checkpoint: delete_reminder_verified
+      - action: action_delete_reminder_confirm_info
+      - slot_was_set:
+          - reminder_info_provided: true
       - checkpoint: checkpoint_delete_reminder
       - action: utter_ask_to_confirm_delete_reminder
       - intent: deny
@@ -216,10 +277,30 @@ stories:
 
   # EDIT REMINDERS
 
+  # Verify user
+  - story: User edit a reminder / known user
+    steps:
+      - intent: edit_reminder
+      - action: action_unverify_speaker
+      - action: action_verify_speaker
+      - slot_was_set:
+          - is_verified: true
+      - checkpoint: edit_reminder_verified
+
+  - story: User edit a reminder / unknown user
+    steps:
+      - intent: edit_reminder
+      - action: action_unverify_speaker
+      - action: action_verify_speaker
+      - slot_was_set:
+          - is_verified: false
+      - action: utter_not_verified
+
+
   # User edit a reminder / no info provided
   - story: user edit a reminder / no info provided
     steps:
-      - intent: edit_reminder
+      - checkpoint: edit_reminder_verified
       - action: action_edit_reminder_confirm_info
       - slot_was_set:
           - reminder_info_provided: false
@@ -228,7 +309,7 @@ stories:
   # user edit a reminder / info provided
   - story: user edit a reminder / info provided
     steps:
-      - intent: edit_reminder
+      - checkpoint: edit_reminder_verified
       - action: action_edit_reminder_confirm_info
       - slot_was_set:
           - reminder_info_provided: true

@@ -2,7 +2,7 @@ version: "2.0"
 
 intents:
   - ask_schedule
-  - add_new_schedule
+  - create_schedule
   - inform_date
   - inform_time
   - inform_content_schedule

@@ -216,3 +216,17 @@ nlu:
     - ai làm ra bạn
     - bạn được ai tạo ra thế
     - ai tạo ra bạn vậy
+
+- intent: log_in
+  examples: |
+    - đăng nhập
+    - tôi muốn đăng nhập
+    - cho tôi đăng nhập
+    - tôi cần đăng nhập
+
+- intent: sign_in
+  examples: |
+    - đăng kí
+    - cho tôi đăng kí
+    - tôi muốn đăng kí
+    - tôi cần đăng kí

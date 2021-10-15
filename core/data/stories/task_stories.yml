@@ -5,11 +5,24 @@ stories:
   # RETRIEVE TASKS
 
   # User ask for task
-  - story: ask task
+  - story: ask task / known user
     steps:
       - intent: ask_task
+      - action: action_unverify_speaker
+      - action: action_verify_speaker
+      - slot_was_set:
+          - is_verified: true
       - action: action_retrieve_task
       - checkpoint: checkpoint_retrieve_task_retrieved
+
+  - story: ask task / unknown user
+    steps:
+      - intent: ask_task
+      - action: action_unverify_speaker
+      - action: action_verify_speaker
+      - slot_was_set:
+          - is_verified: false
+      - action: utter_not_verified
 
   # User ask then delete task
   - story: ask then delete current task / one current task
@@ -68,18 +81,50 @@ stories:
       - action: utter_too_many_current_task
 
   # user ask for remain tasks
-  - story: ask for remain tasks
+  - story: ask for remain tasks / known user
     steps:
       - intent: ask_remain_task
+      - action: action_unverify_speaker
+      - action: action_verify_speaker
+      - slot_was_set:
+          - is_verified: true
       - action: action_retrieve_task_remain
       - checkpoint: checkpoint_retrieve_task_retrieved
-  
-  
+
+  - story: ask for remain tasks / unknown user
+    steps:
+      - intent: ask_remain_task
+      - action: action_unverify_speaker
+      - action: action_verify_speaker
+      - slot_was_set:
+          - is_verified: false
+      - action: utter_not_verified
+
+
   # CREATE TASKS
+
+  # Verify user
+  - story: User create a task / known user
+    steps:
+      - intent: create_task
+      - action: action_unverify_speaker
+      - action: action_verify_speaker
+      - slot_was_set:
+          - is_verified: true
+      - checkpoint: create_task_verified
+
+  - story: User create a task / unknown user
+    steps:
+      - intent: create_task
+      - action: action_unverify_speaker
+      - action: action_verify_speaker
+      - slot_was_set:
+          - is_verified: false
+      - action: utter_not_verified
 
   - story: User create a task
     steps:
-      - intent: create_task
+      - checkpoint: create_task_verified
       - action: utter_ok
       - action: action_create_task_reset_form
       - checkpoint: checkpoint_create_task
@@ -117,7 +162,7 @@ stories:
       - action: action_deactivate_loop
       - active_loop: null
       - action: utter_ok_canceled
-          
+
   # User create a task / cancel then continue
   - story: User create a task / cancel then continue / affirm submit
     steps:
@@ -135,7 +180,7 @@ stories:
       - action: action_create_task_confirm_info
       - intent: affirm
       - action: action_create_task_submit
-          
+
   # User deny submit info
 
   # User create a task / happy path
@@ -176,13 +221,32 @@ stories:
           - intent: deny
           - intent: cancel
       - action: utter_ok
-  
-  
+
+
   # DELETE TASKS
-    
-  - story: User ask to delete task
+
+  # Verify user
+  - story: ask to delete task / known user
     steps:
       - intent: delete_task
+      - action: action_unverify_speaker
+      - action: action_verify_speaker
+      - slot_was_set:
+          - is_verified: true
+      - checkpoint: delete_task_verified
+
+  - story: ask to delete task / unknown user
+    steps:
+      - intent: delete_task
+      - action: action_unverify_speaker
+      - action: action_verify_speaker
+      - slot_was_set:
+          - is_verified: false
+      - action: utter_not_verified
+
+  - story: User ask to delete task
+    steps:
+      - checkpoint: delete_task_verified
       - action: action_delete_task_confirm_info
       - slot_was_set:
           - task_info_provided: true
@@ -213,12 +277,31 @@ stories:
       - intent: deny
       - action: utter_ok
 
-  # EDIT taskS
+  # EDIT TASKS
+
+  # Verify user
+  - story: User edit a task / known user
+    steps:
+      - intent: edit_task
+      - action: action_unverify_speaker
+      - action: action_verify_speaker
+      - slot_was_set:
+          - is_verified: true
+      - checkpoint: edit_task_verified
+
+  - story: User edit a task / unknown user
+    steps:
+      - intent: edit_task
+      - action: action_unverify_speaker
+      - action: action_verify_speaker
+      - slot_was_set:
+          - is_verified: false
+      - action: utter_not_verified
 
   # User edit a task / no info provided
   - story: user edit a task / no info provided
     steps:
-      - intent: edit_task
+      - checkpoint: edit_task_verified
       - action: action_edit_task_confirm_info
       - slot_was_set:
           - task_info_provided: false
@@ -227,7 +310,7 @@ stories:
   # user edit a task / info provided
   - story: user edit a task / info provided
     steps:
-      - intent: edit_task
+      - checkpoint: edit_task_verified
       - action: action_edit_task_confirm_info
       - slot_was_set:
           - task_info_provided: true

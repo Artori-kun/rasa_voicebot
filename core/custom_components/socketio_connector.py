@@ -25,6 +25,8 @@ class SocketBluePrint(Blueprint):
 
 
 class SocketIoOutput(OutputChannel):
+    tts = Synthesizer()
+
     @classmethod
     def name(cls):
         return "socketio"
@@ -35,7 +37,7 @@ class SocketIoOutput(OutputChannel):
         self.bot_message_evt = bot_message_evt
         self.message = message
 
-        self.tts = Synthesizer()
+        # self.tts = Synthesizer()
 
     async def _send_message(self, socket_id, response_message, **kwargs: Any):
 
@@ -134,7 +136,9 @@ class SocketIoInput(InputChannel):
                 message = data['message']
             else:
                 # receive audio as .ogg
-                received_file = "custom_components/wavs/input_raw.wav"
+                # uid = uuid.uuid4()
+                received_file = f"custom_components/wavs/raw_{sid}.wav"
+                input_file = f"custom_components/wavs/input_{sid}.wav"
 
                 urlretrieve(data['message'], received_file)
                 path = os.path.dirname(__file__)
@@ -142,10 +146,10 @@ class SocketIoInput(InputChannel):
                 # print(sid)
                 # convert .ogg file into int16 wave file by ffmpeg
                 # -ar 44100
-                os.system("ffmpeg -y -i {0} -ar 16000 custom_components/wavs/input.wav".format(received_file))
+                os.system("ffmpeg -y -i {0} -ar 16000 {1}".format(received_file, input_file))
                 # os.system("ffmpeg -y -i {0} -c:a pcm_s161e output_{1}.wav".format(received_file,sid))
 
-                message = self.stt.speech_to_text().lower()
+                message = self.stt.speech_to_text(input_file).lower()
                 print(f"Message in: {message}")
 
                 # await self.sio.emit(self.bot_message_evt, response, room=socket_id)

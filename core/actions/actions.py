@@ -12,6 +12,13 @@ from typing import Any, Text, Dict, List
 from custom_faq_modules.weather_info import Weather
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
+import requests
+from rasa_sdk.types import DomainDict
+from rasa_sdk.events import SlotSet
+
+from scipy.io import wavfile
+
+SPEAKER_VERIFICATION_URL = 'http://192.168.191.22:7000/api/tutorials/login2'
 
 
 #
@@ -28,6 +35,76 @@ from rasa_sdk.executor import CollectingDispatcher
 #         dispatcher.utter_message(text="Hello World!")
 #
 #         return []
+
+class ActionVerifySpeaker(Action):
+
+    def name(self) -> Text:
+        return 'action_verify_speaker'
+
+    async def run(self,
+                  dispatcher: "CollectingDispatcher",
+                  tracker: Tracker,
+                  domain: DomainDict) -> List[Dict[Text, Any]]:
+        sender_id = tracker.sender_id
+
+        wav = open(f"custom_components/wavs/input_{sender_id}.wav", "rb")
+
+        files = {"wav": wav}
+
+        response = requests.post(SPEAKER_VERIFICATION_URL, files=files)
+
+        # response = response.json()
+
+        if response.status_code >= 300 or response.status_code <= 100:
+            dispatcher.utter_message(f"Đã có lỗi xảy ra. Mã lỗi: sv_{response.status_code}")
+            return [SlotSet('user_id', None),
+                    SlotSet('user_firstname', None),
+                    SlotSet('user_lastname', None),
+                    SlotSet('is_verified', False)]
+
+        if response.status_code == 204:
+            return [SlotSet('user_id', None),
+                    SlotSet('user_firstname', None),
+                    SlotSet('user_lastname', None),
+                    SlotSet('is_verified', False)]
+
+        response = response.json()
+
+        return [SlotSet('user_id', response['id']),
+                SlotSet('user_firstname', response['firstname']),
+                SlotSet('user_lastname', response['lastname']),
+                SlotSet('is_verified', True)]
+
+
+class ActionUnverifySpeaker(Action):
+
+    def name(self) -> Text:
+        return 'action_unverify_speaker'
+
+    async def run(self,
+                  dispatcher: "CollectingDispatcher",
+                  tracker: Tracker,
+                  domain: "DomainDict") -> List[Dict[Text, Any]]:
+        return [SlotSet('user_id', None),
+                SlotSet('user_firstname', None),
+                SlotSet('user_lastname', None),
+                SlotSet('is_verified', False)]
+
+
+class ActionGreetUser(Action):
+
+    def name(self) -> Text:
+        return 'action_greet_user'
+
+    async def run(self,
+                  dispatcher: "CollectingDispatcher",
+                  tracker: Tracker,
+                  domain: "DomainDict") -> List[Dict[Text, Any]]:
+        user_name = tracker.get_slot('user_firstname').split()[-1]
+
+        dispatcher.utter_message(f"Xin chào {user_name}")
+
+        return []
 
 
 class ActionWeatherHere(Action):
