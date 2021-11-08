@@ -12,6 +12,12 @@ stories:
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: true
+      - slot_was_set:
+          - user_id: 4
+      - slot_was_set:
+          - user_firstname: Hà
+      - slot_was_set:
+          - user_lastname: Nguyễn Thị
       - action: action_retrieve_schedule
       - checkpoint: checkpoint_retrieve_schedule_retrieved
 
@@ -84,14 +90,29 @@ stories:
 
   # DELETE SCHEDULES
   # Verify user
-  - story: ask to delete schedule / known user
+  - story: ask to delete schedule / known user / info provided
     steps:
       - intent: delete_schedule
       - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: true
-      - checkpoint: delete_schedule_verified
+      - action: action_delete_schedule_confirm_info
+      - slot_was_set:
+          - schedule_info_provided: true
+      - checkpoint: checkpoint_delete_schedule
+
+  - story: ask to delete schedule / known user / no info provided
+    steps:
+      - intent: delete_schedule
+      - action: action_unverify_speaker
+      - action: action_verify_speaker
+      - slot_was_set:
+          - is_verified: true
+      - action: action_delete_schedule_confirm_info
+      - slot_was_set:
+          - schedule_info_provided: false
+      - action: utter_please_try_again
 
   - story: ask to delete schedule / unknown user
     steps:
@@ -103,21 +124,17 @@ stories:
       - action: utter_not_verified
 
   # User ask to delete schedule / no info provided
-  - story: ask to delete schedule / no info provided
-    steps:
-      - checkpoint: delete_schedule_verified
-      - action: action_delete_schedule_confirm_info
-      - slot_was_set:
-          - schedule_info_provided: false
-      - action: utter_please_try_again
+#  - story: ask to delete schedule / no info provided
+#    steps:
+#      - checkpoint: delete_schedule_verified
+#      - action: action_delete_schedule_confirm_info
+#      - slot_was_set:
+#          - schedule_info_provided: false
+#      - action: utter_please_try_again
 
   # User ask to delete schedule / affirm / affirm delete recurrence
   - story: ask to delete schedule / happy path
     steps:
-      - checkpoint: delete_schedule_verified
-      - action: action_delete_schedule_confirm_info
-      - slot_was_set:
-          - schedule_info_provided: true
       - checkpoint: checkpoint_delete_schedule
       - action: utter_ask_to_confirm_delete_schedule
       - intent: affirm
@@ -126,10 +143,6 @@ stories:
   # User ask to delete schedule / cancel
   - story: ask to delete schedule / cancel
     steps:
-      - checkpoint: delete_schedule_verified
-      - action: action_delete_schedule_confirm_info
-      - slot_was_set:
-          - schedule_info_provided: true
       - checkpoint: checkpoint_delete_schedule
       - action: utter_ask_to_confirm_delete_schedule
       - intent: deny
@@ -278,14 +291,31 @@ stories:
   # EDIT SCHEDULES
 
   # Verify user
-  - story: User edit a schedule / known user
+  - story: User edit a schedule / known user / info provided
     steps:
       - intent: edit_schedule
       - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: true
-      - checkpoint: edit_schedule_verified
+      - action: action_edit_schedule_confirm_info
+      - slot_was_set:
+          - schedule_info_provided: true
+      - checkpoint: checkpoint_edit_schedule
+      - action: utter_ask_to_confirm_edit_schedule
+      - checkpoint: checkpoint_edit_schedule_ask_field
+
+  - story: User edit a schedule / known user / no info provided
+    steps:
+      - intent: edit_schedule
+      - action: action_unverify_speaker
+      - action: action_verify_speaker
+      - slot_was_set:
+          - is_verified: true
+      - action: action_edit_schedule_confirm_info
+      - slot_was_set:
+          - schedule_info_provided: false
+      - action: utter_please_try_again
 
   - story: User edit a schedule / unknown user
     steps:
@@ -297,24 +327,13 @@ stories:
       - action: utter_not_verified
 
   # User edit a schedule / no info provided
-  - story: user edit a schedule / no info provided
-    steps:
-      - checkpoint: edit_schedule_verified
-      - action: action_edit_schedule_confirm_info
-      - slot_was_set:
-          - schedule_info_provided: false
-      - action: utter_please_try_again
-
-  # user edit a schedule / info provided
-  - story: user edit a schedule / info provided
-    steps:
-      - checkpoint: edit_schedule_verified
-      - action: action_edit_schedule_confirm_info
-      - slot_was_set:
-          - schedule_info_provided: true
-      - checkpoint: checkpoint_edit_schedule
-      - action: utter_ask_to_confirm_edit_schedule
-      - checkpoint: checkpoint_edit_schedule_ask_field
+#  - story: user edit a schedule / no info provided
+#    steps:
+#      - checkpoint: edit_schedule_verified
+#      - action: action_edit_schedule_confirm_info
+#      - slot_was_set:
+#          - schedule_info_provided: false
+#      - action: utter_please_try_again
 
   # user select field to edit / happy path
   - story: user select field loop / happy path

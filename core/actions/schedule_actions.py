@@ -12,7 +12,7 @@ from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.forms import FormValidationAction
 from rasa_sdk.types import DomainDict
 
-BASE_SCHEDULES_URL = "http://127.0.0.1:7000/schedules/"
+BASE_SCHEDULES_URL = "http://192.168.14.22:7000/schedules/"
 # BASE_SCHEDULE_EXCEPTION_URL = "http://127.0.0.1:7000/schedule-exceptions/"
 
 

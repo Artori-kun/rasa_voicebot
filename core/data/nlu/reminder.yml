@@ -19,6 +19,9 @@ nlu:
       - lúc tám giờ ba mươi ngày mai có nhắc nhở gì không
       - cho tôi xem nhắc nhở hôm nay
       - tôi cần xem nhắc nhở lúc tám giờ mười lăm ngày mai
+      - nhắc nhở ngày hai mươi lăm tháng chín
+      - cho tôi xem nhắc nhở thứ hai tuần sau
+      - tôi muốn xem nhắc nhở lúc tám giờ
 
   - intent: create_reminder
     examples: |
@@ -54,6 +57,8 @@ nlu:
       - tôi cần thay đổi nahwcs nhở lúc hai giờ chiều
       - sửa nhắc nhở lúc bảy giờ thứ ba tuần sau
       - sửa cho tôi nhắc nhở lúc hai giờ chiều ngày kia
+      - cho tôi sửa nhắc nhở lúc tám giờ ngày kia
+      - tôi muốn thay đổi nhắc nhở lúc hai giờ chiều mai
 
   - intent: delete_reminder
     examples: |
@@ -72,6 +77,11 @@ nlu:
       - bỏ nhắc nhở ngày hai mươi tháng sáu
       - bỏ nhắc nhở ngày kai lúc chín giờ
       - bỏ nhắc nhở lúc mười giờ thứ hai tuần sau
+      - hủy cho tôi nhắc nhở ngày mai
+      - xóa các nhắc nhở ngày mai đi
+      - tôi muốn xóa nhắc nhở lúc chín giờ ngày kia
+      - bỏ hết nhắc nhở ngày mai đi
+      - xóa các nhắc nhở hôm nay
 
   - intent: edit_current_reminder
     examples: |
@@ -82,6 +92,11 @@ nlu:
       - chỉnh sửa nhắc nhở này
       - sửa nhắc nhở đấy đi
       - thay đổi nhắc nhở đấy đi
+      - tôi muốn sửa nhắc nhở này
+      - đổi nhắc nhở này
+      - cho tôi sửa nhắc nhở này
+      - sửa cái nhắc nhở này
+      - tôi muốn đổi nhắc nhở này
 
   - intent: delete_current_reminder
     examples: |
@@ -92,6 +107,12 @@ nlu:
       - xóa nhắc nhở này đi
       - bỏ nhắc nhở này đi
       - hủy bỏ nhắc nhở này đi
+      - xóa bỏ nhắc nhở này
+      - bỏ hết các nhắc nhở này đi
+      - xóa hết các nhắc nhở này đi
+      - xóa các nhắc nhở này cho tôi
+      - xóa mấy cái nhắc nhở này
+      - bỏ nhắc nhở này cho tôi
 
   - intent: ask_remain_reminder
     examples: |
@@ -101,6 +122,8 @@ nlu:
       - cho tôi xem các nhắc nhở còn lại
       - các nhắc nhở còn lại
       - tôi muốn xem các nhắc nhở còn lại
+      - còn nhắc nhở gì nữa không
+      - hôm nay tôi còn nhắc nhở gì nữa không
 
   - intent: delete_remain_reminder
     examples: |
@@ -109,3 +132,5 @@ nlu:
       - bỏ hết các nhắn nhở còn lại đi
       - tôi muốn xóa hêt các nhắc nhở còn lại
       - xóa hết các nhắc nhở khác đi
+      - bỏ hết các nhắc nhở còn lại
+      - xóa các nhắc nhở còn lại

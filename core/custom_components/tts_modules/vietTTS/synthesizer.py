@@ -86,9 +86,9 @@ class Synthesizer:
             if len(num_text) == 1:
                 num_text = synonyms[num_text]['single']
             elif len(num_text) == 2:
-                if num_text == '10':
-                    num_text = "mười"
-                elif num_text[0] == '0':
+                # if num_text[0] == '1':
+                #     num_text = "mười"
+                if num_text[0] == '0':
                     num_text = synonyms[num_text[1]]['single']
                 else:
                     num_text = synonyms[num_text[0]]['ty2'] + " " + synonyms[num_text[1]]['ty1']
@@ -119,7 +119,7 @@ class Synthesizer:
 
         pattern_date = re.compile(r'\b((3[0-1]|[1-2][0-9]|0[1-9])[/-](1[0-2]|0[1-9]|[1-9])[/-](\d{4}|\d{2}))|((3[0-1]|['
                                   r'0-2][0-9]|[1-9])[/-](1[0-2]|0[1-9]|[1-9]))\b')
-        pattern_time = re.compile(r'((2[0-4]|[0-1][0-9]|[0-9]):([0-5][0-9]|[1-9]))')
+        pattern_time = re.compile(r'((2[0-4]|[0-1][0-9]|[0-9]):([0-5][0-9]|[1-9])(:([0-5][0-9]|[1-9]))?)')
         pattern_digits = re.compile(r"\d+")
 
         # replace acronyms with full text
@@ -213,6 +213,11 @@ class Synthesizer:
         # print(wave)
 
         write(f"custom_components/wavs/output-{socketid}-{uid}.wav", 16000, wave.astype(np.float32))
+
+    # def synthesize_fpt(self, input_text, uid, socketid):
+    #     input_text = self.prepare_text(input_text)
+    #     input_text = self.nat_normalize_text(input_text)
+
 
 # text = nat_normalize_text(args.text)
 # print('Normalized text input:', text)

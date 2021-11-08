@@ -14,7 +14,7 @@ rules:
   - rule: user ask me to introduce
     steps:
       - intent: introduce_yourself
-      - action: utter_introduce
+      - action: action_faq_introduce
 
   - rule: user hey me
     steps:

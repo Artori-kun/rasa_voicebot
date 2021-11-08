@@ -35,6 +35,7 @@ slots:
   is_verified:
     type: bool
     initial_value: false
+    influence_conversation: true
 
 
 responses:
@@ -126,6 +127,7 @@ actions:
   - action_faq_current_time
   - action_faq_current_date
   - action_faq_current_weekday
+  - action_faq_introduce
   - action_verify_speaker
   - action_unverify_speaker
   - action_greet_user

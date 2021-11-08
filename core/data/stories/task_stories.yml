@@ -111,7 +111,9 @@ stories:
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: true
-      - checkpoint: create_task_verified
+      - action: utter_ok
+      - action: action_create_task_reset_form
+      - checkpoint: checkpoint_create_task
 
   - story: User create a task / unknown user
     steps:
@@ -122,12 +124,12 @@ stories:
           - is_verified: false
       - action: utter_not_verified
 
-  - story: User create a task
-    steps:
-      - checkpoint: create_task_verified
-      - action: utter_ok
-      - action: action_create_task_reset_form
-      - checkpoint: checkpoint_create_task
+#  - story: User create a task
+#    steps:
+#      - checkpoint: create_task_verified
+#      - action: utter_ok
+#      - action: action_create_task_reset_form
+#      - checkpoint: checkpoint_create_task
 
   # User affirm submit info
 
@@ -226,14 +228,29 @@ stories:
   # DELETE TASKS
 
   # Verify user
-  - story: ask to delete task / known user
+  - story: ask to delete task / known user / info provided
     steps:
       - intent: delete_task
       - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: true
-      - checkpoint: delete_task_verified
+      - action: action_delete_task_confirm_info
+      - slot_was_set:
+          - task_info_provided: true
+      - checkpoint: checkpoint_delete_task
+
+  - story: ask to delete task / known user / no info provided
+    steps:
+      - intent: delete_task
+      - action: action_unverify_speaker
+      - action: action_verify_speaker
+      - slot_was_set:
+          - is_verified: true
+      - action: action_delete_task_confirm_info
+      - slot_was_set:
+          - task_info_provided: false
+      - action: utter_please_try_again
 
   - story: ask to delete task / unknown user
     steps:
@@ -244,22 +261,22 @@ stories:
           - is_verified: false
       - action: utter_not_verified
 
-  - story: User ask to delete task
-    steps:
-      - checkpoint: delete_task_verified
-      - action: action_delete_task_confirm_info
-      - slot_was_set:
-          - task_info_provided: true
-      - checkpoint: checkpoint_delete_task
+#  - story: User ask to delete task
+#    steps:
+#      - checkpoint: delete_task_verified
+#      - action: action_delete_task_confirm_info
+#      - slot_was_set:
+#          - task_info_provided: true
+#      - checkpoint: checkpoint_delete_task
 
   # User ask to delete task / no info provided
-  - story: ask to delete task / no info provided
-    steps:
-      - intent: delete_task
-      - action: action_delete_task_confirm_info
-      - slot_was_set:
-          - task_info_provided: false
-      - action: utter_please_try_again
+#  - story: ask to delete task / no info provided
+#    steps:
+#      - intent: delete_task
+#      - action: action_delete_task_confirm_info
+#      - slot_was_set:
+#          - task_info_provided: false
+#      - action: utter_please_try_again
 
   # User ask to delete task / affirm / affirm delete recurrence
   - story: ask to delete task / happy path
@@ -280,14 +297,31 @@ stories:
   # EDIT TASKS
 
   # Verify user
-  - story: User edit a task / known user
+  - story: User edit a task / known user / info provided
     steps:
       - intent: edit_task
       - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: true
-      - checkpoint: edit_task_verified
+      - action: action_edit_task_confirm_info
+      - slot_was_set:
+          - task_info_provided: true
+      - checkpoint: checkpoint_edit_task
+      - action: utter_ask_to_confirm_edit_task
+      - checkpoint: checkpoint_edit_task_ask_field
+
+  - story: User edit a task / known user / no info provided
+    steps:
+      - intent: edit_task
+      - action: action_unverify_speaker
+      - action: action_verify_speaker
+      - slot_was_set:
+          - is_verified: true
+      - action: action_edit_task_confirm_info
+      - slot_was_set:
+          - task_info_provided: false
+      - action: utter_please_try_again
 
   - story: User edit a task / unknown user
     steps:
@@ -299,24 +333,24 @@ stories:
       - action: utter_not_verified
 
   # User edit a task / no info provided
-  - story: user edit a task / no info provided
-    steps:
-      - checkpoint: edit_task_verified
-      - action: action_edit_task_confirm_info
-      - slot_was_set:
-          - task_info_provided: false
-      - action: utter_please_try_again
+#  - story: user edit a task / no info provided
+#    steps:
+#      - checkpoint: edit_task_verified
+#      - action: action_edit_task_confirm_info
+#      - slot_was_set:
+#          - task_info_provided: false
+#      - action: utter_please_try_again
 
   # user edit a task / info provided
-  - story: user edit a task / info provided
-    steps:
-      - checkpoint: edit_task_verified
-      - action: action_edit_task_confirm_info
-      - slot_was_set:
-          - task_info_provided: true
-      - checkpoint: checkpoint_edit_task
-      - action: utter_ask_to_confirm_edit_task
-      - checkpoint: checkpoint_edit_task_ask_field
+#  - story: user edit a task / info provided
+#    steps:
+#      - checkpoint: edit_task_verified
+#      - action: action_edit_task_confirm_info
+#      - slot_was_set:
+#          - task_info_provided: true
+#      - checkpoint: checkpoint_edit_task
+#      - action: utter_ask_to_confirm_edit_task
+#      - checkpoint: checkpoint_edit_task_ask_field
 
   # user select field to edit / happy path
   - story: user select field loop / happy path

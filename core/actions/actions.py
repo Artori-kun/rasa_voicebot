@@ -18,7 +18,7 @@ from rasa_sdk.events import SlotSet
 
 from scipy.io import wavfile
 
-SPEAKER_VERIFICATION_URL = 'http://192.168.191.22:7000/api/tutorials/login2'
+SPEAKER_VERIFICATION_URL = 'http://192.168.14.22:7000/api/tutorials/login2'
 
 
 #
@@ -45,6 +45,8 @@ class ActionVerifySpeaker(Action):
                   dispatcher: "CollectingDispatcher",
                   tracker: Tracker,
                   domain: DomainDict) -> List[Dict[Text, Any]]:
+        latest_intent = tracker.get_intent_of_latest_message()
+        print(latest_intent)
         sender_id = tracker.sender_id
 
         wav = open(f"custom_components/wavs/input_{sender_id}.wav", "rb")

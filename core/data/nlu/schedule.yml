@@ -45,6 +45,13 @@ nlu:
       - tạo lịch mới
       - thêm kế hoạch mới
       - thêm lịch mới
+      - cho tôi tạo lịch mới
+      - tôi muốn tạo lịch mới
+      - thêm lịch mới cho tôi
+      - tạo kế hoạch mới
+      - tôi muốn thêm kế hoạch mới
+      - tôi muốn tạo lịch
+      - tạo kế hoạch mới cho tôi
 
   - intent: inform_date
     examples: |
@@ -149,6 +156,11 @@ nlu:
       - xóa lịch lúc tàm giờ ba mươi ngày kia
       - xóa lịch thứ sáu tuần sau
       - xóa lịch chủ nhật tuần này
+      - hủy kế hoạch ngày mai lúc chín giờ
+      - xóa lịch tám giờ ngày kia
+      - hủy kế hoạch thứ hai tuần sau
+      - xóa kế hoạch lúc chín giờ ba mươi ngày mùng sáu tháng tám
+      - xóa kế hoạch lúc tám giờ ngày kia cho tôi
 
   - intent: edit_schedule
     examples: |
@@ -171,6 +183,8 @@ nlu:
       - thay đổi lịch ngày mai lúc chín giờ tối
       - thay đổi lịch ngày mười lăm tháng sáu lúc hai giờ chiều
       - sửa cho tôi lịch thứ ba tuần tới lúc bảy giờ ba mươi
+      - tôi muốn điều chỉnh kế hoạch ngày mai lúc bảy giờ tối
+      - thay đổi kế hoạch thứ hai tuần sau lúc tám giờ
 
   - intent: delete_current_schedule
     examples: |
@@ -189,6 +203,11 @@ nlu:
       - xóa lịch đấy đi
       - tôi cần hủy lịch đấy
       - xóa lịch này
+      - hủy các kế hoạch này
+      - xóa các kế hoạch này cho tôi
+      - hủy kế hoạch này đi
+      - bỏ các kế hoạch này
+      - bỏ kế hoạch này
 
   - intent: edit_current_schedule
     examples: |
@@ -207,3 +226,8 @@ nlu:
       - sửa kế hoạch này
       - rời kế hoạch này
       - thay đỏi lịch này
+      - thay đổi kế hoạch này
+      - chỉnh sửa kế hoạch này
+      - cho tôi chỉnh sửa lịch này
+      - tôi muốn đổi kế hoạch này
+      - tôi muốn sửa kế hoạch này

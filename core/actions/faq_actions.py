@@ -61,3 +61,25 @@ class ActionFaqCurrentWeekday(Action):
         dispatcher.utter_message(f"Hôm nay là {current_date}")
 
         return []
+
+
+class ActionFaqIntroduce(Action):
+    def name(self) -> Text:
+        return 'action_faq_introduce'
+
+    async def run(self,
+                  dispatcher: "CollectingDispatcher",
+                  tracker: Tracker,
+                  domain: "DomainDict") -> List[Dict[Text, Any]]:
+        dispatcher.utter_message("Xin chào. Tên tôi là Bạc Xỉu. Hãy cứ gọi tôi là Xỉu cho gọn. Nếu bạn thắc mắc thì "
+                                 "tên tôi được đặt theo tên con mèo của người tạo ra tôi.")
+        dispatcher.utter_message("Tôi là một trợ lý ảo được "
+                                 "xây dựng trên nền tảng Rasa. Tôi có nhiệm vụ hỗ trợ bạn trong việc quản lý lịch cá "
+                                 "nhân của mình và cung cấp cho bạn những tin tức nóng hổi và mới nhất để bạn không "
+                                 "trở thành người tối cổ. Yêu cầu của bạn là mệnh lệnh của tôi, trừ khi tôi không "
+                                 "hiểu bạn đang muốn cái gì.")
+        dispatcher.utter_message("Hôm nay tôi tới đây với một sứ mệnh cao cả. Đó là giúp Hiếu và Hà bảo vệ thành công "
+                                 "đồ án tốt nghiệp và đạt điểm cao. "
+                                 "Hiếu thức trắng mấy đêm rồi nên các thầy đừng ngần ngại cho 9 điểm nhé. Xin cảm "
+                                 "ơn!!")
+        return []

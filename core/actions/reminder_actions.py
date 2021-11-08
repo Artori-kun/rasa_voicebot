@@ -11,7 +11,7 @@ from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.forms import FormValidationAction
 from rasa_sdk.types import DomainDict
 
-BASE_REMINDERS_URL = "http://127.0.0.1:7000/reminders/"
+BASE_REMINDERS_URL = "http://192.168.14.22:7000/reminders/"
 
 
 # BASE_reminder_EXCEPTION_URL = "http://127.0.0.1:7000/reminder-exceptions/"
@@ -68,6 +68,7 @@ class ActionRetrieveReminder(Action):
             return []
         elif status == 200:
             reminders = response.json()
+            print(reminders)
 
         # date_param = datetime.strptime(date_param, "%d-%m-%Y")
         # date_param = date_param.strftime("%Y-%m-%d")

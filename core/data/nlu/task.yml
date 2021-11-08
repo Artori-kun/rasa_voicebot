@@ -47,6 +47,10 @@ nlu:
       - thêm công việc mới lúc tám giờ ngày mai cho tôi
       - thêm công việc lúc bảy giờ ba mươi ngày hai lăm tháng bảy
       - tôi cần thêm công việc mới lúc bảy giờ tối
+      - cho tôi thêm công việc vào lúc bảy giờ ngày kia
+      - thêm cho tôi một công việc vào ngày mai
+      - thêm cho tôi một công việc mới
+      - tạo cho tôi công việc mới
 
   - intent: edit_task
     examples: |
@@ -62,12 +66,17 @@ nlu:
       - sửa cho tôi công việc lúc hai giờ chiều ngày kia
       - tôi cần chỉnh sửa công việc lúc tám giờ thứ ba tuần sau
       - tôi muốn thay đổi công việc lúc mười chín giờ
+      - đổi công việc lúc chín giờ ngày kia
+      - cho tôi thay đổi công việc lúc bảy giờ tối
+      - sửa cho tôi công việc lúc hai giờ chiều mai
+      - thay đổi cái công việc lúc ba giờ chiều ngày hai tư tháng chín
+      - sửa cho tôi công việc lúc ba giờ chiều thứ năm tuần sau
 
   - intent: delete_task
     examples: |
       - xóa công việc ngày mai
       - xóa công việc lúc chín giờ
-      - xóa công việc lúc mưười giờ ngày kia
+      - xóa công việc lúc mười giờ ngày kia
       - tôi muốn xóa công việc lúc hai mười giờ thứ hai tuần sau
       - tôi cần xóa công việc ngày hai mươi tháng sáu
       - xóa công việc lúc tám giờ ngày hai mươi tháng tư
@@ -95,6 +104,10 @@ nlu:
       - sửa công việc đấy đi
       - thay đổi công việc đấy đi
       - sửa đổi công việc này cho tôi
+      - đổi công việc này
+      - đổi thông tin công việc này
+      - sửa cho tôi thông tin công việc này
+      - thay đổi thông tin công việc này
 
   - intent: delete_current_task
     examples: |
@@ -108,6 +121,10 @@ nlu:
       - xóa các công việc này cho tôi
       - hủy công việc này cho tôi
       - hủy các công việc này đi
+      - bỏ hết các công việc này đi
+      - xóa cho tôi các công việc này
+      - bỏ các công việc này đi cho tôi
+      - xóa hết các công việc này
 
   - intent: ask_remain_task
     examples: |
@@ -122,7 +139,7 @@ nlu:
     examples: |
       - xóa các công việc còn lại
       - xóa hết các công việc còn lại
-      - bỏ hết các nhắn nhở còn lại đi
+      - bỏ hết các công việc còn lại đi
       - tôi muốn xóa hêt các công việc còn lại
       - xóa hết các công việc khác đi
       - hủy hết các công việc còn lại
