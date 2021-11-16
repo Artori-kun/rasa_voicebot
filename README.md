@@ -1,5 +1,7 @@
 # Bạc Xỉu - the Vietnamese Rasa-based virtual assistant
 
+( ***Project closed*** )
+
 Hi, I'm ***Bạc Xỉu***. You can call me ***Xỉu*** (pronounced /xēo͞o/ with a tiny weeny bitsy Vietnamese accent) for short. I am named after my creator's depressed cat. Yes people, cats can have depression!
 
 Behold, Me!
