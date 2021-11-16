@@ -18,7 +18,7 @@ from rasa_sdk.events import SlotSet
 
 from scipy.io import wavfile
 
-SPEAKER_VERIFICATION_URL = 'http://192.168.14.22:7000/api/tutorials/login2'
+SPEAKER_VERIFICATION_URL = ''
 
 
 #
@@ -91,6 +91,20 @@ class ActionUnverifySpeaker(Action):
                 SlotSet('user_firstname', None),
                 SlotSet('user_lastname', None),
                 SlotSet('is_verified', False)]
+
+
+class ActionThesisReportEnding(Action):
+
+    def name(self) -> Text:
+        return 'action_thesis_report_ending'
+
+    async def run(self,
+                  dispatcher: "CollectingDispatcher",
+                  tracker: Tracker,
+                  domain: "DomainDict") -> List[Dict[Text, Any]]:
+        dispatcher.utter_message("Cảm ơn mọi người đã dành thời gian lắng nghe")
+        dispatcher.utter_message("Các thầy nhớ cho 9 điểm nhé")
+        return []
 
 
 class ActionGreetUser(Action):

@@ -8,7 +8,7 @@ stories:
   - story: ask task / known user
     steps:
       - intent: ask_task
-      - action: action_unverify_speaker
+      # - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: true
@@ -18,7 +18,7 @@ stories:
   - story: ask task / unknown user
     steps:
       - intent: ask_task
-      - action: action_unverify_speaker
+      # - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: false
@@ -84,7 +84,7 @@ stories:
   - story: ask for remain tasks / known user
     steps:
       - intent: ask_remain_task
-      - action: action_unverify_speaker
+      # - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: true
@@ -94,7 +94,7 @@ stories:
   - story: ask for remain tasks / unknown user
     steps:
       - intent: ask_remain_task
-      - action: action_unverify_speaker
+      # - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: false
@@ -107,7 +107,7 @@ stories:
   - story: User create a task / known user
     steps:
       - intent: create_task
-      - action: action_unverify_speaker
+      # - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: true
@@ -118,7 +118,7 @@ stories:
   - story: User create a task / unknown user
     steps:
       - intent: create_task
-      - action: action_unverify_speaker
+      # - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: false
@@ -231,7 +231,7 @@ stories:
   - story: ask to delete task / known user / info provided
     steps:
       - intent: delete_task
-      - action: action_unverify_speaker
+      # - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: true
@@ -243,7 +243,7 @@ stories:
   - story: ask to delete task / known user / no info provided
     steps:
       - intent: delete_task
-      - action: action_unverify_speaker
+      # - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: true
@@ -255,7 +255,7 @@ stories:
   - story: ask to delete task / unknown user
     steps:
       - intent: delete_task
-      - action: action_unverify_speaker
+      # - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: false
@@ -300,7 +300,7 @@ stories:
   - story: User edit a task / known user / info provided
     steps:
       - intent: edit_task
-      - action: action_unverify_speaker
+      # - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: true
@@ -314,7 +314,7 @@ stories:
   - story: User edit a task / known user / no info provided
     steps:
       - intent: edit_task
-      - action: action_unverify_speaker
+      # - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: true
@@ -326,7 +326,7 @@ stories:
   - story: User edit a task / unknown user
     steps:
       - intent: edit_task
-      - action: action_unverify_speaker
+      # - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: false

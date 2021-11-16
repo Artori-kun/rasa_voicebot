@@ -11,6 +11,10 @@ rules:
       - intent: thanks
       - action: utter_ur_welcome
 
+  - rule: Thesis report ending
+    steps:
+      - intent: you_have_anything_else_to_say
+      - action: action_thesis_report_ending
 #  - rule: Mo need for anything else
 #    steps:
 #      - intent:

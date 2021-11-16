@@ -24,7 +24,7 @@ class VoiceModules:
         self.text_to_speech_url = self.config['tts_url']
         self.output_path = self.config['tts_output_path']
 
-        self.stt_mini_url = "http://192.168.14.2:5555/recog"
+        self.stt_mini_url = ""
 
     @staticmethod
     def nat_normalize_text(input_text):
@@ -151,6 +151,16 @@ class VoiceModules:
         files = {"the_file": wav}
 
         response = requests.post(self.stt_mini_url, files=files)
+
+        return response.text
+
+    @staticmethod
+    def speech_to_text_api(input_wav_path):
+        wav = open(input_wav_path, "rb")
+
+        files = {"the_file": wav}
+
+        response = requests.post("stt-api", files=files, verify=False)
 
         return response.text
 

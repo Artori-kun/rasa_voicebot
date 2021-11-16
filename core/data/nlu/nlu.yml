@@ -44,6 +44,13 @@ nlu:
     - đúng
     - chắc
     - ừ
+    - đồng ý
+    - nhất trí
+    - ô kê
+    - tôi chắc chắn
+    - tôi đồng ý
+    - có nhé
+    - chắc chắn nhé
 
 - intent: deny
   examples: |
@@ -55,6 +62,7 @@ nlu:
     - không nhé
     - không đời nào
     - hoàn toàn không
+    - không đồng ý
 
 - intent: continue
   examples: |
@@ -230,3 +238,17 @@ nlu:
     - cho tôi đăng kí
     - tôi muốn đăng kí
     - tôi cần đăng kí
+
+- intent: you_have_anything_else_to_say
+  examples: |
+    - xỉu còn gì muốn nói nữa không
+    - xỉu còn muốn thêm gì nữa không
+    - còn gì muốn nói nữa không
+    - còn muốn nói gì nữa không
+    - có muốn thêm gì không
+    - còn muốn thêm gì nữa không
+    - còn ý kiến gì không xỉu
+    - xỉu còn ý kiến gì không
+    - xỉu có muốn nói gì không
+    - có muốn nói gì nữa không
+    - có muốn thêm gì không

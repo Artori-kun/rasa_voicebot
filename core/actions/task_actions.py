@@ -11,10 +11,10 @@ from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.forms import FormValidationAction
 from rasa_sdk.types import DomainDict
 
-BASE_TASKS_URL = "http://192.168.14.22:7000/tasks/"
+BASE_TASKS_URL = ""
 
 
-# BASE_task_EXCEPTION_URL = "http://127.0.0.1:7000/task-exceptions/"
+# BASE_task_EXCEPTION_URL = ""
 
 
 # RETRIEVE TASKS ACTIONS
@@ -77,6 +77,10 @@ class ActionRetrieveTask(Action):
         else:
             for task in tasks:
                 date_field = task['date_field']
+
+                date_field = datetime.strptime(date_field, "%d-%m-%Y")
+                date_field = date_field.strftime("%Y-%m-%d")
+
                 time_field = task['time_field']
                 content = task['content']
 
@@ -135,6 +139,10 @@ class ActionRetrieveTaskRemain(Action):
         else:
             for task in tasks:
                 date_field = task['date_field']
+
+                date_field = datetime.strptime(date_field, "%d-%m-%Y")
+                date_field = date_field.strftime("%Y-%m-%d")
+
                 time_field = task['time_field']
                 content = task['content']
 
@@ -355,6 +363,10 @@ class ActionDeleteTaskConfirmInfo(Action):
             dispatcher.utter_message("Đây là các công việc bạn muốn xóa:\n")
             for task in tasks:
                 date_field = task['date_field']
+
+                date_field = datetime.strptime(date_field, "%d-%m-%Y")
+                date_field = date_field.strftime("%Y-%m-%d")
+
                 time_field = task['time_field']
                 content = task['content']
 
@@ -383,6 +395,7 @@ class ActionDeleteTask(Action):
                   domain: "DomainDict") -> List[Dict[Text, Any]]:
         tasks = tracker.get_slot('task_current')
         task_num = tracker.get_slot('task_current_num')
+        user_id = tracker.get_slot('user_id')
         fail_tasks = []
         # recurrent_task = []
 
@@ -392,7 +405,7 @@ class ActionDeleteTask(Action):
 
         # print(tasks)
         if task_num == 'one':
-            response = requests.delete(BASE_TASKS_URL + str(tasks['id']) + "/")
+            response = requests.delete(BASE_TASKS_URL + str(tasks['id']) + f"/?u_id={user_id}")
 
             status = response.status_code
 
@@ -401,7 +414,7 @@ class ActionDeleteTask(Action):
         else:
             for task in tasks:
                 # print(task)
-                response = requests.delete(BASE_TASKS_URL + str(task['id']) + "/")
+                response = requests.delete(BASE_TASKS_URL + str(task['id']) + f"/?u_id={user_id}")
 
                 status = response.status_code
 
@@ -493,6 +506,10 @@ class ActionEditTaskConfirmInfo(Action):
 
             task = tasks[0]
             date_field = task['date_field']
+
+            date_field = datetime.strptime(date_field, "%d-%m-%Y")
+            date_field = date_field.strftime("%Y-%m-%d")
+
             time_field = task['time_field']
             content = task['content']
 
@@ -574,6 +591,7 @@ class ActionEditTask(Action):
                   domain: "DomainDict") -> List[Dict[Text, Any]]:
         edited_task = tracker.get_slot('task_edited_record')
         current_task = tracker.get_slot('task_current')
+        user_id = tracker.get_slot('user_id')
 
         date_field = edited_task['date_field']
         date_field = datetime.strptime(date_field, "%d-%m-%Y")
@@ -594,7 +612,7 @@ class ActionEditTask(Action):
 
         payload = json.dumps(payload)
 
-        response = requests.put(BASE_TASKS_URL + f"{current_task['id']}/", data=payload, headers=headers)
+        response = requests.put(BASE_TASKS_URL + f"{current_task['id']}/?u_id={user_id}", data=payload, headers=headers)
 
         status = response.status_code
 

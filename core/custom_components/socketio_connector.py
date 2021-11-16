@@ -46,13 +46,13 @@ class SocketIoOutput(OutputChannel):
 
         print("Start synthesizing")
         print(f"Message: {response_message['text']}")
-        self.tts.synthesize_uuid(response_message['text'], uid, socket_id)
+        self.tts.synthesize_api(response_message['text'], uid, socket_id)
         # url = self.voice_module.text_to_speech(response_message['text'], uid, socket_id)
         print("Synthesized")
 
         await self.sio.emit(self.bot_message_evt,
                             {"text": response_message['text'],
-                             "link": f"http://192.168.14.178:8888/output-{socket_id}-{uid}.wav"},
+                             "link": f"wav-server/output-{socket_id}-{uid}.wav"},
                             room=socket_id)
 
         # await self.sio.emit(self.bot_message_evt,
@@ -157,9 +157,8 @@ class SocketIoInput(InputChannel):
                 os.system("ffmpeg -y -i {0} -ar 16000 {1}".format(received_file, input_file))
                 # os.system("ffmpeg -y -i {0} -c:a pcm_s161e output_{1}.wav".format(received_file,sid))
 
-                message = self.stt.speech_to_text_mini(input_file).lower()
+                message = self.stt.speech_to_text_api(input_file).lower()
                 print(f"Message in: {message}")
-
                 # await self.sio.emit(self.bot_message_evt, response, room=socket_id)
                 await sio.emit("user_uttered", {"text": message}, room=sid)
                 # ffmpeg -i input.flv -f s16le -acodec pcm_s16le output.raw

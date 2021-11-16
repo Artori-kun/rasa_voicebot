@@ -1,6 +1,6 @@
 {
   "stt_url": "https://api.fpt.ai/hmi/asr/general",
-  "api_key": "shRkHZQb57zSJ9FkPN2fRJBw3omjirtR",
+  "api_key": "",
   "stt_input_path": "custom_components/wavs/input.wav",
   "tts_url": "https://api.fpt.ai/hmi/tts/v5",
   "tts_output_path": "custom_components/wavs/output.wav"

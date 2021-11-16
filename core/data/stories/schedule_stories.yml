@@ -8,7 +8,7 @@ stories:
   - story: ask schedule / known user
     steps:
       - intent: ask_schedule
-      - action: action_unverify_speaker
+      # - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: true
@@ -24,7 +24,7 @@ stories:
   - story: ask schedule / unknown user
     steps:
       - intent: ask_schedule
-      - action: action_unverify_speaker
+      # - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: false
@@ -93,7 +93,7 @@ stories:
   - story: ask to delete schedule / known user / info provided
     steps:
       - intent: delete_schedule
-      - action: action_unverify_speaker
+      # - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: true
@@ -105,7 +105,7 @@ stories:
   - story: ask to delete schedule / known user / no info provided
     steps:
       - intent: delete_schedule
-      - action: action_unverify_speaker
+      # - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: true
@@ -117,7 +117,7 @@ stories:
   - story: ask to delete schedule / unknown user
     steps:
       - intent: delete_schedule
-      - action: action_unverify_speaker
+      # - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: false
@@ -154,7 +154,7 @@ stories:
   - story: User create a schedule / known user
     steps:
       - intent: create_schedule
-      - action: action_unverify_speaker
+      # - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: true
@@ -163,7 +163,7 @@ stories:
   - story: User create a schedule / unknown user
     steps:
       - intent: create_schedule
-      - action: action_unverify_speaker
+      # - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: false
@@ -294,7 +294,7 @@ stories:
   - story: User edit a schedule / known user / info provided
     steps:
       - intent: edit_schedule
-      - action: action_unverify_speaker
+      # - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: true
@@ -308,7 +308,7 @@ stories:
   - story: User edit a schedule / known user / no info provided
     steps:
       - intent: edit_schedule
-      - action: action_unverify_speaker
+      # - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: true
@@ -320,7 +320,7 @@ stories:
   - story: User edit a schedule / unknown user
     steps:
       - intent: edit_schedule
-      - action: action_unverify_speaker
+      # - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: false

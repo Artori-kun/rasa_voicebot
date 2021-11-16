@@ -12,8 +12,10 @@ from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.forms import FormValidationAction
 from rasa_sdk.types import DomainDict
 
-BASE_SCHEDULES_URL = "http://192.168.14.22:7000/schedules/"
-# BASE_SCHEDULE_EXCEPTION_URL = "http://127.0.0.1:7000/schedule-exceptions/"
+BASE_SCHEDULES_URL = ""
+
+
+# BASE_SCHEDULE_EXCEPTION_URL = ""
 
 
 # GET SCHEDULES
@@ -348,6 +350,7 @@ class ActionDeleteSchedule(Action):
                   domain: "DomainDict") -> List[Dict[Text, Any]]:
         schedules = tracker.get_slot('schedule_current')
         schedule_num = tracker.get_slot('schedule_current_num')
+        user_id = tracker.get_slot('user_id')
         # print(schedules)
         fail_schedules = []
         # recurrent_schedule = []
@@ -358,10 +361,10 @@ class ActionDeleteSchedule(Action):
 
         if schedule_num == 'one':
             if schedules['is_recurring'] is False:
-                response = requests.delete(BASE_SCHEDULES_URL + str(schedules['id']))
+                response = requests.delete(BASE_SCHEDULES_URL + str(schedules['id']) + f"/?u_id={user_id}")
             else:
                 response = requests.delete(
-                    BASE_SCHEDULES_URL + str(schedules['id']) + f"/?date={schedules['date_field']}")
+                    BASE_SCHEDULES_URL + str(schedules['id']) + f"/?u_id={user_id}&date={schedules['date_field']}")
 
             status = response.status_code
 
@@ -371,10 +374,10 @@ class ActionDeleteSchedule(Action):
         else:
             for schedule in schedules:
                 if schedule['is_recurring'] is False:
-                    response = requests.delete(BASE_SCHEDULES_URL + str(schedule['id']) + "/")
+                    response = requests.delete(BASE_SCHEDULES_URL + str(schedule['id']) + f"/?u_id={user_id}")
                 else:
                     response = requests.delete(
-                        BASE_SCHEDULES_URL + str(schedules['id']) + f"/?date={schedules['date_field']}")
+                        BASE_SCHEDULES_URL + str(schedules['id']) + f"/?u_id={user_id}&date={schedules['date_field']}")
                     # schedule['date_field'] = datetime.strptime(schedule['date_field'], "%d-%m-%Y")
                     # schedule['date_field'] = schedule['date_field'].strftime("%Y-%m-%d")
                     #
@@ -580,6 +583,7 @@ class ActionEditSchedule(Action):
                   domain: "DomainDict") -> List[Dict[Text, Any]]:
         edited_schedule = tracker.get_slot('schedule_edited_record')
         current_schedule = tracker.get_slot('schedule_current')
+        user_id = tracker.get_slot('user_id')
 
         date_field = edited_schedule['date_field']
         date_field = datetime.strptime(date_field, "%d-%m-%Y")
@@ -610,7 +614,7 @@ class ActionEditSchedule(Action):
             payload = json.dumps(payload)
 
             response = requests.put(BASE_SCHEDULES_URL +
-                                    f"{current_schedule['id']}/?date={current_schedule['date_field']}",
+                                    f"{current_schedule['id']}/?u_id={user_id}&date={current_schedule['date_field']}",
                                     data=payload,
                                     headers=headers)
 
@@ -651,7 +655,8 @@ class ActionEditSchedule(Action):
         else:
             payload = json.dumps(payload)
 
-            response = requests.put(BASE_SCHEDULES_URL + f"{current_schedule['id']}/", data=payload, headers=headers)
+            response = requests.put(BASE_SCHEDULES_URL + f"{current_schedule['id']}/?u_id={user_id}", data=payload,
+                                    headers=headers)
 
             status = response.status_code
 

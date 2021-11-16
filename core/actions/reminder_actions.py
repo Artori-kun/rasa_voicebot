@@ -11,10 +11,10 @@ from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.forms import FormValidationAction
 from rasa_sdk.types import DomainDict
 
-BASE_REMINDERS_URL = "http://192.168.14.22:7000/reminders/"
+BASE_REMINDERS_URL = ""
 
 
-# BASE_reminder_EXCEPTION_URL = "http://127.0.0.1:7000/reminder-exceptions/"
+# BASE_reminder_EXCEPTION_URL = ""
 
 
 # RETRIEVE REMINDERS ACTIONS
@@ -365,6 +365,7 @@ class ActionDeleteReminder(Action):
                   domain: "DomainDict") -> List[Dict[Text, Any]]:
         reminders = tracker.get_slot('reminder_current')
         reminder_num = tracker.get_slot('reminder_current_num')
+        user_id = tracker.get_slot('user_id')
         fail_reminders = []
         # recurrent_reminder = []
 
@@ -374,10 +375,10 @@ class ActionDeleteReminder(Action):
 
         if reminder_num == 'one':
             if reminders['is_recurring'] is False:
-                response = requests.delete(BASE_REMINDERS_URL + str(reminders['id']))
+                response = requests.delete(BASE_REMINDERS_URL + str(reminders['id']) + f"/?u_id={user_id}")
             else:
                 response = requests.delete(
-                    BASE_REMINDERS_URL + str(reminders['id']) + f"/?date={reminders['date_field']}")
+                    BASE_REMINDERS_URL + str(reminders['id']) + f"/?u_id={user_id}&date={reminders['date_field']}")
 
             status = response.status_code
 
@@ -386,10 +387,10 @@ class ActionDeleteReminder(Action):
         else:
             for reminder in reminders:
                 if reminder['is_recurring'] is False:
-                    response = requests.delete(BASE_REMINDERS_URL + str(reminder['id']))
+                    response = requests.delete(BASE_REMINDERS_URL + str(reminder['id']) + f"/?u_id={user_id}")
                 else:
                     response = requests.delete(
-                        BASE_REMINDERS_URL + str(reminder['id']) + f"/?date={reminder['date_field']}")
+                        BASE_REMINDERS_URL + str(reminder['id']) + f"/?u_id={user_id}&date={reminder['date_field']}")
 
                 status = response.status_code
 
@@ -562,6 +563,7 @@ class ActionEditReminder(Action):
                   domain: "DomainDict") -> List[Dict[Text, Any]]:
         edited_reminder = tracker.get_slot('reminder_edited_record')
         current_reminder = tracker.get_slot('reminder_current')
+        user_id = tracker.get_slot('user_id')
 
         date_field = edited_reminder['date_field']
         date_field = datetime.strptime(date_field, "%d-%m-%Y")
@@ -588,7 +590,7 @@ class ActionEditReminder(Action):
             payload = json.dumps(payload)
 
             response = requests.put(
-                BASE_REMINDERS_URL + f"{current_reminder['id']}" + f"/?date={current_reminder['date_field']}",
+                BASE_REMINDERS_URL + f"{current_reminder['id']}" + f"/?u_id={user_id}&date={current_reminder['date_field']}",
                 data=payload,
                 headers=headers)
 
@@ -609,7 +611,8 @@ class ActionEditReminder(Action):
         else:
             payload = json.dumps(payload)
 
-            response = requests.put(BASE_REMINDERS_URL + f"{current_reminder['id']}/", data=payload, headers=headers)
+            response = requests.put(BASE_REMINDERS_URL + f"{current_reminder['id']}/?u_id={user_id}", data=payload,
+                                    headers=headers)
 
             status = response.status_code
 

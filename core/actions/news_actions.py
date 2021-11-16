@@ -111,15 +111,21 @@ class ActionRetrieveNewsContent(Action):
             if entity['entity'] == "news_order_st":
                 entity_provided = True
                 content = e.get_article(headlines_slot[current_headlines[0]])
-                dispatcher.utter_message(content)
+                for c in content.split('. '):
+                    dispatcher.utter_message(c)
+                # dispatcher.utter_message(content)
             elif entity['entity'] == "news_order_nd":
                 entity_provided = True
                 content = e.get_article(headlines_slot[current_headlines[1]])
-                dispatcher.utter_message(content)
+                for c in content.split('. '):
+                    dispatcher.utter_message(c)
+                # dispatcher.utter_message(content)
             elif entity['entity'] == "news_order_rd":
                 entity_provided = True
                 content = e.get_article(headlines_slot[current_headlines[2]])
-                dispatcher.utter_message(content)
+                for c in content.split('. '):
+                    dispatcher.utter_message(c)
+                # dispatcher.utter_message(content)
 
         if entity_provided is False:
             dispatcher.utter_message("bạn chưa chọn tin nào")
@@ -204,7 +210,8 @@ class ActionRetrieveCovidTimeline(Action):
 
         data = e.get_covid_timeline()
 
-        dispatcher.utter_message(f"Diễn biến dịch bệnh {data['timestamp']}:\n"
-                                 f"{data['timeline']}")
+        dispatcher.utter_message(f"Diễn biến dịch bệnh {data['timestamp']}:\n")
+        for d in data['timeline'].split('. '):
+            dispatcher.utter_message(d)
 
         return None

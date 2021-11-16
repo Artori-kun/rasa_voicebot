@@ -21,6 +21,7 @@ intents:
   - ask_weather_city
   - log_in
   - sign_in
+  - you_have_anything_else_to_say
 
 entities:
   - city
@@ -131,6 +132,7 @@ actions:
   - action_verify_speaker
   - action_unverify_speaker
   - action_greet_user
+  - action_thesis_report_ending
 
 
 session_config:

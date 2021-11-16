@@ -8,7 +8,7 @@ stories:
   - story: ask reminder / known user
     steps:
       - intent: ask_reminder
-      - action: action_unverify_speaker
+      # - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: true
@@ -18,7 +18,7 @@ stories:
   - story: ask reminder / unknown user
     steps:
       - intent: ask_reminder
-      - action: action_unverify_speaker
+      # - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: false
@@ -87,7 +87,7 @@ stories:
   - story: User create a reminder / known user
     steps:
       - intent: create_reminder
-      - action: action_unverify_speaker
+      # - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: true
@@ -96,7 +96,7 @@ stories:
   - story: User create a reminder / unknown user
     steps:
       - intent: create_reminder
-      - action: action_unverify_speaker
+      # - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: false
@@ -227,7 +227,7 @@ stories:
   - story: ask to delete reminder / known user / info provided
     steps:
       - intent: delete_reminder
-      - action: action_unverify_speaker
+      # - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: true
@@ -239,7 +239,7 @@ stories:
   - story: ask to delete reminder / known user / no info provided
     steps:
       - intent: delete_reminder
-      - action: action_unverify_speaker
+      # - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: true
@@ -251,7 +251,7 @@ stories:
   - story: ask to delete reminder / unknown user
     steps:
       - intent: delete_reminder
-      - action: action_unverify_speaker
+      # - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: false
@@ -288,7 +288,7 @@ stories:
   - story: User edit a reminder / known user / info provided
     steps:
       - intent: edit_reminder
-      - action: action_unverify_speaker
+      # - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: true
@@ -302,7 +302,7 @@ stories:
   - story: User edit a reminder / known user / no info provided
     steps:
       - intent: edit_reminder
-      - action: action_unverify_speaker
+      # - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: true
@@ -314,7 +314,7 @@ stories:
   - story: User edit a reminder / unknown user
     steps:
       - intent: edit_reminder
-      - action: action_unverify_speaker
+      # - action: action_unverify_speaker
       - action: action_verify_speaker
       - slot_was_set:
           - is_verified: false

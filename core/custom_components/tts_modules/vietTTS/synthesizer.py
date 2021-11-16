@@ -5,6 +5,8 @@ import unicodedata
 from argparse import ArgumentParser
 from pathlib import Path
 import os
+
+import requests
 import sounddevice as sd
 import wave as wv
 
@@ -74,7 +76,7 @@ class Synthesizer:
     @staticmethod
     def prepare_text(text):
         text = text.lower()
-        text = unicodedata.normalize("NFKD", text)
+        # text = unicodedata.normalize("NFKD", text)
 
         with open("custom_components/tts_modules/vietTTS/synonyms.json", "r", encoding="utf-8") as fr:
             synonyms = json.load(fr)
@@ -86,9 +88,9 @@ class Synthesizer:
             if len(num_text) == 1:
                 num_text = synonyms[num_text]['single']
             elif len(num_text) == 2:
-                # if num_text[0] == '1':
-                #     num_text = "mười"
-                if num_text[0] == '0':
+                if num_text[0] == '1':
+                    num_text = synonyms[num_text[0]]['ty2'] + " " + synonyms[num_text[1]]['teen']
+                elif num_text[0] == '0':
                     num_text = synonyms[num_text[1]]['single']
                 else:
                     num_text = synonyms[num_text[0]]['ty2'] + " " + synonyms[num_text[1]]['ty1']
@@ -96,6 +98,9 @@ class Synthesizer:
                 if num_text[1] == '0':
                     num_text = synonyms[num_text[0]]['single'] + " trăm " + \
                                synonyms[num_text[1]]['ty2'] + " " + synonyms[num_text[2]]['single']
+                elif num_text[1] == '1':
+                    num_text = synonyms[num_text[0]]['single'] + " trăm " + \
+                               synonyms[num_text[1]]['ty2'] + " " + synonyms[num_text[2]]['teen']
                 else:
                     num_text = synonyms[num_text[0]]['single'] + " trăm " + \
                                synonyms[num_text[1]]['ty2'] + " " + synonyms[num_text[2]]['ty1']
@@ -172,6 +177,7 @@ class Synthesizer:
             text = text.replace(match.group(0), convert_number_to_text(match.group(0)))
 
         text = text.replace('/', ' trên ')
+        text = text.replace('\n', '.')
 
         text = re.sub(re.compile(r'[•\-+():]'), '', text)
 
@@ -214,10 +220,18 @@ class Synthesizer:
 
         write(f"custom_components/wavs/output-{socketid}-{uid}.wav", 16000, wave.astype(np.float32))
 
+    def synthesize_api(self, input_text, uid, socketid):
+        input_text = self.prepare_text(input_text)
+
+        file = requests.post("tts-api", json={"text": input_text})
+
+        with open(f"custom_components/wavs/output-{socketid}-{uid}.wav", 'wb') as fw:
+            fw.write(file.content)
+        fw.close()
+
     # def synthesize_fpt(self, input_text, uid, socketid):
     #     input_text = self.prepare_text(input_text)
     #     input_text = self.nat_normalize_text(input_text)
-
 
 # text = nat_normalize_text(args.text)
 # print('Normalized text input:', text)
