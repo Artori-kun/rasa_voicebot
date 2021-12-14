@@ -66,7 +66,7 @@ This allows the interface store the audio of your speeches for STT and fetch TTS
 
   ```
   npm install http-server
-  cd ./your_directory
+  cd ./your_audio_file_directory
   http-server ./ -p 8888 --cors
   ```
   
